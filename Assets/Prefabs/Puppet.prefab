@@ -1682,11 +1682,11 @@ CharacterJoint:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_ConnectedBody: {fileID: 0}
+  m_ConnectedBody: {fileID: 5400010}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -.207000017, y: .868007243, z: -.0167752672}
+  m_ConnectedAnchor: {x: .0742533207, y: -.01875012, z: -.649702966}
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_LowTwistLimit:
     limit: -20
