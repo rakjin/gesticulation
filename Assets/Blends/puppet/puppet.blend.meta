@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: e2e996021debe7543a02ac9100deddc2
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Chest
+    100002: Foot_L
+    100004: Foot_R
+    100006: Forearm_L
+    100008: Forearm_R
+    100010: Hand_L
+    100012: Hand_R
+    100014: Head
+    100016: Neck
+    100018: //RootNode
+    100020: Shin_L
+    100022: Shin_R
+    100024: Shoulder_L
+    100026: Shoulder_R
+    100028: Thigh_L
+    100030: Thigh_R
+    100032: UpperArm_L
+    100034: UpperArm_R
+    400000: Chest
+    400002: Foot_L
+    400004: Foot_R
+    400006: Forearm_L
+    400008: Forearm_R
+    400010: Hand_L
+    400012: Hand_R
+    400014: Head
+    400016: Neck
+    400018: //RootNode
+    400020: Shin_L
+    400022: Shin_R
+    400024: Shoulder_L
+    400026: Shoulder_R
+    400028: Thigh_L
+    400030: Thigh_R
+    400032: UpperArm_L
+    400034: UpperArm_R
+    2300000: Chest
+    2300002: Foot_L
+    2300004: Foot_R
+    2300006: Forearm_L
+    2300008: Forearm_R
+    2300010: Hand_L
+    2300012: Hand_R
+    2300014: Head
+    2300016: Neck
+    2300018: //RootNode
+    2300020: Shin_L
+    2300022: Shin_R
+    2300024: Shoulder_L
+    2300026: Shoulder_R
+    2300028: Thigh_L
+    2300030: Thigh_R
+    2300032: UpperArm_L
+    2300034: UpperArm_R
+    3300000: Chest
+    3300002: Foot_L
+    3300004: Foot_R
+    3300006: Forearm_L
+    3300008: Forearm_R
+    3300010: Hand_L
+    3300012: Hand_R
+    3300014: Head
+    3300016: Neck
+    3300018: //RootNode
+    3300020: Shin_L
+    3300022: Shin_R
+    3300024: Shoulder_L
+    3300026: Shoulder_R
+    3300028: Thigh_L
+    3300030: Thigh_R
+    3300032: UpperArm_L
+    3300034: UpperArm_R
+    4300000: Hips
+    4300002: Chest
+    4300004: Shoulder_R
+    4300006: UpperArm_R
+    4300008: Forearm_R
+    4300010: Hand_R
+    4300012: Shoulder_L
+    4300014: UpperArm_L
+    4300016: Forearm_L
+    4300018: Hand_L
+    4300020: Neck
+    4300022: Head
+    4300024: Thigh_R
+    4300026: Shin_R
+    4300028: Foot_R
+    4300030: Thigh_L
+    4300032: Shin_L
+    4300034: Foot_L
+    7400000: Default Take
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
