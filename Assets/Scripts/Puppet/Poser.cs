@@ -27,9 +27,6 @@ public class Poser : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ReadParts ();
-
-		Chest.transform.localEulerAngles = new Vector3 (-40, 0, 0);
-		Head.transform.localEulerAngles = new Vector3 (40, 0, 0);
 	}
 
 	void ReadParts () {
