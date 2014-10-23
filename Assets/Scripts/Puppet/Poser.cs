@@ -8,8 +8,8 @@ public class Poser : MonoBehaviour {
 	private Transform chest;
 	private Transform head;
 
-	public Quaternion Chest { get { return chest.rotation; } }
-	public Quaternion Head { get { return head.rotation; } }
+	public CharacterJoint Chest { get { return chest.GetComponent<CharacterJoint>(); } }
+	public CharacterJoint Head { get { return head.GetComponent<CharacterJoint>(); } }
 
 
 	// Use this for initialization
@@ -17,6 +17,9 @@ public class Poser : MonoBehaviour {
 
 		ReadRootPart ();
 		ReadJoints ();
+
+		Chest.rigidbody.AddForce (new Vector3 (0, 0, -30));
+		Head.rigidbody.AddForce (new Vector3 (0, 0, 10));
 	
 	}
 
