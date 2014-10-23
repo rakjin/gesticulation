@@ -1969,12 +1969,12 @@ CharacterJoint:
   m_ConnectedAnchor: {x: .112310752, y: .00386953354, z: -.0214452744}
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_LowTwistLimit:
-    limit: -170
+    limit: -30
     bounciness: 0
     spring: 0
     damper: 0
   m_HighTwistLimit:
-    limit: 30
+    limit: 170
     bounciness: 0
     spring: 0
     damper: 0
@@ -2034,22 +2034,22 @@ CharacterJoint:
   m_GameObject: {fileID: 100012}
   m_ConnectedBody: {fileID: 5400022}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: .101447389, y: .000263422029, z: -.610313177}
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_LowTwistLimit:
-    limit: -20
+    limit: -170
     bounciness: 0
     spring: 0
     damper: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 5
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 40
+    limit: 0
     bounciness: 0
     spring: 0
     damper: 0
@@ -2069,22 +2069,22 @@ CharacterJoint:
   m_GameObject: {fileID: 100020}
   m_ConnectedBody: {fileID: 5400024}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: -.101489946, y: .000273662852, z: -.610313177}
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_LowTwistLimit:
-    limit: -20
+    limit: -5
     bounciness: 0
     spring: 0
     damper: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 170
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 40
+    limit: 0
     bounciness: 0
     spring: 0
     damper: 0
