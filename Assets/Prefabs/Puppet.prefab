@@ -1899,22 +1899,22 @@ CharacterJoint:
   m_ConnectedAnchor: {x: .229431167, y: -.019218225, z: .46953392}
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_LowTwistLimit:
-    limit: -20
+    limit: -30
     bounciness: 0
     spring: 0
     damper: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 40
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
@@ -1934,22 +1934,22 @@ CharacterJoint:
   m_ConnectedAnchor: {x: -.229431123, y: -.019218225, z: .46953392}
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_LowTwistLimit:
-    limit: -20
+    limit: -30
     bounciness: 0
     spring: 0
     damper: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 40
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
