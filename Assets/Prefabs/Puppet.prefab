@@ -1614,17 +1614,17 @@ CharacterJoint:
   m_GameObject: {fileID: 100026}
   m_ConnectedBody: {fileID: 5400002}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 0, z: 1}
+  m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 5.23868948e-10, y: -.0344038419, z: .679217339}
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_LowTwistLimit:
-    limit: -20
+    limit: -40
     bounciness: 0
     spring: 0
     damper: 0
   m_HighTwistLimit:
-    limit: 70
+    limit: 40
     bounciness: 0
     spring: 0
     damper: 0
@@ -1634,7 +1634,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_Swing2Limit:
-    limit: 0
+    limit: 40
     bounciness: 0
     spring: 0
     damper: 0
