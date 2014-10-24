@@ -13,7 +13,7 @@ public class Controller : MonoBehaviour {
 		Pose defaultPose = defaultPoser.GetCurrentPose ();
 		Debug.Log (defaultPose);
 
-		defaultPoser.Pose (Pose.RandomPose01 ());
+		defaultPoser.Pose (Pose.RandomPose01 (), 3f);
 	
 	}
 	

@@ -112,5 +112,13 @@ public class Poser : MonoBehaviour {
 		HandR.transform.localRotation = pose.HandR;
 	}
 
+	public void Pose(Pose pose, float duration, iTween.EaseType easeType = iTween.EaseType.linear) {
+		iTween.RotateTo (Chest.transform.gameObject, iTween.Hash (
+			"rotation", pose.Chest.eulerAngles,
+			"islocal", true,
+			"time", duration,
+			"easetype", easeType));
+	}
+
 }
 
