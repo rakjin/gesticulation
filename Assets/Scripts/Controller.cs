@@ -7,7 +7,9 @@ public class Controller : MonoBehaviour {
 	void Start () {
 
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
-		Debug.Log (defaultPuppet);
+		Poser defaultPoser = defaultPuppet.GetComponent<Poser> ();
+		Pose defaultPose = defaultPoser.GetCurrentPose ();
+		Debug.Log (defaultPose.RootRotation.eulerAngles);
 	
 	}
 	
