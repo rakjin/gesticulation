@@ -12,6 +12,8 @@ public class Controller : MonoBehaviour {
 		defaultPoser = defaultPuppet.GetComponent<Poser> ();
 		Pose defaultPose = defaultPoser.GetCurrentPose ();
 		Debug.Log (defaultPose);
+
+		defaultPoser.Pose (Pose.RandomPose01 ());
 	
 	}
 	

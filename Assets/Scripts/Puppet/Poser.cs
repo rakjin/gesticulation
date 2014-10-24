@@ -88,5 +88,29 @@ public class Poser : MonoBehaviour {
 		return pose;
 	}
 
+	public void Pose(Pose pose) {
+		Root.transform.localPosition = pose.RootPosition;
+		Root.transform.localRotation = pose.RootRotation;
+
+		Chest.transform.localRotation = pose.Chest;
+		Head.transform.localRotation = pose.Head;
+
+		ThighL.transform.localRotation = pose.ThighL;
+		ThighR.transform.localRotation = pose.ThighR;
+		ShinL.transform.localRotation = pose.ShinL;
+		ShinR.transform.localRotation = pose.ShinR;
+		FootL.transform.localRotation = pose.FootL;
+		FootR.transform.localRotation = pose.FootR;
+
+		ShoulderL.transform.localRotation = pose.ShoulderL;
+		ShoulderR.transform.localRotation = pose.ShoulderR;
+		UpperArmL.transform.localRotation = pose.UpperArmL;
+		UpperArmR.transform.localRotation = pose.UpperArmR;
+		ForearmL.transform.localRotation = pose.ForearmL;
+		ForearmR.transform.localRotation = pose.ForearmR;
+		HandL.transform.localRotation = pose.HandL;
+		HandR.transform.localRotation = pose.HandR;
+	}
+
 }
 
