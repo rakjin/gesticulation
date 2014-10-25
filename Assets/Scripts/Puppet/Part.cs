@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Part {
+public class Part : MonoBehaviour {
 
-	public Transform transform { get; private set; }
 	public CharacterJoint joint { get; private set; }
 
-	public Part(Transform tramsform) {
-		this.transform = tramsform;
-		this.joint = tramsform.GetComponent<CharacterJoint> ();
+	void Awake () {
+		this.joint = this.GetComponent<CharacterJoint> ();
 	}
 }

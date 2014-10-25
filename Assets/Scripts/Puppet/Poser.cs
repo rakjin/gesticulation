@@ -53,10 +53,7 @@ public class Poser : MonoBehaviour {
 	}
 
 	Part ReadPart (string partName) {
-		Part part = new Part(transform.Find (partName));
-		if (part.transform == null) {
-			Debug.LogError("part(" + partName + ") not found");
-		}
+		Part part = transform.Find (partName).gameObject.AddComponent<Part> ();
 		return part;
 	}
 
