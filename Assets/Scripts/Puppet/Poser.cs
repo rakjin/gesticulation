@@ -112,12 +112,29 @@ public class Poser : MonoBehaviour {
 		HandR.transform.localRotation = pose.HandR;
 	}
 
-	public void Pose(Pose pose, float duration, iTween.EaseType easeType = iTween.EaseType.linear) {
-		iTween.RotateTo (Chest.transform.gameObject, iTween.Hash (
-			"rotation", pose.Chest.eulerAngles,
-			"islocal", true,
-			"time", duration,
-			"easetype", easeType));
+	public void Pose(Pose pose, float duration) {
+
+		LeanTween.moveLocal (Root.transform.gameObject, pose.RootPosition, duration);
+		LeanTween.rotateLocal (Root.transform.gameObject, pose.RootRotation.eulerAngles, duration);
+
+		LeanTween.rotateLocal(Chest.transform.gameObject, pose.Chest.eulerAngles, duration);
+		LeanTween.rotateLocal(Head.transform.gameObject, pose.Head.eulerAngles, duration);
+
+		LeanTween.rotateLocal(ThighL.transform.gameObject, pose.ThighL.eulerAngles, duration);
+		LeanTween.rotateLocal(ThighR.transform.gameObject, pose.ThighR.eulerAngles, duration);
+		LeanTween.rotateLocal(ShinL.transform.gameObject, pose.ShinL.eulerAngles, duration);
+		LeanTween.rotateLocal(ShinR.transform.gameObject, pose.ShinR.eulerAngles, duration);
+		LeanTween.rotateLocal(FootL.transform.gameObject, pose.FootL.eulerAngles, duration);
+		LeanTween.rotateLocal(FootR.transform.gameObject, pose.FootR.eulerAngles, duration);
+
+		LeanTween.rotateLocal(ShoulderL.transform.gameObject, pose.ShoulderL.eulerAngles, duration);
+		LeanTween.rotateLocal(ShoulderR.transform.gameObject, pose.ShoulderR.eulerAngles, duration);
+		LeanTween.rotateLocal(UpperArmL.transform.gameObject, pose.UpperArmL.eulerAngles, duration);
+		LeanTween.rotateLocal(UpperArmR.transform.gameObject, pose.UpperArmR.eulerAngles, duration);
+		LeanTween.rotateLocal(ForearmL.transform.gameObject, pose.ForearmL.eulerAngles, duration);
+		LeanTween.rotateLocal(ForearmR.transform.gameObject, pose.ForearmR.eulerAngles, duration);
+		LeanTween.rotateLocal(HandL.transform.gameObject, pose.HandL.eulerAngles, duration);
+		LeanTween.rotateLocal(HandR.transform.gameObject, pose.HandR.eulerAngles, duration);
 	}
 
 }
