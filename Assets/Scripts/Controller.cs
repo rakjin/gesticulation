@@ -10,11 +10,8 @@ public class Controller : MonoBehaviour {
 
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
 		defaultPoser = defaultPuppet.GetComponent<Poser> ();
-		Pose defaultPose = defaultPoser.GetCurrentPose ();
-		Debug.Log (defaultPose);
 
 		defaultPoser.Pose (Pose.RandomPose01 (), 3f);
-	
 	}
 	
 	// Update is called once per frame
