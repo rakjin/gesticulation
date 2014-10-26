@@ -30,4 +30,12 @@ public class Part : MonoBehaviour {
 		}
 
 	}
+
+	void OnMouseEnter () {
+		Highlighted = true;
+	}
+
+	void OnMouseExit () {
+		Highlighted = false;
+	}
 }
