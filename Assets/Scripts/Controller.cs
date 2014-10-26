@@ -20,8 +20,9 @@ public class Controller : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		if (GUI.Button (new Rect(10, 10, 200, 30), "print pose")) {
-			Debug.Log (defaultPoser.GetCurrentPose());
+		if (GUI.Button (new Rect(10, 10, 200, 30), "(un)select")) {
+			defaultPoser.Head.Highlighted = !defaultPoser.Head.Highlighted;
+			defaultPoser.Chest.Highlighted = !defaultPoser.Chest.Highlighted;
 		}
 	}
 
