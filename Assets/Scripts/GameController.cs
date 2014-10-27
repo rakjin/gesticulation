@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour {
 	Poser defaultPoser;
 
 	Controller controller = new Controller();
-	Vector3 controllerPosition = new Vector3(0, 2, 0);
+	Vector3 controllerPosition = new Vector3(0, -0.5f, 0);
+	float controllerScale = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +29,7 @@ public class GameController : MonoBehaviour {
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
 		defaultPoser = defaultPuppet.GetComponent<Poser> ();
 
-		defaultPoser.Pose (Pose.RandomPose01 (), 3f);
+		//defaultPoser.Pose (Pose.RandomPose01 (), 3f);
 	}
 	
 	// Update is called once per frame
@@ -46,20 +47,20 @@ public class GameController : MonoBehaviour {
 			Vector3 palmPosition = frame.Hands[0].PalmPosition.ToUnityScaled();
 			Vector3 thumbPosition = frame.Hands[0].Fingers[0].TipPosition.ToUnityScaled();
 			Vector3 indexPosition = frame.Hands[0].Fingers[1].TipPosition.ToUnityScaled();
-			palmPosition *= 20;
-			thumbPosition *= 20;
-			indexPosition *= 20;
-			palmPosition -= controllerPosition;
-			thumbPosition -= controllerPosition;
-			indexPosition -= controllerPosition;
+			palmPosition *= controllerScale;
+			thumbPosition *= controllerScale;
+			indexPosition *= controllerScale;
+			palmPosition += controllerPosition;
+			thumbPosition += controllerPosition;
+			indexPosition += controllerPosition;
 
-			if (Vector3.Distance(indexPosition, thumbPosition) < 0.5f) {
+			if (Vector3.Distance(indexPosition, thumbPosition) < 0.25f) {
 				Gizmos.color = Color.red;
 			}
 
-			Gizmos.DrawWireSphere(palmPosition, 1);
-			Gizmos.DrawWireSphere(thumbPosition, 0.3f);
-			Gizmos.DrawWireSphere(indexPosition, 0.3f);
+			Gizmos.DrawWireSphere(palmPosition, 0.25f);
+			Gizmos.DrawWireSphere(thumbPosition, 0.125f);
+			Gizmos.DrawWireSphere(indexPosition, 0.125f);
 		}
 	}
 
