@@ -146,7 +146,7 @@ public class Part : MonoBehaviour {
 
 	void OnMouseEnter () {
 		Highlighted = true;
-		ConnectToRigidbody (Controller.Instance.FixedSphere.rigidbody);
+		ConnectToRigidbody (Controller.Instance.Sphere.rigidbody);
 	}
 
 	void OnMouseExit () {

@@ -5,8 +5,9 @@ public class Controller : MonoBehaviour {
 
 	public static Controller Instance;
 
-	public Transform FixedSphere { get; private set; }
+	public Transform Sphere { get; private set; }
 
+	Transform sphereContainer;
 	Poser defaultPoser;
 
 	// Use this for initialization
@@ -14,7 +15,8 @@ public class Controller : MonoBehaviour {
 
 		Instance = this;
 
-		FixedSphere = GameObject.Find ("/FixedSphere").transform;
+		sphereContainer = GameObject.Find ("/SphereContainer").transform;
+		Sphere = GameObject.Find ("/SphereContainer/Sphere").transform;
 
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
 		defaultPoser = defaultPuppet.GetComponent<Poser> ();
@@ -24,7 +26,7 @@ public class Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		sphereContainer.Rotate (new Vector3 (0, 0, 0.125f));
 	}
 
 	void OnGUI () {
