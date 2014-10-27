@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Controller : MonoBehaviour {
+public class GameController : MonoBehaviour {
 
-	public static Controller Instance;
+	public static GameController Instance;
 
 	public Transform Sphere { get; private set; }
 
