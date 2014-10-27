@@ -50,7 +50,6 @@ public class Part : MonoBehaviour {
 			StoredRigidbody.rotation = original.rotation;
 			StoredRigidbody.sleepAngularVelocity = original.sleepAngularVelocity;
 			StoredRigidbody.sleepVelocity = original.sleepVelocity;
-			StoredRigidbody.isKinematic = false;
 			DestroyImmediate(original);
 		}
 	}
@@ -181,7 +180,6 @@ internal class RigidbodyMock {
 	public Vector3 centerOfMass;
 	public RigidbodyConstraints constraints;
 	public float drag;
-	public bool isKinematic;
 	public float mass;
 	public float maxAngularVelocity;
 	public Vector3 position;
