@@ -19,7 +19,6 @@ public class Part : MonoBehaviour {
 		Transform anchorGO = transform.Find ("DefaultAnchorForSpringJoint");
 		if (anchorGO) {
 			anchor = anchorGO.transform.localPosition;
-			Debug.Log ("Anchor Found: " + anchor.ToString());
 		}
 	}
 
