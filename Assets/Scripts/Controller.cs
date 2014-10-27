@@ -3,10 +3,18 @@ using System.Collections;
 
 public class Controller : MonoBehaviour {
 
+	public static Controller Instance;
+
+	public Transform FixedSphere { get; private set; }
+
 	Poser defaultPoser;
 
 	// Use this for initialization
 	void Start () {
+
+		Instance = this;
+
+		FixedSphere = GameObject.Find ("/FixedSphere").transform;
 
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
 		defaultPoser = defaultPuppet.GetComponent<Poser> ();

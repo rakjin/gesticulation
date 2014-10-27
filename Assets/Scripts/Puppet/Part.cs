@@ -169,7 +169,6 @@ internal class RigidbodyMock {
 	public float sleepAngularVelocity;
 	public float sleepVelocity;
 	public bool useGravity;
-	public Vector3 velocity;
 }
 
 #endregion
