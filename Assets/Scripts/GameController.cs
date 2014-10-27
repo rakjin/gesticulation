@@ -44,14 +44,19 @@ public class GameController : MonoBehaviour {
 		Frame frame = controller.Frame ();
 		if (frame.Hands.Count > 0) {
 			Vector3 palmPosition = frame.Hands[0].PalmPosition.ToUnityScaled();
-			Vector3 thumbPosition = frame.Hands[0].Fingers[0].StabilizedTipPosition.ToUnityScaled();
-			Vector3 indexPosition = frame.Hands[0].Fingers[1].StabilizedTipPosition.ToUnityScaled();
+			Vector3 thumbPosition = frame.Hands[0].Fingers[0].TipPosition.ToUnityScaled();
+			Vector3 indexPosition = frame.Hands[0].Fingers[1].TipPosition.ToUnityScaled();
 			palmPosition *= 20;
 			thumbPosition *= 20;
 			indexPosition *= 20;
 			palmPosition -= controllerPosition;
 			thumbPosition -= controllerPosition;
 			indexPosition -= controllerPosition;
+
+			if (Vector3.Distance(indexPosition, thumbPosition) < 0.5f) {
+				Gizmos.color = Color.red;
+			}
+
 			Gizmos.DrawWireSphere(palmPosition, 1);
 			Gizmos.DrawWireSphere(thumbPosition, 0.3f);
 			Gizmos.DrawWireSphere(indexPosition, 0.3f);
