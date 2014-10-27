@@ -105,6 +105,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1008249561}
+  m_RootOrder: 0
 --- !u!23 &108133380
 Renderer:
   m_ObjectHideFlags: 0
@@ -124,9 +125,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &108133381
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -184,6 +184,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &108133384
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -232,6 +233,7 @@ Transform:
   m_Children:
   - {fileID: 1008249561}
   m_Father: {fileID: 1686991796}
+  m_RootOrder: 0
 --- !u!23 &282642783
 Renderer:
   m_ObjectHideFlags: 0
@@ -251,9 +253,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &282642784
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -311,6 +312,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &282642787
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -359,6 +361,7 @@ Transform:
   m_Children:
   - {fileID: 1545530793}
   m_Father: {fileID: 478451700}
+  m_RootOrder: 0
 --- !u!23 &362608816
 Renderer:
   m_ObjectHideFlags: 0
@@ -378,9 +381,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &362608817
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -414,7 +416,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -.0743104964, y: -.018644169, z: -.649487913}
+  m_ConnectedAnchor: {x: -.0743104964, y: -.0186441671, z: -.649487913}
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_LowTwistLimit:
     limit: -135
@@ -438,6 +440,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &362608820
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -526,6 +529,7 @@ Transform:
   m_Children:
   - {fileID: 362608815}
   m_Father: {fileID: 1210143760}
+  m_RootOrder: 1
 --- !u!23 &478451701
 Renderer:
   m_ObjectHideFlags: 0
@@ -545,9 +549,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &478451702
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -581,7 +584,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -.131151676, y: .0018684176, z: 1.51749575}
+  m_ConnectedAnchor: {x: -.131151676, y: .00186841749, z: 1.51749575}
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_LowTwistLimit:
     limit: -20
@@ -605,6 +608,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &478451705
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -653,6 +657,7 @@ Transform:
   m_Children:
   - {fileID: 1753142985}
   m_Father: {fileID: 1210143760}
+  m_RootOrder: 2
 --- !u!23 &576077145
 Renderer:
   m_ObjectHideFlags: 0
@@ -672,9 +677,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &576077146
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -718,6 +722,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &576077148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -775,6 +780,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1410911237}
+  m_RootOrder: 1
 --- !u!108 &644805586
 Light:
   m_ObjectHideFlags: 0
@@ -877,8 +883,11 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
   m_HDR: 0
   m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: .0219999999
 --- !u!4 &677716911
 Transform:
   m_ObjectHideFlags: 0
@@ -890,6 +899,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &705181057
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +928,7 @@ Transform:
   m_Children:
   - {fileID: 1210143760}
   m_Father: {fileID: 0}
+  m_RootOrder: 1
 --- !u!114 &705181059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,6 +973,7 @@ Transform:
   m_Children:
   - {fileID: 108133379}
   m_Father: {fileID: 282642782}
+  m_RootOrder: 0
 --- !u!23 &1008249562
 Renderer:
   m_ObjectHideFlags: 0
@@ -981,9 +993,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1008249563
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1041,6 +1052,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &1008249566
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1091,6 +1103,7 @@ Transform:
   - {fileID: 1450640214}
   - {fileID: 1686991796}
   m_Father: {fileID: 1210143760}
+  m_RootOrder: 0
 --- !u!23 &1044664607
 Renderer:
   m_ObjectHideFlags: 0
@@ -1110,9 +1123,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1044664608
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1186,6 +1198,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!1 &1048989475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,6 +1231,7 @@ Transform:
   m_Children:
   - {fileID: 2128281721}
   m_Father: {fileID: 1350428732}
+  m_RootOrder: 0
 --- !u!23 &1048989477
 Renderer:
   m_ObjectHideFlags: 0
@@ -1237,9 +1251,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1048989478
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1273,7 +1286,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -.101489976, y: .000273661921, z: -.610313177}
+  m_ConnectedAnchor: {x: -.101489946, y: .000273662852, z: -.610313177}
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_LowTwistLimit:
     limit: -5
@@ -1297,6 +1310,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &1048989481
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1313,6 +1327,91 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1103567834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1103567839}
+  - 33: {fileID: 1103567838}
+  - 135: {fileID: 1103567837}
+  - 23: {fileID: 1103567836}
+  - 54: {fileID: 1103567835}
+  m_Layer: 0
+  m_Name: FixedSphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &1103567835
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1103567834}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 1
+  m_AngularDrag: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!23 &1103567836
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1103567834}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!135 &1103567837
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1103567834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1103567838
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1103567834}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1103567839
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1103567834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 1, z: 0}
+  m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
 --- !u!1 &1210143759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,6 +1446,7 @@ Transform:
   - {fileID: 478451700}
   - {fileID: 576077144}
   m_Father: {fileID: 705181058}
+  m_RootOrder: 0
 --- !u!111 &1210143761
 Animation:
   m_ObjectHideFlags: 0
@@ -1381,9 +1481,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1210143763
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1449,6 +1548,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!114 &1247361067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1489,6 +1589,7 @@ Transform:
   m_Children:
   - {fileID: 1500046020}
   m_Father: {fileID: 1044664606}
+  m_RootOrder: 0
 --- !u!23 &1262298045
 Renderer:
   m_ObjectHideFlags: 0
@@ -1508,9 +1609,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1262298046
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1551,6 +1651,7 @@ Transform:
   m_Children:
   - {fileID: 1048989476}
   m_Father: {fileID: 1450640214}
+  m_RootOrder: 0
 --- !u!23 &1350428733
 Renderer:
   m_ObjectHideFlags: 0
@@ -1570,9 +1671,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1350428734
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1630,6 +1730,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &1350428737
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1708,6 +1809,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1410911237}
+  m_RootOrder: 0
 --- !u!1 &1410911236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,6 +1839,7 @@ Transform:
   - {fileID: 644805585}
   - {fileID: 2063493423}
   m_Father: {fileID: 0}
+  m_RootOrder: 2
 --- !u!1 &1450640213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,6 +1872,7 @@ Transform:
   m_Children:
   - {fileID: 1350428732}
   m_Father: {fileID: 1044664606}
+  m_RootOrder: 1
 --- !u!23 &1450640215
 Renderer:
   m_ObjectHideFlags: 0
@@ -1788,9 +1892,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1450640216
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1848,6 +1951,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &1450640219
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1895,6 +1999,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1262298044}
+  m_RootOrder: 0
 --- !u!23 &1500046021
 Renderer:
   m_ObjectHideFlags: 0
@@ -1914,9 +2019,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1500046022
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1990,6 +2094,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!1 &1545530790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,9 +2134,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1545530792
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2051,6 +2155,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 362608815}
+  m_RootOrder: 0
 --- !u!136 &1545530794
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2076,7 +2181,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -.0804250091, y: .0350004397, z: -.735918581}
+  m_ConnectedAnchor: {x: -.0804250091, y: .035000436, z: -.735918581}
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_LowTwistLimit:
     limit: -90
@@ -2100,6 +2205,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &1545530796
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2148,6 +2254,7 @@ Transform:
   m_Children:
   - {fileID: 282642782}
   m_Father: {fileID: 1044664606}
+  m_RootOrder: 2
 --- !u!23 &1686991797
 Renderer:
   m_ObjectHideFlags: 0
@@ -2167,9 +2274,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1686991798
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2227,6 +2333,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &1686991801
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2279,9 +2386,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!64 &1702433908
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2313,6 +2419,7 @@ Transform:
   m_LocalScale: {x: 5000, y: 5000, z: 5000}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &1753142984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,6 +2452,7 @@ Transform:
   m_Children:
   - {fileID: 2007123697}
   m_Father: {fileID: 576077144}
+  m_RootOrder: 0
 --- !u!23 &1753142986
 Renderer:
   m_ObjectHideFlags: 0
@@ -2364,9 +2472,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &1753142987
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2424,6 +2531,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &1753142990
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2471,6 +2579,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1753142985}
+  m_RootOrder: 0
 --- !u!23 &2007123698
 Renderer:
   m_ObjectHideFlags: 0
@@ -2490,9 +2599,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &2007123699
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2550,6 +2658,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &2007123702
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2593,6 +2702,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1410911237}
+  m_RootOrder: 2
 --- !u!108 &2063493424
 Light:
   m_ObjectHideFlags: 0
@@ -2659,6 +2769,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1048989476}
+  m_RootOrder: 0
 --- !u!23 &2128281722
 Renderer:
   m_ObjectHideFlags: 0
@@ -2678,9 +2789,8 @@ Renderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!33 &2128281723
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2738,6 +2848,7 @@ CharacterJoint:
     damper: 0
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
+  m_EnableCollision: 0
 --- !u!54 &2128281726
 Rigidbody:
   m_ObjectHideFlags: 0
