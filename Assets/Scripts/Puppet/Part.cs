@@ -7,12 +7,20 @@ public class Part : MonoBehaviour {
 	static readonly Color highlightedColor = new Color (0.125f, 1, 0);
 
 	private SpringJoint springJoint;
+	private Vector3 anchor = Vector3.zero;
+
 	private CharacterJointMock StoredJoint { get; set; }
 	private RigidbodyMock StoredRigidbody { get; set; }
 
 	void Awake () {
 		StoreJoint ();
 		StoreRigidbody ();
+
+		Transform anchorGO = transform.Find ("Anchor");
+		if (anchorGO) {
+			anchor = anchorGO.transform.localPosition;
+			Debug.Log ("Anchor Found: " + anchor.ToString());
+		}
 	}
 
 	#region Store
@@ -24,7 +32,6 @@ public class Part : MonoBehaviour {
 			StoredJoint.anchor = original.anchor;
 			StoredJoint.autoConfigureConnectedAnchor = original.autoConfigureConnectedAnchor;
 			StoredJoint.axis = original.axis;
-			StoredJoint.connectedAnchor = original.connectedAnchor;
 			StoredJoint.connectedBody = original.connectedBody;
 			StoredJoint.highTwistLimit = original.highTwistLimit;
 			StoredJoint.lowTwistLimit = original.lowTwistLimit;
@@ -65,7 +72,7 @@ public class Part : MonoBehaviour {
 			restored.anchor = StoredJoint.anchor;
 			restored.autoConfigureConnectedAnchor = StoredJoint.autoConfigureConnectedAnchor;
 			restored.axis = StoredJoint.axis;
-			restored.connectedAnchor = StoredJoint.connectedAnchor;
+			restored.connectedAnchor = Vector3.zero;
 			restored.connectedBody = StoredJoint.connectedBody;
 			restored.highTwistLimit = StoredJoint.highTwistLimit;
 			restored.lowTwistLimit = StoredJoint.lowTwistLimit;
@@ -109,9 +116,10 @@ public class Part : MonoBehaviour {
 		GetComponent<Rigidbody> ().isKinematic = false;
 		springJoint = gameObject.AddComponent<SpringJoint> ();
 		springJoint.connectedBody = externalRigidbody;
-		springJoint.minDistance = 0.0625f;
-		springJoint.maxDistance = 0.125f;
-		springJoint.spring = 10;
+		springJoint.minDistance = 0;
+		springJoint.maxDistance = 0;
+		springJoint.spring = 1;
+		springJoint.anchor = anchor;
 	}
 
 	void DisconnectFromRigidbody() {
@@ -173,7 +181,6 @@ internal class CharacterJointMock {
 	public Vector3 anchor;
 	public bool autoConfigureConnectedAnchor;
 	public Vector3 axis;
-	public Vector3 connectedAnchor;
 	public Rigidbody connectedBody;
 	public SoftJointLimit highTwistLimit;
 	public SoftJointLimit lowTwistLimit;
