@@ -155,6 +155,14 @@ public class Part : MonoBehaviour {
 	}
 
 	#endregion
+
+	void OnDrawGizmos() {
+		if (springJoint) {
+			Gizmos.color = Color.white;
+			Vector3 anchorPositionOnWorld = transform.TransformPoint(springJoint.anchor);
+			Gizmos.DrawLine(anchorPositionOnWorld, Controller.Instance.Sphere.position);
+		}
+	}
 }
 
 
