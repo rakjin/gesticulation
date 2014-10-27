@@ -26,7 +26,7 @@ public class Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		sphereContainer.Rotate (new Vector3 (0, 0, 0.125f));
+		sphereContainer.Rotate (new Vector3 (0, 0.25f, 0));
 	}
 
 	void OnGUI () {

@@ -29,10 +29,7 @@ public class Part : MonoBehaviour {
 		CharacterJoint original = GetComponent<CharacterJoint> ();
 		if (original) {
 			StoredJoint = new CharacterJointMock();
-			StoredJoint.anchor = original.anchor;
-			StoredJoint.autoConfigureConnectedAnchor = original.autoConfigureConnectedAnchor;
 			StoredJoint.axis = original.axis;
-			StoredJoint.connectedBody = original.connectedBody;
 			StoredJoint.highTwistLimit = original.highTwistLimit;
 			StoredJoint.lowTwistLimit = original.lowTwistLimit;
 			StoredJoint.swing1Limit = original.swing1Limit;
@@ -69,11 +66,8 @@ public class Part : MonoBehaviour {
 	void RestoreJoint() {
 		if (StoredJoint != null) {
 			CharacterJoint restored = gameObject.AddComponent<CharacterJoint>();
-			restored.anchor = StoredJoint.anchor;
-			restored.autoConfigureConnectedAnchor = StoredJoint.autoConfigureConnectedAnchor;
+			restored.anchor = Vector3.zero; //StoredJoint.anchor;
 			restored.axis = StoredJoint.axis;
-			restored.connectedAnchor = Vector3.zero;
-			restored.connectedBody = StoredJoint.connectedBody;
 			restored.highTwistLimit = StoredJoint.highTwistLimit;
 			restored.lowTwistLimit = StoredJoint.lowTwistLimit;
 			restored.swing1Limit = StoredJoint.swing1Limit;
@@ -115,10 +109,12 @@ public class Part : MonoBehaviour {
 
 		GetComponent<Rigidbody> ().isKinematic = false;
 		springJoint = gameObject.AddComponent<SpringJoint> ();
+		springJoint.autoConfigureConnectedAnchor = false;
 		springJoint.connectedBody = externalRigidbody;
+		springJoint.connectedAnchor = Vector3.zero;
 		springJoint.minDistance = 0;
 		springJoint.maxDistance = 0;
-		springJoint.spring = 1;
+		springJoint.spring = 0.125f;
 		springJoint.anchor = anchor;
 	}
 
@@ -168,7 +164,7 @@ public class Part : MonoBehaviour {
 		if (springJoint) {
 			Gizmos.color = Color.white;
 			Vector3 anchorPositionOnWorld = transform.TransformPoint(springJoint.anchor);
-			Gizmos.DrawLine(anchorPositionOnWorld, Controller.Instance.Sphere.position);
+			Gizmos.DrawLine(anchorPositionOnWorld, springJoint.connectedBody.transform.TransformPoint (springJoint.connectedAnchor));
 		}
 	}
 }
@@ -178,10 +174,7 @@ public class Part : MonoBehaviour {
 #region internal class
 
 internal class CharacterJointMock {
-	public Vector3 anchor;
-	public bool autoConfigureConnectedAnchor;
 	public Vector3 axis;
-	public Rigidbody connectedBody;
 	public SoftJointLimit highTwistLimit;
 	public SoftJointLimit lowTwistLimit;
 	public SoftJointLimit swing1Limit;
