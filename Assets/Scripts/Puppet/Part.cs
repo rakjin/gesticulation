@@ -53,8 +53,51 @@ public class Part : MonoBehaviour {
 			StoredRigidbody.sleepAngularVelocity = original.sleepAngularVelocity;
 			StoredRigidbody.sleepVelocity = original.sleepVelocity;
 			StoredRigidbody.useGravity = original.useGravity;
-			StoredRigidbody.velocity = original.velocity;
 			DestroyImmediate(original);
+		}
+	}
+
+	#endregion
+
+
+	#region Restore
+
+	void RestoreJoint() {
+		if (StoredJoint != null) {
+			CharacterJoint restored = gameObject.AddComponent<CharacterJoint>();
+			restored.anchor = StoredJoint.anchor;
+			restored.autoConfigureConnectedAnchor = StoredJoint.autoConfigureConnectedAnchor;
+			restored.axis = StoredJoint.axis;
+			restored.breakForce = StoredJoint.breakForce;
+			restored.breakTorque = StoredJoint.breakTorque;
+			restored.connectedAnchor = StoredJoint.connectedAnchor;
+			restored.connectedBody = StoredJoint.connectedBody;
+			restored.highTwistLimit = StoredJoint.highTwistLimit;
+			restored.lowTwistLimit = StoredJoint.lowTwistLimit;
+			restored.swing1Limit = StoredJoint.swing1Limit;
+			restored.swing2Limit = StoredJoint.swing2Limit;
+			restored.swingAxis = StoredJoint.swingAxis;
+			StoredJoint = null;
+		}
+	}
+
+	void RestoreRigidbody() {
+		if (StoredRigidbody != null) {
+			Rigidbody restored = gameObject.AddComponent<Rigidbody>();
+			restored.angularDrag = StoredRigidbody.angularDrag;
+			restored.angularVelocity = StoredRigidbody.angularVelocity;
+			restored.centerOfMass = StoredRigidbody.centerOfMass;
+			restored.constraints = StoredRigidbody.constraints;
+			restored.drag = StoredRigidbody.drag;
+			restored.isKinematic = StoredRigidbody.isKinematic;
+			restored.mass = StoredRigidbody.mass;
+			restored.maxAngularVelocity = StoredRigidbody.maxAngularVelocity;
+			restored.position = StoredRigidbody.position;
+			restored.rotation = StoredRigidbody.rotation;
+			restored.sleepAngularVelocity = StoredRigidbody.sleepAngularVelocity;
+			restored.sleepVelocity = StoredRigidbody.sleepVelocity;
+			restored.useGravity = StoredRigidbody.useGravity;
+			StoredRigidbody = null;
 		}
 	}
 
