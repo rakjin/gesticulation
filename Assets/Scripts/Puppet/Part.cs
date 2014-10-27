@@ -6,6 +6,7 @@ public class Part : MonoBehaviour {
 	static readonly Color normalColor = new Color (0.5f, 0.5f, 0.5f);
 	static readonly Color highlightedColor = new Color (0.125f, 1, 0);
 
+	private SpringJoint springJoint;
 	private CharacterJointMock StoredJoint { get; set; }
 	private RigidbodyMock StoredRigidbody { get; set; }
 
@@ -23,8 +24,6 @@ public class Part : MonoBehaviour {
 			StoredJoint.anchor = original.anchor;
 			StoredJoint.autoConfigureConnectedAnchor = original.autoConfigureConnectedAnchor;
 			StoredJoint.axis = original.axis;
-			StoredJoint.breakForce = original.breakForce;
-			StoredJoint.breakTorque = original.breakTorque;
 			StoredJoint.connectedAnchor = original.connectedAnchor;
 			StoredJoint.connectedBody = original.connectedBody;
 			StoredJoint.highTwistLimit = original.highTwistLimit;
@@ -45,14 +44,13 @@ public class Part : MonoBehaviour {
 			StoredRigidbody.centerOfMass = original.centerOfMass;
 			StoredRigidbody.constraints = original.constraints;
 			StoredRigidbody.drag = original.drag;
-			StoredRigidbody.isKinematic = original.isKinematic;
 			StoredRigidbody.mass = original.mass;
 			StoredRigidbody.maxAngularVelocity = original.maxAngularVelocity;
 			StoredRigidbody.position = original.position;
 			StoredRigidbody.rotation = original.rotation;
 			StoredRigidbody.sleepAngularVelocity = original.sleepAngularVelocity;
 			StoredRigidbody.sleepVelocity = original.sleepVelocity;
-			StoredRigidbody.useGravity = original.useGravity;
+			StoredRigidbody.isKinematic = false;
 			DestroyImmediate(original);
 		}
 	}
@@ -68,8 +66,6 @@ public class Part : MonoBehaviour {
 			restored.anchor = StoredJoint.anchor;
 			restored.autoConfigureConnectedAnchor = StoredJoint.autoConfigureConnectedAnchor;
 			restored.axis = StoredJoint.axis;
-			restored.breakForce = StoredJoint.breakForce;
-			restored.breakTorque = StoredJoint.breakTorque;
 			restored.connectedAnchor = StoredJoint.connectedAnchor;
 			restored.connectedBody = StoredJoint.connectedBody;
 			restored.highTwistLimit = StoredJoint.highTwistLimit;
@@ -77,7 +73,8 @@ public class Part : MonoBehaviour {
 			restored.swing1Limit = StoredJoint.swing1Limit;
 			restored.swing2Limit = StoredJoint.swing2Limit;
 			restored.swingAxis = StoredJoint.swingAxis;
-			StoredJoint = null;
+			restored.breakForce = Mathf.Infinity;
+			restored.breakTorque = Mathf.Infinity;
 		}
 	}
 
@@ -89,16 +86,39 @@ public class Part : MonoBehaviour {
 			restored.centerOfMass = StoredRigidbody.centerOfMass;
 			restored.constraints = StoredRigidbody.constraints;
 			restored.drag = StoredRigidbody.drag;
-			restored.isKinematic = StoredRigidbody.isKinematic;
 			restored.mass = StoredRigidbody.mass;
 			restored.maxAngularVelocity = StoredRigidbody.maxAngularVelocity;
 			restored.position = StoredRigidbody.position;
 			restored.rotation = StoredRigidbody.rotation;
 			restored.sleepAngularVelocity = StoredRigidbody.sleepAngularVelocity;
 			restored.sleepVelocity = StoredRigidbody.sleepVelocity;
-			restored.useGravity = StoredRigidbody.useGravity;
-			StoredRigidbody = null;
+			restored.useGravity = false;
+			restored.isKinematic = false;
 		}
+	}
+
+	#endregion
+
+
+	#region Connect to / Disconnect from external rigidbody
+
+	void ConnectToRigidbody(Rigidbody externalRigidbody) {
+
+		RestoreRigidbody ();
+		RestoreJoint ();
+
+		GetComponent<Rigidbody> ().isKinematic = false;
+		springJoint = gameObject.AddComponent<SpringJoint> ();
+		springJoint.connectedBody = externalRigidbody;
+		springJoint.minDistance = 0.0625f;
+		springJoint.maxDistance = 0.125f;
+		springJoint.spring = 10;
+	}
+
+	void DisconnectFromRigidbody() {
+		DestroyImmediate (springJoint);
+		DestroyImmediate (GetComponent<Joint> ());
+		DestroyImmediate (GetComponent<Rigidbody> ());
 	}
 
 	#endregion
@@ -127,10 +147,12 @@ public class Part : MonoBehaviour {
 
 	void OnMouseEnter () {
 		Highlighted = true;
+		ConnectToRigidbody (Controller.Instance.FixedSphere.rigidbody);
 	}
 
 	void OnMouseExit () {
 		Highlighted = false;
+		DisconnectFromRigidbody ();
 	}
 
 	#endregion
@@ -144,8 +166,6 @@ internal class CharacterJointMock {
 	public Vector3 anchor;
 	public bool autoConfigureConnectedAnchor;
 	public Vector3 axis;
-	public float breakForce;
-	public float breakTorque;
 	public Vector3 connectedAnchor;
 	public Rigidbody connectedBody;
 	public SoftJointLimit highTwistLimit;
@@ -168,7 +188,6 @@ internal class RigidbodyMock {
 	public Quaternion rotation;
 	public float sleepAngularVelocity;
 	public float sleepVelocity;
-	public bool useGravity;
 }
 
 #endregion
