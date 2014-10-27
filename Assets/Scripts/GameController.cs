@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour {
 
 	public Transform Sphere { get; private set; }
 
-	Transform sphereContainer;
 	Poser defaultPoser;
 
 	Controller controller = new Controller();
@@ -21,10 +20,7 @@ public class GameController : MonoBehaviour {
 
 		Instance = this;
 
-		Debug.Log (controller);
-
-		sphereContainer = GameObject.Find ("/SphereContainer").transform;
-		Sphere = GameObject.Find ("/SphereContainer/Sphere").transform;
+		Sphere = GameObject.Find ("/Sphere").transform;
 
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
 		defaultPoser = defaultPuppet.GetComponent<Poser> ();
@@ -34,7 +30,6 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		sphereContainer.Rotate (new Vector3 (0, 0.25f, 0));
 	}
 
 	void OnDrawGizmos() {
@@ -56,6 +51,7 @@ public class GameController : MonoBehaviour {
 
 			if (Vector3.Distance(indexPosition, thumbPosition) < 0.25f) {
 				Gizmos.color = Color.red;
+				Sphere.position = (thumbPosition + indexPosition) * 0.5f;
 			}
 
 			Gizmos.DrawWireSphere(palmPosition, 0.25f);
