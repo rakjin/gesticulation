@@ -30,4 +30,8 @@ public class Picker : MonoBehaviour {
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (index.GetTipPosition (), 0.125f);
 	}
+
+	void OnDestroy() {
+		Debug.Log ("I'm Dying!");
+	}
 }
