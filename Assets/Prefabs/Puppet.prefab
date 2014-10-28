@@ -1840,7 +1840,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100026}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .150000006
   m_Height: .600000024
@@ -1853,7 +1853,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100034}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .200000003
   m_Height: .600000024
@@ -1866,12 +1866,12 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100036}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .200000003
-  m_Height: .600000024
+  m_Height: .5
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 1.89999998}
+  m_Center: {x: 0, y: 0, z: 1.79999995}
 --- !u!136 &13600006
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1879,7 +1879,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .800000012
@@ -1892,7 +1892,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .800000012
@@ -1905,7 +1905,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100030}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .600000024
@@ -1918,7 +1918,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100032}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .600000024
@@ -1931,7 +1931,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .5
@@ -1944,7 +1944,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .5
@@ -1983,10 +1983,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
-  m_Height: .699999988
+  m_Height: .5
   m_Direction: 2
   m_Center: {x: .0500000007, y: 0, z: -.300000012}
 --- !u!136 &13600024
@@ -1996,10 +1996,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
-  m_Height: .699999988
+  m_Height: .5
   m_Direction: 2
   m_Center: {x: -.0500000007, y: 0, z: -.300000012}
 --- !u!136 &13600026
@@ -2009,10 +2009,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
-  m_Height: .600000024
+  m_Height: .5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -.300000012}
 --- !u!136 &13600028
@@ -2022,10 +2022,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100020}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
-  m_Height: .600000024
+  m_Height: .5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -.300000012}
 --- !u!136 &13600030
@@ -2035,7 +2035,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .300000012
@@ -2048,7 +2048,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: .100000001
   m_Height: .300000012
@@ -2067,22 +2067,22 @@ CharacterJoint:
   m_ConnectedAnchor: {x: 5.23868948e-10, y: -.0344038419, z: .679217339}
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_LowTwistLimit:
-    limit: -40
+    limit: -30
     bounciness: 0
     spring: 0
     damper: 0
   m_HighTwistLimit:
-    limit: 40
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 40
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
   m_Swing2Limit:
-    limit: 40
+    limit: 30
     bounciness: 0
     spring: 0
     damper: 0
