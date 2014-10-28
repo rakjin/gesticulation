@@ -5,12 +5,20 @@ using Leap;
 
 public class Picker : MonoBehaviour {
 
+	const float PICK_DISTANCE = 0.25f;
+
 	FingerModel thumb;
 	FingerModel index;
 	SphereCollider middlePoint;
 
+	Collider currentCollider;
+	GameController.PickState pickState = GameController.PickState.None;
+	GameController gameController;
+
 	// Use this for initialization
 	void Start () {
+
+		gameController = GameController.Instance;
 
 		HandModel handModel = GetComponent<HandModel> ();
 		thumb = handModel.fingers [0];
@@ -36,6 +44,8 @@ public class Picker : MonoBehaviour {
 		middlePosition = new Vector3 (middlePosition.x / localScale.x, middlePosition.y / localScale.y, middlePosition.z / localScale.z); 
 
 		middlePoint.center = middlePosition;
+
+		float distance = Vector3.Distance (thumbPosition, indexPosition);
 	
 	}
 
@@ -47,10 +57,30 @@ public class Picker : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Debug.Log (other.tag);
+		if (currentCollider == null) {
+			currentCollider = other;
+
+			pickState = GameController.PickState.Hovering;
+			gameController.OnPickStateChanged(
+				GameController.PickState.None,
+				GameController.PickState.Hovering,
+				this,
+				other.gameObject);
+
+		}
 	}
 	
 	void OnTriggerExit(Collider other) {
-		Debug.Log (other.tag);
+		if (currentCollider == other) {
+			currentCollider = null;
+
+			pickState = GameController.PickState.None;
+			gameController.OnPickStateChanged(
+				GameController.PickState.Hovering,
+				GameController.PickState.None,
+				this,
+				other.gameObject);
+
+		}
 	}
 }

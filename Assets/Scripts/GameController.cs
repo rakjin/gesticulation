@@ -33,20 +33,14 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void OnHoverEnter(Picker picker, GameObject target) {
-		Debug.Log ("OnHoverEnter: " + target.name);
+	public enum PickState {
+		None,
+		Hovering,
+		Picking,
+		Pulling,
 	}
-
-	public void OnHoverExit(Picker picker, GameObject target) {
-		Debug.Log ("OnHoverExit: " + target.name);
-	}
-
-	public void OnPick(Picker picker, GameObject target) {
-		Debug.Log ("OnPick: " + target.name);
-	}
-
-	public void OnUnpick(Picker picker, GameObject target) {
-		Debug.Log ("OnUnpick: " + target.name);
+	public void OnPickStateChanged(PickState prevState, PickState currentState, Picker picker, GameObject target) {
+		Debug.Log ("OnPickStateChanged: " + prevState.ToString () + " => " + currentState.ToString ());
 	}
 
 }
