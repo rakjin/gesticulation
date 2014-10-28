@@ -7,6 +7,7 @@ public class Picker : MonoBehaviour {
 
 	FingerModel thumb;
 	FingerModel index;
+	SphereCollider middlePoint;
 
 	// Use this for initialization
 	void Start () {
@@ -14,13 +15,26 @@ public class Picker : MonoBehaviour {
 		HandModel handModel = GetComponent<HandModel> ();
 		thumb = handModel.fingers [0];
 		index = handModel.fingers [1];
+
+
+		gameObject.AddComponent<Rigidbody> ();
+		rigidbody.isKinematic = true;
+
+		middlePoint = gameObject.AddComponent<SphereCollider> ();
+		middlePoint.radius = 0.0625f / transform.localScale.x;
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		Vector3 thumbPosition = thumb.GetTipPosition () - transform.localPosition;
+		Vector3 indexPosition = index.GetTipPosition () - transform.localPosition;
+		Vector3 middlePosition = (thumbPosition + indexPosition) * 0.5f;
+		Vector3 localScale = transform.localScale;
+		middlePosition = new Vector3 (middlePosition.x / localScale.x, middlePosition.y / localScale.y, middlePosition.z / localScale.z); 
 
+		middlePoint.center = middlePosition;
 	
 	}
 
