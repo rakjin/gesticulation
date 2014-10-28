@@ -33,4 +33,20 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void OnHoverEnter(Picker picker, GameObject target) {
+		Debug.Log ("OnHoverEnter: " + target.name);
+	}
+
+	public void OnHoverExit(Picker picker, GameObject target) {
+		Debug.Log ("OnHoverExit: " + target.name);
+	}
+
+	public void OnPick(Picker picker, GameObject target) {
+		Debug.Log ("OnPick: " + target.name);
+	}
+
+	public void OnUnpick(Picker picker, GameObject target) {
+		Debug.Log ("OnUnpick: " + target.name);
+	}
+
 }

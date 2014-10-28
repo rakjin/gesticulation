@@ -53,8 +53,4 @@ public class Picker : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		Debug.Log (other.tag);
 	}
-	
-	void OnDestroy() {
-		Debug.Log ("I'm Dying!");
-	}
 }
