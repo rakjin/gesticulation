@@ -22,6 +22,7 @@ public class Picker : MonoBehaviour {
 
 		middlePoint = gameObject.AddComponent<SphereCollider> ();
 		middlePoint.radius = 0.0625f / transform.localScale.x;
+		middlePoint.isTrigger = true;
 	
 	}
 	
@@ -45,6 +46,14 @@ public class Picker : MonoBehaviour {
 		Gizmos.DrawWireSphere (index.GetTipPosition (), 0.125f);
 	}
 
+	void OnTriggerEnter(Collider other) {
+		Debug.Log (other.tag);
+	}
+	
+	void OnTriggerExit(Collider other) {
+		Debug.Log (other.tag);
+	}
+	
 	void OnDestroy() {
 		Debug.Log ("I'm Dying!");
 	}
