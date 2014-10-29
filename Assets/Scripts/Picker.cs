@@ -15,6 +15,7 @@ public class Picker : MonoBehaviour {
 
 	Collider currentCollider;
 	Collider prevCollider;
+	Collider pickedCollider; // to store picked collider during pulling state
 	bool isPinching = false;
 	bool wasPinching = false;
 
@@ -123,6 +124,7 @@ public class Picker : MonoBehaviour {
 				Assert (wasPinching == false);
 				wasPinching = isPinching;
 				prevPickState = currentPickState = GameController.PickState.Picking;
+				pickedCollider = currentCollider;
 				gameController.OnPickStateChanged(
 					GameController.PickState.Hovering,
 					GameController.PickState.Picking,
@@ -139,7 +141,38 @@ public class Picker : MonoBehaviour {
 					this,
 					prevCollider.gameObject);
 				prevCollider = currentCollider;
+				pickedCollider = null;
 
+			} else {
+				Assert (false);
+
+			}
+
+			break;
+
+		case GameController.PickState.Picking:
+
+			if (isPinching != wasPinching) { // Picking to Hovering
+				Assert (wasPinching == true);
+				wasPinching = isPinching;
+				prevPickState = currentPickState = GameController.PickState.Hovering;
+				gameController.OnPickStateChanged(
+					GameController.PickState.Picking,
+					GameController.PickState.Hovering,
+					this,
+					currentCollider.gameObject);
+				pickedCollider = null;
+
+			} else if (currentCollider != prevCollider) { // Picking to Pulling
+				Assert (prevCollider != null);
+				Assert (currentCollider == null);
+				Assert (pickedCollider != null);
+				prevPickState = currentPickState = GameController.PickState.Pulling;
+				gameController.OnPickStateChanged(
+					GameController.PickState.Picking,
+					GameController.PickState.Pulling,
+					this,
+					pickedCollider.gameObject);
 			} else {
 				Assert (false);
 
