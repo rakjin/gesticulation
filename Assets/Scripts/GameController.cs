@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour {
 		Hovering,
 		Picking,
 		Pulling,
+		PickingNothing,
+		PickingNothingColliding,
 	}
 	public void OnPickStateChanged(PickState prevState, PickState currentState, Picker picker, GameObject target) {
 		Debug.Log ("OnPickStateChanged: " + prevState.ToString () + " => " + currentState.ToString ());
