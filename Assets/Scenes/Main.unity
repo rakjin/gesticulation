@@ -1606,6 +1606,69 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1215175275}
   m_RootOrder: 2
+--- !u!1 &929472880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 929472882}
+  - 108: {fileID: 929472881}
+  m_Layer: 0
+  m_Name: Spotlight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &929472881
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 929472880}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 8
+  m_Range: 10
+  m_SpotAngle: 64
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 16
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
+--- !u!4 &929472882
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 929472880}
+  m_LocalRotation: {x: .482501715, y: -.0443405993, z: -.0165416021, w: .87461561}
+  m_LocalPosition: {x: .800695777, y: 1.35034084, z: -3.89218569}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1410911237}
+  m_RootOrder: 3
 --- !u!1 &1008249560
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,6 +2628,7 @@ Transform:
   - {fileID: 1363922272}
   - {fileID: 644805585}
   - {fileID: 2063493423}
+  - {fileID: 929472882}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &1450640213
@@ -3188,7 +3252,7 @@ GameObject:
   - 33: {fileID: 1702433909}
   - 64: {fileID: 1702433908}
   - 23: {fileID: 1702433907}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
