@@ -26,8 +26,7 @@ public class GameController : MonoBehaviour {
 
 	void OnGUI () {
 		if (GUI.Button (new Rect(10, 10, 200, 30), "(un)select")) {
-			defaultPoser.Head.Highlighted = !defaultPoser.Head.Highlighted;
-			defaultPoser.Chest.Highlighted = !defaultPoser.Chest.Highlighted;
+			defaultPoser.Pose (Pose.RandomPose01());
 		}
 	}
 
@@ -46,7 +45,7 @@ public class GameController : MonoBehaviour {
 			
 			if (target && target.tag.Equals(TAG_PART)) {
 				Part part = target.GetComponent<Part>();
-				part.Highlighted = false;
+				part.Highlighted = Part.HighlightDegree.None;
 				part.DisconnectFromRigidbody();
 				picker.Reset();
 			}
@@ -58,9 +57,10 @@ public class GameController : MonoBehaviour {
 			
 			if (target && target.tag.Equals(TAG_PART)) {
 				Part part = target.GetComponent<Part>();
-				part.Highlighted = false;
+				part.Highlighted = Part.HighlightDegree.Half;
 				part.DisconnectFromRigidbody();
 				if (prevState == PickState.Picking) {
+					part.Highlighted = Part.HighlightDegree.None;
 					picker.Reset();
 				}
 			}
@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour {
 
 			if (target && target.tag.Equals(TAG_PART)) {
 				Part part = target.GetComponent<Part>();
-				part.Highlighted = true;
+				part.Highlighted = Part.HighlightDegree.Full;
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
 			}
 

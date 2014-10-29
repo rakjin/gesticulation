@@ -3,7 +3,14 @@ using System.Collections;
 
 public class Part : MonoBehaviour {
 
+	public enum HighlightDegree {
+		None,
+		Half,
+		Full,
+	}
+
 	static readonly Color normalColor = new Color (0.5f, 0.5f, 0.5f);
+	static readonly Color halfHighlightedColor = new Color (0.5f, 0.875f, 0.875f);
 	static readonly Color highlightedColor = new Color (0.125f, 1, 0);
 
 	private SpringJoint springJoint;
@@ -129,8 +136,8 @@ public class Part : MonoBehaviour {
 
 	#region Highlight
 
-	private bool highlighted = false;
-	public bool Highlighted {
+	private HighlightDegree highlighted = HighlightDegree.None;
+	public HighlightDegree Highlighted {
 
 		set {
 			if (highlighted == value) {
@@ -138,7 +145,12 @@ public class Part : MonoBehaviour {
 			}
 
 			highlighted = value;
-			Color tint = (highlighted ? highlightedColor : normalColor);
+			Color tint = normalColor;
+			if (highlighted == HighlightDegree.Half) {
+				tint = halfHighlightedColor;
+			} else if (highlighted == HighlightDegree.Full) {
+				tint = highlightedColor;
+			}
 			LeanTween.color (gameObject, tint, 0.125f);
 		}
 
