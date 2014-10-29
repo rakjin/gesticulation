@@ -93,11 +93,6 @@ public class Picker : MonoBehaviour {
 				Assert (wasPinching == false);
 				wasPinching = isPinching;
 				prevPickState = currentPickState = GameController.PickState.PickingNothing;
-				gameController.OnPickStateChanged(
-					GameController.PickState.None,
-					GameController.PickState.PickingNothing,
-					this,
-					null);
 
 			} else if (currentCollider != prevCollider) { // None to Hovering
 				Assert (currentCollider != null);
@@ -228,20 +223,10 @@ public class Picker : MonoBehaviour {
 				Assert (wasPinching == true);
 				wasPinching = isPinching;
 				prevPickState = currentPickState = GameController.PickState.None;
-				gameController.OnPickStateChanged(
-					GameController.PickState.PickingNothing,
-					GameController.PickState.None,
-					this,
-					null);
 
 			} else if (prevCollider != currentCollider) { // PickNothing to PickNothingColliding
 				//Assert (prevCollider == null);
 				prevCollider = currentCollider;
-				gameController.OnPickStateChanged(
-					GameController.PickState.PickingNothing,
-					GameController.PickState.PickingNothingColliding,
-					this,
-					null);
 
 			} else {
 				Assert (false);
@@ -257,7 +242,7 @@ public class Picker : MonoBehaviour {
 				Assert (wasPinching == true);
 				wasPinching = isPinching;
 				gameController.OnPickStateChanged(
-					GameController.PickState.PickingNothingColliding,
+					GameController.PickState.None,
 					GameController.PickState.Hovering,
 					this,
 					currentCollider.gameObject);
@@ -266,11 +251,6 @@ public class Picker : MonoBehaviour {
 				Assert (prevCollider != null);
 				Assert (currentCollider == null);
 				prevCollider = currentCollider; //null
-				gameController.OnPickStateChanged(
-					GameController.PickState.PickingNothingColliding,
-					GameController.PickState.PickingNothing,
-					this,
-					null);
 
 			} else {
 				Assert (false);
