@@ -3,12 +3,14 @@ using System.Collections;
 
 public class Button3D : MonoBehaviour {
 
+	TextMesh textMesh;
+
 	// Use this for initialization
 	void Start () {
 
-		TextMesh textMesh = gameObject.AddComponent<TextMesh> ();
-
-		textMesh.text = "안뇽?ㅋ";
+		GameObject textGO = transform.Find ("Text").gameObject;
+		textMesh = textGO.GetComponent<TextMesh> ();
+		textMesh.text = " ";
 	
 	}
 	

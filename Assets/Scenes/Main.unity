@@ -1860,6 +1860,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1109051216}
+  - 114: {fileID: 1109051217}
   m_Layer: 0
   m_Name: Button3D
   m_TagString: Untagged
@@ -1881,6 +1882,17 @@ Transform:
   - {fileID: 246216210}
   m_Father: {fileID: 1215175275}
   m_RootOrder: 0
+--- !u!114 &1109051217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109051215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635d2b0c43929784fbfb3874bc7b9654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1149659570
 GameObject:
   m_ObjectHideFlags: 0
