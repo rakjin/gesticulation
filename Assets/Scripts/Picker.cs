@@ -5,7 +5,7 @@ using Leap;
 
 public class Picker : MonoBehaviour {
 
-	const float PINCH_DISTANCE = 0.25f;
+	const float PINCH_DISTANCE = 0.5f;
 
 	GameController gameController;
 
@@ -60,9 +60,8 @@ public class Picker : MonoBehaviour {
 	}
 
 	void OnDrawGizmos() {
-		Gizmos.color = Color.blue;
+		Gizmos.color = isPinching ? Color.red : Color.white;
 		Gizmos.DrawWireSphere (thumb.GetTipPosition (), 0.125f);
-		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (index.GetTipPosition (), 0.125f);
 	}
 
@@ -98,7 +97,7 @@ public class Picker : MonoBehaviour {
 					GameController.PickState.None,
 					GameController.PickState.PickingNothing,
 					this,
-					currentCollider.gameObject);
+					null);
 
 			} else if (currentCollider != prevCollider) { // None to Hovering
 				Assert (currentCollider != null);
@@ -150,6 +149,7 @@ public class Picker : MonoBehaviour {
 
 			break;
 
+
 		case GameController.PickState.Picking:
 
 			if (isPinching != wasPinching) { // Picking to Hovering
@@ -167,6 +167,7 @@ public class Picker : MonoBehaviour {
 				Assert (prevCollider != null);
 				Assert (currentCollider == null);
 				Assert (pickedCollider != null);
+				prevCollider = currentCollider; //null
 				prevPickState = currentPickState = GameController.PickState.Pulling;
 				gameController.OnPickStateChanged(
 					GameController.PickState.Picking,
@@ -175,6 +176,46 @@ public class Picker : MonoBehaviour {
 					pickedCollider.gameObject);
 			} else {
 				Assert (false);
+
+			}
+
+			break;
+
+
+		case GameController.PickState.Pulling:
+
+			if (isPinching != wasPinching) { // Pulling to None
+				Assert (wasPinching == true);
+				Assert (isPinching == false);
+				Assert (currentCollider == null);
+				Assert (pickedCollider != null);
+				wasPinching = isPinching;
+				prevPickState = currentPickState = GameController.PickState.None;
+				gameController.OnPickStateChanged(
+					GameController.PickState.Pulling,
+					GameController.PickState.None,
+					this,
+					pickedCollider.gameObject);
+				pickedCollider = null;
+
+			} else if (currentCollider != prevCollider) { // Pulling to Picking
+				Assert (prevCollider == null);
+				Assert (isPinching == true);
+
+				if (currentCollider != pickedCollider) {
+					currentCollider = null;
+					return; // ignore entering other than previously picked collider
+
+				} else {
+					Assert (currentCollider == pickedCollider);
+					prevCollider = pickedCollider;
+					gameController.OnPickStateChanged(
+						GameController.PickState.Pulling,
+						GameController.PickState.Picking,
+						this,
+						currentCollider.gameObject);
+
+				}
 
 			}
 
