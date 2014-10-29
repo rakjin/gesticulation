@@ -15,6 +15,7 @@ public class Picker : MonoBehaviour {
 
 	GameController gameController;
 
+	HandModel handModel;
 	FingerModel thumb;
 	FingerModel index;
 
@@ -40,7 +41,7 @@ public class Picker : MonoBehaviour {
 
 		gameController = GameController.Instance;
 
-		HandModel handModel = GetComponent<HandModel> ();
+		handModel = GetComponent<HandModel> ();
 		thumb = handModel.fingers [0];
 		index = handModel.fingers [1];
 
