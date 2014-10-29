@@ -283,6 +283,22 @@ public class Picker : MonoBehaviour {
 
 	}
 
+	void OnDestroy() {
+
+		if (currentPickState == GameController.PickState.Hovering ||
+		    currentPickState == GameController.PickState.Picking ||
+		    currentPickState == GameController.PickState.Pulling) {
+
+			gameController.OnPickStateChanged(
+				currentPickState,
+				GameController.PickState.None,
+				this,
+				currentCollider == null ? null : currentCollider.gameObject);
+
+		}
+
+	}
+
 	void Assert(bool assertion, string desc = "") {
 		if (!assertion) {
 			Debug.LogError ("Assertion Failed: " + desc);
