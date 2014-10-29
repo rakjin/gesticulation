@@ -9,7 +9,7 @@ public class Picker : MonoBehaviour {
 
 	public Vector3 MiddlePosition {
 		get {
-			return middlePoint.center;
+			return middlePointContainer.transform.localPosition;
 		}
 	}
 
@@ -17,6 +17,13 @@ public class Picker : MonoBehaviour {
 
 	FingerModel thumb;
 	FingerModel index;
+
+	Transform middlePointContainer;
+	public Transform MiddlePointContainer {
+		get {
+			return middlePointContainer;
+		}
+	}
 	SphereCollider middlePoint;
 
 	Collider currentCollider;
@@ -37,12 +44,16 @@ public class Picker : MonoBehaviour {
 		thumb = handModel.fingers [0];
 		index = handModel.fingers [1];
 
+		GameObject middlePointContainerGO = new GameObject ();
+		middlePointContainerGO.AddComponent<MiddlePointContainer> ().SetPicker (this);
+		middlePointContainer = middlePointContainerGO.transform;
+		middlePointContainer.parent = gameObject.transform;
 
-		gameObject.AddComponent<Rigidbody> ();
-		rigidbody.isKinematic = true;
+		middlePointContainer.gameObject.AddComponent<Rigidbody> ();
+		middlePointContainer.rigidbody.isKinematic = true;
 
-		middlePoint = gameObject.AddComponent<SphereCollider> ();
-		middlePoint.radius = 0.0625f / transform.localScale.x;
+		middlePoint = middlePointContainer.gameObject.AddComponent<SphereCollider> ();
+		middlePoint.radius = 0.0625f; // / transform.localScale.x;
 		middlePoint.isTrigger = true;
 	
 	}
@@ -56,7 +67,7 @@ public class Picker : MonoBehaviour {
 		Vector3 localScale = transform.localScale;
 		middlePosition = new Vector3 (middlePosition.x / localScale.x, middlePosition.y / localScale.y, middlePosition.z / localScale.z); 
 
-		middlePoint.center = middlePosition;
+		middlePointContainer.transform.localPosition = middlePosition;
 
 		float distance = Vector3.Distance (thumbPosition, indexPosition);
 		isPinching = (distance < PINCH_DISTANCE);
@@ -71,7 +82,7 @@ public class Picker : MonoBehaviour {
 		Gizmos.DrawWireSphere (index.GetTipPosition (), 0.125f);
 	}
 
-	void OnTriggerEnter(Collider other) {
+	public void TriggerEnter(Collider other) {
 		if (currentCollider != null) {
 			return;
 		}
@@ -80,7 +91,7 @@ public class Picker : MonoBehaviour {
 		StateTransition ();
 	}
 	
-	void OnTriggerExit(Collider other) {
+	public void TriggerExit(Collider other) {
 		if (currentCollider != other) {
 			return;
 		}
