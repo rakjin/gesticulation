@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cad7cda75d7d539438b52f82875b5be6
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 128
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  use2xBehaviour: 0
+  fontNames:
+  - SanAramB
+  customCharacters: 
+  fontRenderingMode: 0
+  userData: 
