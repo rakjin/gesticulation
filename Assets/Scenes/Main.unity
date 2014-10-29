@@ -2914,6 +2914,7 @@ GameObject:
   - 4: {fileID: 1652420005}
   - 33: {fileID: 1652420004}
   - 23: {fileID: 1652420002}
+  - 114: {fileID: 1652420003}
   m_Layer: 0
   m_Name: CircularShelf
   m_TagString: Untagged
@@ -2941,6 +2942,17 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!114 &1652420003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1652420001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cc8639f30e7ae4d8cdcf1afbe9af85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &1652420004
 MeshFilter:
   m_ObjectHideFlags: 0
