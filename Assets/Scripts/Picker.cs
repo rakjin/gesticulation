@@ -187,7 +187,6 @@ public class Picker : MonoBehaviour {
 			if (isPinching != wasPinching) { // Pulling to None
 				Assert (wasPinching == true);
 				Assert (isPinching == false);
-				Assert (currentCollider == null);
 				Assert (pickedCollider != null);
 				wasPinching = isPinching;
 				prevPickState = currentPickState = GameController.PickState.None;
@@ -199,7 +198,6 @@ public class Picker : MonoBehaviour {
 				pickedCollider = null;
 
 			} else if (currentCollider != prevCollider) { // Pulling to Picking
-				Assert (prevCollider == null);
 				Assert (isPinching == true);
 
 				if (currentCollider != pickedCollider) {
@@ -216,6 +214,66 @@ public class Picker : MonoBehaviour {
 						currentCollider.gameObject);
 
 				}
+			} else {
+				Assert (false);
+
+			}
+
+			break;
+
+
+		case GameController.PickState.PickingNothing:
+
+			if (isPinching != wasPinching) { // PickNothing to None
+				Assert (wasPinching == true);
+				wasPinching = isPinching;
+				prevPickState = currentPickState = GameController.PickState.None;
+				gameController.OnPickStateChanged(
+					GameController.PickState.PickingNothing,
+					GameController.PickState.None,
+					this,
+					null);
+
+			} else if (prevCollider != currentCollider) { // PickNothing to PickNothingColliding
+				//Assert (prevCollider == null);
+				prevCollider = currentCollider;
+				gameController.OnPickStateChanged(
+					GameController.PickState.PickingNothing,
+					GameController.PickState.PickingNothingColliding,
+					this,
+					null);
+
+			} else {
+				Assert (false);
+
+			}
+
+			break;
+
+
+		case GameController.PickState.PickingNothingColliding:
+
+			if (isPinching != wasPinching) { // PickNothingColliding to Hovering
+				Assert (wasPinching == true);
+				wasPinching = isPinching;
+				gameController.OnPickStateChanged(
+					GameController.PickState.PickingNothingColliding,
+					GameController.PickState.Hovering,
+					this,
+					currentCollider.gameObject);
+
+			} else if (prevCollider != currentCollider) { // PickNothingColliding to PickNothing
+				Assert (prevCollider != null);
+				Assert (currentCollider == null);
+				prevCollider = currentCollider; //null
+				gameController.OnPickStateChanged(
+					GameController.PickState.PickingNothingColliding,
+					GameController.PickState.PickingNothing,
+					this,
+					null);
+
+			} else {
+				Assert (false);
 
 			}
 
