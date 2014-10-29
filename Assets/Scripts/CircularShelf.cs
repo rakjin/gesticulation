@@ -27,7 +27,7 @@ public class CircularShelf : MonoBehaviour {
 		Gizmos.color = Color.red;
 
 		for (int i = 0; i < slotsNum; i++) {
-			Gizmos.DrawWireSphere (GetSlotPosition (i), 1);
+			Gizmos.DrawWireSphere (GetSlotPosition (i), 0.5f);
 		}
 
 	}
@@ -40,7 +40,12 @@ public class CircularShelf : MonoBehaviour {
 		float x = Mathf.Sin (Mathf.Deg2Rad  * (startDeg + (slotNum * degPerStep))) * radius;
 		float z = -Mathf.Cos (Mathf.Deg2Rad  * (startDeg + (slotNum * degPerStep))) * radius;
 
+		z *= 0.5f;
 		z += transform.position.z;
+
+		if (slotNum == centerSlot) {
+			z = 0;
+		}
 
 		return new Vector3(x, y, z);
 	}
