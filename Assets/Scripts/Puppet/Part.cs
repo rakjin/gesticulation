@@ -106,6 +106,7 @@ public class Part : MonoBehaviour {
 		RestoreRigidbody ();
 		RestoreJoint ();
 
+		anchor = transform.InverseTransformPoint (externalRigidbody.transform.TransformPoint (Vector3.zero));
 		GetComponent<Rigidbody> ().isKinematic = false;
 		springJoint = gameObject.AddComponent<SpringJoint> ();
 		springJoint.autoConfigureConnectedAnchor = false;
