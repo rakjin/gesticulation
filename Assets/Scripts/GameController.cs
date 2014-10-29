@@ -9,16 +9,12 @@ public class GameController : MonoBehaviour {
 
 	const string TAG_PART = "Part";
 
-	public Transform Sphere { get; private set; }
-
 	Poser defaultPoser;
 
 	// Use this for initialization
 	void Start () {
 
 		Instance = this;
-
-		Sphere = GameObject.Find ("/Sphere").transform;
 
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
 		defaultPoser = defaultPuppet.GetComponent<Poser> ();

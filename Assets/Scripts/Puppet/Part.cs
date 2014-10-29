@@ -147,16 +147,6 @@ public class Part : MonoBehaviour {
 
 	}
 
-	void OnMouseEnter () {
-		Highlighted = true;
-		ConnectToRigidbody (GameController.Instance.Sphere.rigidbody, Vector3.zero);
-	}
-
-	void OnMouseExit () {
-		Highlighted = false;
-		DisconnectFromRigidbody ();
-	}
-
 	#endregion
 
 	void OnDrawGizmos() {
