@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance;
 
+	const string TAG_PART = "Part";
+
 	public Transform Sphere { get; private set; }
 
 	Poser defaultPoser;
@@ -43,6 +45,38 @@ public class GameController : MonoBehaviour {
 	}
 	public void OnPickStateChanged(PickState prevState, PickState currentState, Picker picker, GameObject target) {
 		Debug.Log ("OnPickStateChanged: " + prevState.ToString () + " => " + currentState.ToString ());
+		
+		switch (currentState) {
+
+		case PickState.None:
+			
+			if (target && target.tag.Equals(TAG_PART)) {
+				Part part = target.GetComponent<Part>();
+				part.Highlighted = false;
+			}
+			
+			break;
+
+
+		case PickState.Hovering:
+			
+			if (target && target.tag.Equals(TAG_PART)) {
+				Part part = target.GetComponent<Part>();
+				part.Highlighted = false;
+			}
+			
+			break;
+			
+
+		case PickState.Picking:
+
+			if (target && target.tag.Equals(TAG_PART)) {
+				Part part = target.GetComponent<Part>();
+				part.Highlighted = true;
+			}
+
+			break;
+		}
 	}
 
 }
