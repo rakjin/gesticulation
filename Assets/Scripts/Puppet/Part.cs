@@ -113,7 +113,7 @@ public class Part : MonoBehaviour {
 		springJoint.connectedAnchor = externalAnchor;
 		springJoint.minDistance = 0;
 		springJoint.maxDistance = 0.125f;
-		springJoint.spring = 0.125f;
+		springJoint.spring = 3;
 		springJoint.anchor = anchor;
 	}
 

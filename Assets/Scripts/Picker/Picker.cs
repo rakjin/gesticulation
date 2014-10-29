@@ -53,7 +53,7 @@ public class Picker : MonoBehaviour {
 		middlePointContainer.rigidbody.isKinematic = true;
 
 		middlePoint = middlePointContainer.gameObject.AddComponent<SphereCollider> ();
-		middlePoint.radius = 0.0625f; // / transform.localScale.x;
+		middlePoint.radius = 0.125f; // / transform.localScale.x;
 		middlePoint.isTrigger = true;
 	
 	}
