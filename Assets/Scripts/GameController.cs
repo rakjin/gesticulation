@@ -44,8 +44,6 @@ public class GameController : MonoBehaviour {
 		PickingNothingColliding,
 	}
 	public void OnPickStateChanged(PickState prevState, PickState currentState, Picker picker, GameObject target) {
-		Debug.Log ("OnPickStateChanged: " + prevState.ToString () + " => " + currentState.ToString ());
-		
 		switch (currentState) {
 
 		case PickState.None:
@@ -54,6 +52,7 @@ public class GameController : MonoBehaviour {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = false;
 				part.DisconnectFromRigidbody();
+				picker.Reset();
 			}
 			
 			break;
@@ -65,6 +64,9 @@ public class GameController : MonoBehaviour {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = false;
 				part.DisconnectFromRigidbody();
+				if (prevState == PickState.Picking) {
+					picker.Reset();
+				}
 			}
 			
 			break;

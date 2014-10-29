@@ -82,6 +82,17 @@ public class Picker : MonoBehaviour {
 		Gizmos.DrawWireSphere (index.GetTipPosition (), 0.125f);
 	}
 
+	public void Reset() {
+		currentCollider = null;
+		prevCollider = null;
+		pickedCollider = null;
+		isPinching = false;
+		wasPinching = false;
+
+		currentPickState = GameController.PickState.None;
+		prevPickState = GameController.PickState.None;
+	}
+
 	public void TriggerEnter(Collider other) {
 		if (currentCollider != null) {
 			return;
@@ -237,9 +248,6 @@ public class Picker : MonoBehaviour {
 
 			} else if (prevCollider != currentCollider) { // PickNothing to PickNothingColliding
 				prevCollider = currentCollider;
-
-			} else {
-				Assert (false);
 
 			}
 
