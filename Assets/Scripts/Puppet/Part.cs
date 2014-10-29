@@ -101,7 +101,7 @@ public class Part : MonoBehaviour {
 
 	#region Connect to / Disconnect from external rigidbody
 
-	void ConnectToRigidbody(Rigidbody externalRigidbody) {
+	public void ConnectToRigidbody(Rigidbody externalRigidbody, Vector3 externalAnchor) {
 
 		RestoreRigidbody ();
 		RestoreJoint ();
@@ -110,14 +110,14 @@ public class Part : MonoBehaviour {
 		springJoint = gameObject.AddComponent<SpringJoint> ();
 		springJoint.autoConfigureConnectedAnchor = false;
 		springJoint.connectedBody = externalRigidbody;
-		springJoint.connectedAnchor = Vector3.zero;
+		springJoint.connectedAnchor = externalAnchor;
 		springJoint.minDistance = 0;
 		springJoint.maxDistance = 0.125f;
 		springJoint.spring = 0.125f;
 		springJoint.anchor = anchor;
 	}
 
-	void DisconnectFromRigidbody() {
+	public void DisconnectFromRigidbody() {
 		DestroyImmediate (springJoint);
 		DestroyImmediate (GetComponent<Joint> ());
 		DestroyImmediate (GetComponent<Rigidbody> ());
@@ -149,7 +149,7 @@ public class Part : MonoBehaviour {
 
 	void OnMouseEnter () {
 		Highlighted = true;
-		ConnectToRigidbody (GameController.Instance.Sphere.rigidbody);
+		ConnectToRigidbody (GameController.Instance.Sphere.rigidbody, Vector3.zero);
 	}
 
 	void OnMouseExit () {

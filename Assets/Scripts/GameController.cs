@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour {
 			if (target && target.tag.Equals(TAG_PART)) {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = false;
+				part.DisconnectFromRigidbody();
 			}
 			
 			break;
@@ -63,6 +64,7 @@ public class GameController : MonoBehaviour {
 			if (target && target.tag.Equals(TAG_PART)) {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = false;
+				part.DisconnectFromRigidbody();
 			}
 			
 			break;
@@ -73,6 +75,7 @@ public class GameController : MonoBehaviour {
 			if (target && target.tag.Equals(TAG_PART)) {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = true;
+				part.ConnectToRigidbody(picker.rigidbody, picker.MiddlePosition);
 			}
 
 			break;

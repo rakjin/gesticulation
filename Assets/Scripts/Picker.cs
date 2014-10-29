@@ -7,6 +7,12 @@ public class Picker : MonoBehaviour {
 
 	const float PINCH_DISTANCE = 0.5f;
 
+	public Vector3 MiddlePosition {
+		get {
+			return middlePoint.center;
+		}
+	}
+
 	GameController gameController;
 
 	FingerModel thumb;
