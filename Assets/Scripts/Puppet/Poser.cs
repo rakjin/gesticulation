@@ -159,5 +159,22 @@ public class Poser : MonoBehaviour {
 		}
 	}
 
+	private bool visible = true;
+	public bool Visible {
+
+		get {
+			return visible;
+		}
+
+		set {
+			if (visible == value) {
+				return;
+			} else {
+				visible = value;
+				transform.localScale = visible ? Vector3.one : Vector3.zero;
+			}
+		}
+	}
+
 }
 

@@ -37,6 +37,9 @@ public class Shelf : MonoBehaviour {
 			Transform puppet = (Transform)Instantiate(puppetPrefab, GetSlotPosition(i), Quaternion.identity);
 			Poser poser = puppet.gameObject.GetComponent<Poser>();
 			poser.Highlighted = Part.HighlightDegree.Pale;
+			if (i % 2 == 0) {
+				poser.Visible = false;
+			}
 
 		}
 
