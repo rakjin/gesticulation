@@ -27,13 +27,27 @@ public class GameController : MonoBehaviour {
 
 		Poser poser = GetDefaultPoser ();
 
-		if (GUI.Button (new Rect(10, 10, 200, 30), "Print Pose")) {
+		float y = -20;
+
+		if (GUI.Button (new Rect(10, y += 30, 200, 30), "Print Pose")) {
 			if (poser) {
 				Debug.Log (poser.GetCurrentPose());
 			}
-		} else if (GUI.Button (new Rect(10, 50, 200, 30), "RandomPose01")) {
+		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose00")) {
+			if (poser) {
+				poser.Pose (Pose.RandomPose00());
+			}
+		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose01")) {
 			if (poser) {
 				poser.Pose (Pose.RandomPose01());
+			}
+		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose02")) {
+			if (poser) {
+				poser.Pose (Pose.RandomPose02());
+			}
+		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose03")) {
+			if (poser) {
+				poser.Pose (Pose.RandomPose03());
 			}
 		}
 	}
