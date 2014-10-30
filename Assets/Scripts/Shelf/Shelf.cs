@@ -46,6 +46,9 @@ public class Shelf : MonoBehaviour {
 			if (i % 2 == 0) {
 				poser.Visible = false;
 			}
+			if (i == CenterSlot) {
+				poser.gameObject.name = "Puppet";
+			}
 
 		}
 

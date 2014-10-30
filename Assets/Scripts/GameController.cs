@@ -9,27 +9,31 @@ public class GameController : MonoBehaviour {
 
 	const string TAG_PART = "Part";
 
-	Poser defaultPoser;
-
 	// Use this for initialization
 	void Start () {
-
 		Instance = this;
-
-		GameObject defaultPuppet = GameObject.Find ("/Puppet");
-		if (defaultPuppet) {
-			defaultPoser = defaultPuppet.GetComponent<Poser> ();
-		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	Poser GetDefaultPoser() {
+		GameObject defaultPuppet = GameObject.Find ("/Puppet");
+		if (defaultPuppet) {
+			Poser defaultPoser = defaultPuppet.GetComponent<Poser> ();
+			return defaultPoser;
+		}
+		return null;
 	}
 
 	void OnGUI () {
-		if (GUI.Button (new Rect(10, 10, 200, 30), "(un)select")) {
-			if (defaultPoser) {
-				defaultPoser.Pose (Pose.RandomPose01());
+
+		Poser poser = GetDefaultPoser ();
+
+		if (GUI.Button (new Rect(10, 10, 200, 30), "Print Pose")) {
+			if (poser) {
+				Debug.Log (poser.GetCurrentPose());
+			}
+		} else if (GUI.Button (new Rect(10, 50, 200, 30), "RandomPose01")) {
+			if (poser) {
+				poser.Pose (Pose.RandomPose01());
 			}
 		}
 	}
