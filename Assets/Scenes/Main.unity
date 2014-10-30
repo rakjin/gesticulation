@@ -819,7 +819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cc8639f30e7ae4d8cdcf1afbe9af85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puppetPrefab: {fileID: 0}
+  puppetPrefab: {fileID: 400000, guid: 50642bc620f9c8f4485697d1a9dc8648, type: 2}
 --- !u!33 &1652420004
 MeshFilter:
   m_ObjectHideFlags: 0
