@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Shelf : MonoBehaviour {
 
+	public Transform puppetPrefab;
+
 	const int slotsNum = 3;
 	virtual public int SlotsNum {
 		get {
@@ -13,7 +15,11 @@ public class Shelf : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		FillSlots ();
+		if (puppetPrefab == null) {
+			Debug.LogError("puppetPrefab required");
+		} else {
+			FillSlots ();
+		}
 	
 	}
 
@@ -28,7 +34,7 @@ public class Shelf : MonoBehaviour {
 
 		for (int i = 0; i < SlotsNum; i++) {
 
-			Debug.Log (i);
+			Instantiate(puppetPrefab, GetSlotPosition(i), Quaternion.identity);
 
 		}
 
