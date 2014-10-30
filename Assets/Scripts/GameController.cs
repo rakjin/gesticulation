@@ -17,7 +17,9 @@ public class GameController : MonoBehaviour {
 		Instance = this;
 
 		GameObject defaultPuppet = GameObject.Find ("/Puppet");
-		defaultPoser = defaultPuppet.GetComponent<Poser> ();
+		if (defaultPuppet) {
+			defaultPoser = defaultPuppet.GetComponent<Poser> ();
+		}
 	}
 	
 	// Update is called once per frame
@@ -26,7 +28,9 @@ public class GameController : MonoBehaviour {
 
 	void OnGUI () {
 		if (GUI.Button (new Rect(10, 10, 200, 30), "(un)select")) {
-			defaultPoser.Pose (Pose.RandomPose01());
+			if (defaultPoser) {
+				defaultPoser.Pose (Pose.RandomPose01());
+			}
 		}
 	}
 
