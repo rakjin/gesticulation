@@ -25,7 +25,7 @@ public class Poser : MonoBehaviour {
 	public Part HandR { get; private set; }
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		ReadParts ();
 	}
 
