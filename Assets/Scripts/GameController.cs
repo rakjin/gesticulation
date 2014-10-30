@@ -9,9 +9,16 @@ public class GameController : MonoBehaviour {
 
 	const string TAG_PART = "Part";
 
+
+	public Shelf shelf;
+
 	// Use this for initialization
 	void Start () {
 		Instance = this;
+
+		if (shelf == null) {
+			Debug.LogError ("shelf required");
+		}
 	}
 	
 	Poser GetDefaultPoser() {
@@ -52,9 +59,9 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
-
+			shelf.FlipLeft();
 		} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
-			
+			shelf.FlipRight();
 		}
 	}
 

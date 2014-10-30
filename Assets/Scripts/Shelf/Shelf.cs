@@ -59,4 +59,12 @@ public class Shelf : MonoBehaviour {
 
 	}
 
+	public void FlipLeft() {
+		Debug.Log ("FlipLeft");
+	}
+	
+	public void FlipRight() {
+		Debug.Log ("FlipRight");
+	}
+	
 }
