@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Shelf : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class Shelf : MonoBehaviour {
 		}
 	}
 
+	private List<Poser> slots = new List<Poser>();
 	private PresetDataSource presets = new PresetDataSource();
 	private int index = 0;
 
@@ -50,6 +52,7 @@ public class Shelf : MonoBehaviour {
 
 			Transform puppet = (Transform)Instantiate(puppetPrefab, GetSlotPosition(i), Quaternion.identity);
 			Poser poser = puppet.gameObject.GetComponent<Poser>();
+			slots.Add (poser);
 
 			int indexRelativeToDataSource = i - (SlotsNum/2);
 			Preset preset = presets.Get (indexRelativeToDataSource);
