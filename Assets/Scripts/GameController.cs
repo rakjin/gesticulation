@@ -50,6 +50,12 @@ public class GameController : MonoBehaviour {
 				poser.Pose (Pose.RandomPose03());
 			}
 		}
+
+		if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
+
+		} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
+			
+		}
 	}
 
 	public enum PickState {
