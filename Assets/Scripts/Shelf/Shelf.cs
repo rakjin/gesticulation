@@ -18,12 +18,19 @@ public class Shelf : MonoBehaviour {
 		}
 	}
 
+	private PresetDataSource presets = new PresetDataSource();
+
 	// Use this for initialization
 	void Start () {
 
 		if (puppetPrefab == null) {
 			Debug.LogError("puppetPrefab required");
+
 		} else {
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose00(), "RanPo 00", "Stanton"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose03(), "RanPo 03", "Nguyen"));
 			FillSlots ();
 		}
 	
