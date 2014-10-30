@@ -6,6 +6,7 @@ public class Poser : MonoBehaviour {
 	public Part Root { get; private set; }
 
 	public Part Chest { get; private set; }
+	public Part Neck { get; private set; }
 	public Part Head { get; private set; }
 
 	public Part ThighL { get; private set; }
@@ -33,6 +34,7 @@ public class Poser : MonoBehaviour {
 		Root = ReadPart ("puppet");
 
 		Chest = ReadPart ("puppet/Chest");
+		Neck = ReadPart ("puppet/Chest/Neck");
 		Head = ReadPart ("puppet/Chest/Neck/Head");
 
 		ThighL = ReadPart ("puppet/Thigh_L");

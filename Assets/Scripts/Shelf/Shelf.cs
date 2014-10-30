@@ -35,9 +35,11 @@ public class Shelf : MonoBehaviour {
 		for (int i = 0; i < SlotsNum; i++) {
 
 			Transform puppet = (Transform)Instantiate(puppetPrefab, GetSlotPosition(i), Quaternion.identity);
-			puppet.gameObject.GetComponent<Poser>().Head.Highlighted = Part.HighlightDegree.Pale;
-			puppet.gameObject.GetComponent<Poser>().ShoulderL.Highlighted = Part.HighlightDegree.Pale;
-			puppet.gameObject.GetComponent<Poser>().Chest.Highlighted = Part.HighlightDegree.Pale;
+			Poser poser = puppet.gameObject.GetComponent<Poser>();
+			poser.Head.Highlighted = Part.HighlightDegree.Pale;
+			poser.ShoulderL.Highlighted = Part.HighlightDegree.Pale;
+			poser.Chest.Highlighted = Part.HighlightDegree.Pale;
+			poser.Neck.Highlighted = Part.HighlightDegree.Pale;
 
 		}
 
