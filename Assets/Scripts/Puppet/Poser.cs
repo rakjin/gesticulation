@@ -136,5 +136,28 @@ public class Poser : MonoBehaviour {
 		LeanTween.rotateLocal(HandR.transform.gameObject, pose.HandR.eulerAngles, duration);
 	}
 
+	public Part.HighlightDegree Highlighted {
+		set {
+			Root.Highlighted = value;
+			Chest.Highlighted = value;
+			Neck.Highlighted = value;
+			Head.Highlighted = value;
+			ThighL.Highlighted = value;
+			ThighR.Highlighted = value;
+			ShinL.Highlighted = value;
+			ShinR.Highlighted = value;
+			FootL.Highlighted = value;
+			FootR.Highlighted = value;
+			ShoulderL.Highlighted = value;
+			ShoulderR.Highlighted = value;
+			UpperArmL.Highlighted = value;
+			UpperArmR.Highlighted = value;
+			ForearmL.Highlighted = value;
+			ForearmR.Highlighted = value;
+			HandL.Highlighted = value;
+			HandR.Highlighted = value;
+		}
+	}
+
 }
 
