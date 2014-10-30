@@ -12,11 +12,8 @@ public class Shelf : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+		FillSlots ();
 	
 	}
 
@@ -25,4 +22,16 @@ public class Shelf : MonoBehaviour {
 		return Vector3.zero;
 
 	}
+
+
+	void FillSlots() {
+
+		for (int i = 0; i < SlotsNum; i++) {
+
+			Debug.Log (i);
+
+		}
+
+	}
+
 }

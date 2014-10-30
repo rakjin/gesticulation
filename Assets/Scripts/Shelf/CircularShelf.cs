@@ -16,16 +16,7 @@ public class CircularShelf : Shelf {
 
 	const float degPerStep = ((float)(startDeg - endDeg)) / ((float)(slotsNum - 1));
 	const int centerSlot = slotsNum/2;
-
-	// Use this for initialization
-	void Start () {
 	
-	}
-
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void OnDrawGizmos() {
 
