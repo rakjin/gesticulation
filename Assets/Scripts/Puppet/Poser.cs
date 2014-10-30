@@ -176,5 +176,39 @@ public class Poser : MonoBehaviour {
 		}
 	}
 
+	public void ApplyPreset(Preset preset) {
+		Pose pose = preset.Pose;
+		if (pose != null) {
+			Pose(pose);
+		}
+
+		switch(preset.Type) {
+
+		case Preset.PresetType.Empty:
+			Highlighted = Part.HighlightDegree.None;
+			Visible = false;
+
+			break;
+
+		case Preset.PresetType.Static:
+			Highlighted = Part.HighlightDegree.None;
+			Visible = true;
+			
+			break;
+			
+		case Preset.PresetType.NewPresetPlaceHolder:
+			Highlighted = Part.HighlightDegree.Pale;
+			Visible = true;
+			
+			break;
+
+		default:
+			Debug.LogError("Not implemented");
+
+			break;
+
+		}
+	}
+
 }
 
