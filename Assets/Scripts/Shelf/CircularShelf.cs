@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CircularShelf : MonoBehaviour {
+public class CircularShelf : Shelf {
 
 
 	const float radius = 15;
 	const int startDeg = 270;
 	const int endDeg = 90;
 	const int slotsNum = 11;
+	override public int SlotsNum {
+		get {
+			return slotsNum;
+		}
+	}
 
 	const float degPerStep = ((float)(startDeg - endDeg)) / ((float)(slotsNum - 1));
 	const int centerSlot = slotsNum/2;
@@ -33,7 +38,7 @@ public class CircularShelf : MonoBehaviour {
 	}
 
 
-	Vector3 GetSlotPosition(int slotNum) {
+	override public Vector3 GetSlotPosition(int slotNum) {
 
 		float y = 0;
 
