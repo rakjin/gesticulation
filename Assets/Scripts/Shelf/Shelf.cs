@@ -12,6 +12,12 @@ public class Shelf : MonoBehaviour {
 		}
 	}
 
+	virtual public int CenterSlot {
+		get {
+			return 1;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 

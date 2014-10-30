@@ -16,6 +16,11 @@ public class CircularShelf : Shelf {
 
 	const float degPerStep = ((float)(startDeg - endDeg)) / ((float)(slotsNum - 1));
 	const int centerSlot = slotsNum/2;
+	override public int CenterSlot {
+		get {
+			return centerSlot;
+		}
+	}
 	
 
 	void OnDrawGizmos() {
