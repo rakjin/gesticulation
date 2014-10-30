@@ -19,6 +19,7 @@ public class Shelf : MonoBehaviour {
 	}
 
 	private PresetDataSource presets = new PresetDataSource();
+	private int index = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -59,12 +60,25 @@ public class Shelf : MonoBehaviour {
 
 	}
 
-	public void FlipLeft() {
-		Debug.Log ("FlipLeft");
+	public bool FlipLeft() {
+		return Flip (toLeft:true);
 	}
 	
-	public void FlipRight() {
-		Debug.Log ("FlipRight");
+	public bool FlipRight() {
+		return Flip (toLeft:false);
+	}
+
+	private bool Flip(bool toLeft = true) {
+
+		int desiredIndex = (toLeft ? index+1 : index-1);
+		if (0 > desiredIndex || desiredIndex >= presets.Count) {
+			return false;
+		}
+		
+		Debug.Log ("Flip(" + index.ToString() + " => " + desiredIndex.ToString() + ")");
+		index = desiredIndex;
+
+		return true;
 	}
 	
 }
