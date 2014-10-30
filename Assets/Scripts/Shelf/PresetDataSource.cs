@@ -22,4 +22,14 @@ public class PresetDataSource {
 		return presets[index];
 	}
 
+	public int Count {
+		get {
+			return presets.Count;
+		}
+	}
+
+	public void Push(Preset item) {
+		presets.Add (item);
+	}
+
 }
