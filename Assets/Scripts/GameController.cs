@@ -172,14 +172,44 @@ public class GameController : MonoBehaviour {
 			StartCoroutine(ResetIgnoreGestureFlag());
 
 			Preset preset = shelf.CurrentPreset();
-			displayingTitle = preset.Title;
-			displayingAuthor = preset.Author;
+			StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
 		}
 	}
 
 	IEnumerator ResetIgnoreGestureFlag() {
 		yield return new WaitForSeconds(ignoreGestureTimeSpan);
 		ignoreGesture = false;
+		yield break;
+	}
+
+	#endregion
+
+
+	#region Fade
+
+	IEnumerator FadeTitleAuthor(string title, string author) {
+
+		int frames = 10;
+		Color titleTextColor = titleStyle.normal.textColor;
+		Color authorTextColor = authorStyle.normal.textColor;
+
+		for (int i = 0; i <= frames; i++) {
+			float alpha = (frames-i)/(float)frames;
+			titleStyle.normal.textColor = new Color(titleTextColor.r, titleTextColor.g, titleTextColor.b, alpha);
+			authorStyle.normal.textColor = new Color(authorTextColor.r, authorTextColor.g, authorTextColor.b, alpha);
+			yield return new WaitForSeconds(1f/60);
+		}
+
+		displayingTitle = title;
+		displayingAuthor = author;
+
+		for (int i = 0; i <= frames; i++) {
+			float alpha = i/(float)frames;
+			titleStyle.normal.textColor = new Color(titleTextColor.r, titleTextColor.g, titleTextColor.b, alpha);
+			authorStyle.normal.textColor = new Color(authorTextColor.r, authorTextColor.g, authorTextColor.b, alpha);
+			yield return new WaitForSeconds(1f/60);
+		}
+
 		yield break;
 	}
 
