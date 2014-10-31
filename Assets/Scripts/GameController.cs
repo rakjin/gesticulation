@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour {
 	string displayingAuthor = "";
 	Button3D editButton;
 	readonly Vector3 editButtonEnablePositon = new Vector3 (0, 2.3f, -1);
-	readonly Vector3 editButtonEnableScale = new Vector3 (.5f, .5f, .5f);
+	readonly Vector3 editButtonEnableScale = new Vector3 (.5625f, .5625f, .5625f);
 	readonly Vector3 editButtonDisablePositon = new Vector3 (0, -.5f, 0);
 	readonly Vector3 editButtonDisableScale = Vector3.zero;
 
@@ -179,6 +179,8 @@ public class GameController : MonoBehaviour {
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
 				Highlightable button = target.GetComponentInChildren<Highlightable>();
 				button.Highlighted = Highlightable.HighlightDegree.Full;
+
+				OnEditButtonPicked();
 			}
 
 			break;
@@ -262,6 +264,27 @@ public class GameController : MonoBehaviour {
 		}
 
 		yield break;
+	}
+
+	#endregion
+
+
+	#region EditButton
+
+	void OnEditButtonPicked() {
+
+		LeanTween.scale (
+			editButton.gameObject,
+			Vector3.one,
+			0.25f)
+			.setEase (LeanTweenType.easeInOutCubic);
+
+		LeanTween.scale (
+			editButton.gameObject,
+			Vector3.zero,
+			0.125f)
+			.setEase (LeanTweenType.easeInOutCubic)
+			.setDelay (0.25f);
 	}
 
 	#endregion
