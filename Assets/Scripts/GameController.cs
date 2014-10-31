@@ -64,41 +64,6 @@ public class GameController : MonoBehaviour {
 
 	void OnGUI () {
 
-		Poser poser = GetDefaultPoser ();
-
-		float y = -20;
-
-		if (GUI.Button (new Rect(10, y += 30, 200, 30), "Print Pose")) {
-			if (poser) {
-				Debug.Log (poser.GetCurrentPose());
-			}
-		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose00")) {
-			if (poser) {
-				poser.ApplyPose (Pose.RandomPose00());
-			}
-		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose01")) {
-			if (poser) {
-				poser.ApplyPose (Pose.RandomPose01());
-			}
-		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose02")) {
-			if (poser) {
-				poser.ApplyPose (Pose.RandomPose02());
-			}
-		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose03")) {
-			if (poser) {
-				poser.ApplyPose (Pose.RandomPose03());
-			}
-		}
-
-		if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
-			OnGestureSwipe(toLeft:true);
-		} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
-			OnGestureSwipe(toLeft:false);
-		}
-
-
-
-
 		float screenWidth = UnityEngine.Screen.width;
 		float screenHeight = UnityEngine.Screen.height;
 		float unit = screenWidth / 120;
