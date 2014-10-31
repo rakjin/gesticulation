@@ -210,20 +210,26 @@ public class Poser : MonoBehaviour {
 		switch(preset.Type) {
 
 		case Preset.PresetType.Empty:
+			EditEnabled = true;
 			Highlighted = Part.HighlightDegree.None;
 			Visible = false;
+			EditEnabled = false;
 
 			break;
 
 		case Preset.PresetType.Static:
+			EditEnabled = true;
 			Highlighted = Part.HighlightDegree.None;
 			Visible = true;
+			EditEnabled = false;
 			
 			break;
 			
 		case Preset.PresetType.NewPresetPlaceHolder:
+			EditEnabled = true;
 			Highlighted = Part.HighlightDegree.Pale;
 			Visible = true;
+			EditEnabled = false;
 			
 			break;
 
