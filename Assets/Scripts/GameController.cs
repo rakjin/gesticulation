@@ -19,7 +19,12 @@ public class GameController : MonoBehaviour {
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
 
+
+
 	State state = State.Show;
+
+	string displayingTitle = "";
+	string displayingAuthor = "";
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +33,10 @@ public class GameController : MonoBehaviour {
 		if (shelf == null) {
 			Debug.LogError ("shelf required");
 		}
+
+		Preset preset = shelf.CurrentPreset();
+		displayingTitle = preset.Title;
+		displayingAuthor = preset.Author;
 	}
 	
 	Poser GetDefaultPoser() {
@@ -68,9 +77,9 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
-			shelf.FlipLeft();
+			OnGestureSwipe(toLeft:true);
 		} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
-			shelf.FlipRight();
+			OnGestureSwipe(toLeft:false);
 		}
 
 
@@ -95,8 +104,8 @@ public class GameController : MonoBehaviour {
 			Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
 			titleStyle.fontSize = (int)(unit * 4);
 
-			GUI.Label (titleRect, "안녕안녕?", titleStyle);
-			GUI.Label (authorRect, "두둥도동", authorStyle);
+			GUI.Label (titleRect, displayingTitle, titleStyle);
+			GUI.Label (authorRect, displayingAuthor, authorStyle);
 		}
 	}
 
@@ -160,6 +169,11 @@ public class GameController : MonoBehaviour {
 			ignoreGesture = true;
 			shelf.Flip(toLeft);
 			StartCoroutine(ResetIgnoreGestureFlag());
+
+			Preset preset = shelf.CurrentPreset();
+			displayingTitle = preset.Title;
+			displayingAuthor = preset.Author;
+			Debug.Log (preset);
 		}
 	}
 

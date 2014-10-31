@@ -24,7 +24,7 @@ public class Shelf : MonoBehaviour {
 	private int index = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
 		if (puppetPrefab == null) {
 			Debug.LogError("puppetPrefab required");
@@ -130,6 +130,10 @@ public class Shelf : MonoBehaviour {
 		reusedSlot.transform.localPosition = GetSlotPosition (pushingSlotIndex);
 
 		return true;
+	}
+
+	public Preset CurrentPreset() {
+		return presets.Get(index);
 	}
 	
 }
