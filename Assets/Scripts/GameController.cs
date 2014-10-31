@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 
 	public Shelf shelf;
 	public GUIStyle titleStyle;
+	public GUIStyle authorStyle;
 
 	// Use this for initialization
 	void Start () {
@@ -73,15 +74,22 @@ public class GameController : MonoBehaviour {
 		float unit = screenWidth / 120;
 
 		float padding = unit*2;
+		float gap = unit;
 
-		float titleWidth = unit*50;
+		float authorWidth = unit*60;
+		float authorHeight = unit*3;
+		Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
+		authorStyle.fontSize = (int)(unit * 3);
+
+		float titleWidth = unit*60;
 		float titleHeight = unit*5;
-
-		Rect titleRect = new Rect (padding, screenHeight - titleHeight - padding, titleWidth, titleHeight);
+		Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
 		titleStyle.fontSize = (int)(unit * 4);
 
-		GUI.Label (titleRect, "안녕안녕?", titleStyle);
 
+		GUI.Label (titleRect, "안녕안녕?", titleStyle);
+		GUI.Label (authorRect, "두둥도동", authorStyle);
+		
 	}
 
 	public enum PickState {
