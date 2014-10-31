@@ -111,6 +111,9 @@ public class Part : MonoBehaviour {
 	#region Connect to / Disconnect from external rigidbody
 
 	public void ConnectToRigidbody(Rigidbody externalRigidbody, Vector3 externalAnchor) {
+		if (!EditEnabled) {
+			return;
+		}
 
 		RestoreRigidbody ();
 		RestoreJoint ();
@@ -142,6 +145,10 @@ public class Part : MonoBehaviour {
 	public HighlightDegree Highlighted {
 
 		set {
+			if (!EditEnabled) {
+				return;
+			}
+
 			if (highlighted == value) {
 				return;
 			}
@@ -163,6 +170,13 @@ public class Part : MonoBehaviour {
 		}
 
 	}
+
+	#endregion
+
+
+	#region EditEnabled
+
+	public bool EditEnabled { get; set; }
 
 	#endregion
 

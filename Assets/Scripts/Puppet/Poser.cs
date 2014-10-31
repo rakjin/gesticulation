@@ -159,6 +159,29 @@ public class Poser : MonoBehaviour {
 		}
 	}
 
+	public bool EditEnabled {
+		set {
+			Root.EditEnabled = value;
+			Chest.EditEnabled = value;
+			Neck.EditEnabled = value;
+			Head.EditEnabled = value;
+			ThighL.EditEnabled = value;
+			ThighR.EditEnabled = value;
+			ShinL.EditEnabled = value;
+			ShinR.EditEnabled = value;
+			FootL.EditEnabled = value;
+			FootR.EditEnabled = value;
+			ShoulderL.EditEnabled = value;
+			ShoulderR.EditEnabled = value;
+			UpperArmL.EditEnabled = value;
+			UpperArmR.EditEnabled = value;
+			ForearmL.EditEnabled = value;
+			ForearmR.EditEnabled = value;
+			HandL.EditEnabled = value;
+			HandR.EditEnabled = value;
+		}
+	}
+
 	private bool visible = true;
 	public bool Visible {
 
