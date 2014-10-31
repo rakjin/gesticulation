@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 
 
 	public Shelf shelf;
+	public GUIStyle titleStyle;
 
 	// Use this for initialization
 	void Start () {
@@ -63,6 +64,24 @@ public class GameController : MonoBehaviour {
 		} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
 			shelf.FlipRight();
 		}
+
+
+
+
+		float screenWidth = UnityEngine.Screen.width;
+		float screenHeight = UnityEngine.Screen.height;
+		float unit = screenWidth / 120;
+
+		float padding = unit*2;
+
+		float titleWidth = unit*50;
+		float titleHeight = unit*5;
+
+		Rect titleRect = new Rect (padding, screenHeight - titleHeight - padding, titleWidth, titleHeight);
+		titleStyle.fontSize = (int)(unit * 4);
+
+		GUI.Label (titleRect, "안녕안녕?", titleStyle);
+
 	}
 
 	public enum PickState {
