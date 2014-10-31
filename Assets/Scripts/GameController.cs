@@ -42,19 +42,19 @@ public class GameController : MonoBehaviour {
 			}
 		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose00")) {
 			if (poser) {
-				poser.Pose (Pose.RandomPose00());
+				poser.ApplyPose (Pose.RandomPose00());
 			}
 		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose01")) {
 			if (poser) {
-				poser.Pose (Pose.RandomPose01());
+				poser.ApplyPose (Pose.RandomPose01());
 			}
 		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose02")) {
 			if (poser) {
-				poser.Pose (Pose.RandomPose02());
+				poser.ApplyPose (Pose.RandomPose02());
 			}
 		} else if (GUI.Button (new Rect(10, y += 30, 200, 30), "RandomPose03")) {
 			if (poser) {
-				poser.Pose (Pose.RandomPose03());
+				poser.ApplyPose (Pose.RandomPose03());
 			}
 		}
 

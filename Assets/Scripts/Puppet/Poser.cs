@@ -87,7 +87,7 @@ public class Poser : MonoBehaviour {
 		return pose;
 	}
 
-	public void Pose(Pose pose) {
+	public void ApplyPose(Pose pose) {
 		Root.transform.localPosition = pose.RootPosition;
 		Root.transform.localRotation = pose.RootRotation;
 
@@ -111,7 +111,7 @@ public class Poser : MonoBehaviour {
 		HandR.transform.localRotation = pose.HandR;
 	}
 
-	public void Pose(Pose pose, float duration) {
+	public void ApplyPose(Pose pose, float duration) {
 
 		LeanTween.moveLocal (Root.transform.gameObject, pose.RootPosition, duration);
 		LeanTween.rotateLocal (Root.transform.gameObject, pose.RootRotation.eulerAngles, duration);
@@ -178,8 +178,10 @@ public class Poser : MonoBehaviour {
 
 	public void ApplyPreset(Preset preset) {
 		Pose pose = preset.Pose;
-		if (pose != null) {
-			Pose(pose);
+		if (pose == null) {
+			ApplyPose(Pose.DefaultPose());
+		} else {
+			ApplyPose(pose);
 		}
 
 		switch(preset.Type) {

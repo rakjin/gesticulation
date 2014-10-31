@@ -30,6 +30,7 @@ public class Shelf : MonoBehaviour {
 			Debug.LogError("puppetPrefab required");
 
 		} else {
+			presets.Push (new Preset(Preset.PresetType.Static, null, "DefaultPose", "Stanton"));
 			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose00(), "RanPo 00", "Stanton"));
 			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
 			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));

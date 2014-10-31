@@ -3,6 +3,33 @@ using System.Collections;
 
 public class Pose {
 
+	private static Pose defaultPose;
+	public static Pose DefaultPose () {
+		if (defaultPose == null) {
+			Pose pose = new Pose ();
+			pose.RootPosition = new Vector3(0f, 0f, 0f);
+			pose.RootRotation = new Quaternion(3.090862E-08f, 0.7071068f, 0.7071068f, -3.090862E-08f);
+			pose.Chest = new Quaternion(0f, 0f, 0f, 1f);
+			pose.Head = new Quaternion(0f, 0f, 0f, 1f);
+			pose.ThighL = new Quaternion(0f, 0f, 0f, 1f);
+			pose.ThighR = new Quaternion(0f, 0f, 0f, 1f);
+			pose.ShinL = new Quaternion(0f, -1.862645E-09f, 0f, 1f);
+			pose.ShinR = new Quaternion(0f, 0f, 0f, 1f);
+			pose.FootL = new Quaternion(0f, 1.862645E-09f, 0f, 1f);
+			pose.FootR = new Quaternion(0f, 0f, 0f, 1f);
+			pose.ShoulderL = new Quaternion(0f, 0f, 0f, 1f);
+			pose.ShoulderR = new Quaternion(0f, 0f, 0f, 1f);
+			pose.UpperArmL = new Quaternion(0f, 0f, 0f, 1f);
+			pose.UpperArmR = new Quaternion(0f, 0f, 0f, 1f);
+			pose.ForearmL = new Quaternion(4.656613E-10f, 0f, 0f, 1f);
+			pose.ForearmR = new Quaternion(0f, 0f, 0f, 1f);
+			pose.HandL = new Quaternion(-4.656613E-10f, 0f, 0f, 1f);
+			pose.HandR = new Quaternion(0f, 0f, 0f, 1f);
+			defaultPose = pose;
+		}
+		return defaultPose;
+	}
+
 	public static Pose RandomPose00 () {
 		Pose pose = new Pose ();
 		pose.RootPosition = new Vector3(0.7597921f, 0.3172723f, 0.2748378f);
