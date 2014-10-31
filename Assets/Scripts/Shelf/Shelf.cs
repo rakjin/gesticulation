@@ -96,7 +96,7 @@ public class Shelf : MonoBehaviour {
 		for (int i = tweenSlotBeginIndex; i <= tweenSlotEndIndex; i++) {
 			int newIndex = i + (toLeft? -1 : +1);
 			Vector3 newPosition = GetSlotPosition(newIndex);
-			LeanTween.moveLocal(slots[i].gameObject, newPosition, 1);
+			LeanTween.moveLocal(slots[i].gameObject, newPosition, .5f).setEase(LeanTweenType.easeInOutCubic);
 		}
 		
 		int poppingSlotIndex = (toLeft? 0 : lastSlotIndex);
