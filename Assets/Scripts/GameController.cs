@@ -115,11 +115,24 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void OnGestureSwipeLeft() {
-		shelf.FlipLeft ();
-	}
-	public void OnGestureSwipeRight() {
-		shelf.FlipRight ();
+	#region gesture
+
+	bool ignoreGesture = false;
+	const float ignoreGestureTimeSpan = 0.75f;
+
+	public void OnGestureSwipe(bool toLeft) {
+		if(ignoreGesture == false) {
+			ignoreGesture = true;
+			shelf.Flip(toLeft);
+			StartCoroutine(ResetIgnoreGestureFlag());
+		}
 	}
 
+	IEnumerator ResetIgnoreGestureFlag() {
+		yield return new WaitForSeconds(ignoreGestureTimeSpan);
+		ignoreGesture = false;
+		yield break;
+	}
+
+	#endregion
 }

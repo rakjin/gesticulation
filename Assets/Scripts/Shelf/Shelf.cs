@@ -89,7 +89,7 @@ public class Shelf : MonoBehaviour {
 		return Flip (toLeft:false);
 	}
 
-	private bool Flip(bool toLeft = true) {
+	public bool Flip(bool toLeft = true) {
 
 		int desiredIndex = (toLeft? index+1 : index-1);
 		if (0 > desiredIndex || desiredIndex >= presets.Count) {

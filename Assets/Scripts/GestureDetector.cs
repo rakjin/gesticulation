@@ -74,7 +74,7 @@ public class GestureDetector : MonoBehaviour {
 					if (!IsIdInOldGesturesOrAdd(swipeGesture.Id)) {
 						
 						Vector direction = swipeGesture.Direction;
-						Debug.Log (direction.x);
+
 						if (direction.y > directionDetectionThreshold) {
 							//Debug.Log ("\tUP");
 							
@@ -83,11 +83,11 @@ public class GestureDetector : MonoBehaviour {
 							
 						} else if (direction.x > directionDetectionThreshold) {
 							//Debug.Log ("\tRIGHT");
-							GameController.Instance.OnGestureSwipeRight();
+							GameController.Instance.OnGestureSwipe(toLeft:false);
 							
 						} else if (direction.x < -directionDetectionThreshold) {
 							//Debug.Log ("\tLEFT");
-							GameController.Instance.OnGestureSwipeLeft();
+							GameController.Instance.OnGestureSwipe(toLeft:true);
 							
 						}
 					}
