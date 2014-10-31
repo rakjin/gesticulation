@@ -1,25 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Part : MonoBehaviour {
-
-	public enum HighlightDegree {
-		None,
-		Half,
-		Full,
-		Pale,
-	}
-
-	static readonly Color normalColor = new Color (0.5f, 0.5f, 0.5f);
-	static readonly Color halfHighlightedColor = new Color (0.5f, 0.875f, 0.875f);
-	static readonly Color highlightedColor = new Color (0.125f, 1, 0);
-	static readonly Color paleColor = new Color (0.375f, 0.625f, 1);
+public class Part : Highlightable {
 
 	private SpringJoint springJoint;
 	private Vector3 anchor = Vector3.zero;
 
 	private CharacterJointMock StoredJoint { get; set; }
 	private RigidbodyMock StoredRigidbody { get; set; }
+
+	new protected readonly Color normalColor = new Color (0.5f, 0.5f, 0.5f);
+	new protected readonly Color halfHighlightedColor = new Color (0.5f, 0.875f, 0.875f);
+	new protected readonly Color highlightedColor = new Color (0.125f, 1, 0);
+	new protected readonly Color paleColor = new Color (0.375f, 0.625f, 1);
 
 	void Awake () {
 		StoreJoint ();
@@ -139,46 +132,26 @@ public class Part : MonoBehaviour {
 	#endregion
 
 
-	#region Highlight
-
-	private HighlightDegree highlighted = HighlightDegree.None;
-	public HighlightDegree Highlighted {
-
-		set {
-			if (!EditEnabled) {
-				return;
-			}
-
-			if (highlighted == value) {
-				return;
-			}
-
-			highlighted = value;
-			Color tint = normalColor;
-			if (highlighted == HighlightDegree.Half) {
-				tint = halfHighlightedColor;
-			} else if (highlighted == HighlightDegree.Full) {
-				tint = highlightedColor;
-			} else if (highlighted == HighlightDegree.Pale) {
-				tint = paleColor;
-			}
-			LeanTween.color (gameObject, tint, 0.125f);
-		}
-
-		get {
-			return highlighted;
-		}
-
-	}
-
-	#endregion
-
-
 	#region EditEnabled
 
 	public bool EditEnabled { get; set; }
 
 	#endregion
+
+
+	#region Highlighted
+
+	override public HighlightDegree Highlighted {
+		set {
+			if (!EditEnabled) {
+				return;
+			}
+			base.Highlighted = value;
+		}
+	}
+
+	#endregion
+
 
 	void OnDrawGizmos() {
 		if (springJoint) {
