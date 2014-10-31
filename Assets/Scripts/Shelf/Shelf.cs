@@ -34,6 +34,23 @@ public class Shelf : MonoBehaviour {
 			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
 			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));
 			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose03(), "RanPo 03", "Nguyen"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose00(), "RanPo 00", "Stanton"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose03(), "RanPo 03", "Nguyen"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose00(), "RanPo 00", "Stanton"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose03(), "RanPo 03", "Nguyen"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose00(), "RanPo 00", "Stanton"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose03(), "RanPo 03", "Nguyen"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose00(), "RanPo 00", "Stanton"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose03(), "RanPo 03", "Nguyen"));
+			presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
 			FillSlots ();
 		}
 	
@@ -77,8 +94,7 @@ public class Shelf : MonoBehaviour {
 		if (0 > desiredIndex || desiredIndex >= presets.Count) {
 			return false;
 		}
-		
-		Debug.Log ("Flip(" + index.ToString() + " => " + desiredIndex.ToString() + ")");
+
 		index = desiredIndex;
 
 		int tweenSlotBeginIndex = 0;
@@ -102,6 +118,10 @@ public class Shelf : MonoBehaviour {
 		int poppingSlotIndex = (toLeft? 0 : lastSlotIndex);
 		Poser reusedSlot = slots[poppingSlotIndex];
 		slots.RemoveAt (poppingSlotIndex);
+
+		int halfSlotsNum = SlotsNum / 2;
+		int endPointPresetIndex = index + (toLeft? halfSlotsNum : -halfSlotsNum);
+		reusedSlot.ApplyPreset(presets.Get(endPointPresetIndex));
 
 		int pushingSlotIndex = (toLeft? lastSlotIndex : 0);
 		slots.Insert (pushingSlotIndex, reusedSlot);
