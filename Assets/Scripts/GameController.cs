@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 	public static GameController Instance { get; private set; }
 
 	const string TAG_PART = "Part";
+	const string TAG_BUTTON = "Button3D";
 
 
 	public Transform buttonContainer;
@@ -135,6 +136,8 @@ public class GameController : MonoBehaviour {
 				part.Highlighted = Part.HighlightDegree.None;
 				part.DisconnectFromRigidbody();
 				picker.Reset();
+			} else if (target && target.tag.Equals(TAG_BUTTON)) {
+				Debug.Log ("BUTTON None");
 			}
 			
 			break;
@@ -150,6 +153,8 @@ public class GameController : MonoBehaviour {
 					part.Highlighted = Part.HighlightDegree.None;
 					picker.Reset();
 				}
+			} else if (target && target.tag.Equals(TAG_BUTTON)) {
+				Debug.Log ("BUTTON Hovering");
 			}
 			
 			break;
@@ -161,6 +166,8 @@ public class GameController : MonoBehaviour {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = Part.HighlightDegree.Full;
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
+			} else if (target && target.tag.Equals(TAG_BUTTON)) {
+				Debug.Log ("BUTTON Picking");
 			}
 
 			break;
