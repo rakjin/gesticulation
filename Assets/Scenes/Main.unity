@@ -465,6 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonContainer: {fileID: 1215175275}
+  button3D: {fileID: 400004, guid: 99d9b65e98753f4478efdeddca7e965a, type: 2}
   shelf: {fileID: 1652420003}
   titleStyle:
     m_Name: 

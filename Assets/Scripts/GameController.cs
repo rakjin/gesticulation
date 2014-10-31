@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
 
 
 	public Transform buttonContainer;
+	public Transform button3D;
 	public Shelf shelf;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour {
 
 	string displayingTitle = "";
 	string displayingAuthor = "";
+	Button3D editButton;
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +40,11 @@ public class GameController : MonoBehaviour {
 		Preset preset = shelf.CurrentPreset();
 		displayingTitle = preset.Title;
 		displayingAuthor = preset.Author;
+
+		Transform editButtonTransform = (Transform)Instantiate(button3D, new Vector3 (0, 2.3f, -1), Quaternion.identity);
+		editButtonTransform.parent = buttonContainer;
+		editButton = editButtonTransform.GetComponent<Button3D>();
+		editButton.Text = "편집";
 	}
 	
 	Poser GetDefaultPoser() {

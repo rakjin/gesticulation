@@ -30,7 +30,7 @@ public class Button3D : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 
 		GameObject textGO = transform.Find ("Text").gameObject;
 		textMesh = textGO.GetComponent<TextMesh> ();
