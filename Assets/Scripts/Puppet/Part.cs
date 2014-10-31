@@ -9,10 +9,11 @@ public class Part : Highlightable {
 	private CharacterJointMock StoredJoint { get; set; }
 	private RigidbodyMock StoredRigidbody { get; set; }
 
-	new protected readonly Color normalColor = new Color (0.5f, 0.5f, 0.5f);
-	new protected readonly Color halfHighlightedColor = new Color (0.5f, 0.875f, 0.875f);
-	new protected readonly Color highlightedColor = new Color (0.125f, 1, 0);
-	new protected readonly Color paleColor = new Color (0.375f, 0.625f, 1);
+	override protected Color normalColor { get { return new Color (0.5f, 0.5f, 0.5f); } }
+	override protected Color halfHighlightedColor { get { return new Color (0.5f, 0.875f, 0.875f); } }
+	override protected Color highlightedColor { get { return new Color (0.125f, 1, 0); } }
+	override protected Color paleColor { get { return new Color (0.375f, 0.625f, 1); } }
+
 
 	void Awake () {
 		StoreJoint ();

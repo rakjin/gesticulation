@@ -10,10 +10,10 @@ public class Highlightable : MonoBehaviour {
 		Pale,
 	}
 	
-	protected readonly Color normalColor = new Color (0.3125f, 0.625f, 0.46875f);
-	protected readonly Color halfHighlightedColor = new Color (0.46875f, 0.875f, 0.625f);
-	protected readonly Color highlightedColor = new Color (0.125f, 0.5f, 0.25f);
-	protected readonly Color paleColor = new Color (0.375f, 0.625f, 1);
+	virtual protected Color normalColor { get { return new Color (0.3125f, 0.625f, 0.46875f); } }
+	virtual protected Color halfHighlightedColor { get { return new Color (0.46875f, 0.875f, 0.625f); } }
+	virtual protected Color highlightedColor { get { return new Color (0.125f, 0.5f, 0.25f); } }
+	virtual protected Color paleColor { get { return new Color (0.375f, 0.625f, 1); } }
 
 
 	#region Highlight
