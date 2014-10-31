@@ -5,6 +5,11 @@ using Leap;
 
 public class GameController : MonoBehaviour {
 
+	public enum State {
+		Show,
+		Edit,
+	}
+
 	public static GameController Instance { get; private set; }
 
 	const string TAG_PART = "Part";
@@ -13,6 +18,8 @@ public class GameController : MonoBehaviour {
 	public Shelf shelf;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
+
+	State state = State.Show;
 
 	// Use this for initialization
 	void Start () {
@@ -76,20 +83,21 @@ public class GameController : MonoBehaviour {
 		float padding = unit*2;
 		float gap = unit;
 
-		float authorWidth = unit*60;
-		float authorHeight = unit*3;
-		Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
-		authorStyle.fontSize = (int)(unit * 3);
 
-		float titleWidth = unit*60;
-		float titleHeight = unit*5;
-		Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
-		titleStyle.fontSize = (int)(unit * 4);
+		if (state == State.Show) {
+			float authorWidth = unit*60;
+			float authorHeight = unit*3;
+			Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
+			authorStyle.fontSize = (int)(unit * 3);
 
+			float titleWidth = unit*60;
+			float titleHeight = unit*5;
+			Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
+			titleStyle.fontSize = (int)(unit * 4);
 
-		GUI.Label (titleRect, "안녕안녕?", titleStyle);
-		GUI.Label (authorRect, "두둥도동", authorStyle);
-		
+			GUI.Label (titleRect, "안녕안녕?", titleStyle);
+			GUI.Label (authorRect, "두둥도동", authorStyle);
+		}
 	}
 
 	public enum PickState {
@@ -148,7 +156,7 @@ public class GameController : MonoBehaviour {
 	const float ignoreGestureTimeSpan = 0.75f;
 
 	public void OnGestureSwipe(bool toLeft) {
-		if(ignoreGesture == false) {
+		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
 			shelf.Flip(toLeft);
 			StartCoroutine(ResetIgnoreGestureFlag());
