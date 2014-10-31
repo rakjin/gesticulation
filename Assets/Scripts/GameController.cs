@@ -136,8 +136,10 @@ public class GameController : MonoBehaviour {
 				part.Highlighted = Part.HighlightDegree.None;
 				part.DisconnectFromRigidbody();
 				picker.Reset();
+
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
-				Debug.Log ("BUTTON None");
+				Highlightable button = target.GetComponentInChildren<Highlightable>();
+				button.Highlighted = Highlightable.HighlightDegree.None;
 			}
 			
 			break;
@@ -153,8 +155,10 @@ public class GameController : MonoBehaviour {
 					part.Highlighted = Part.HighlightDegree.None;
 					picker.Reset();
 				}
+
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
-				Debug.Log ("BUTTON Hovering");
+				Highlightable button = target.GetComponentInChildren<Highlightable>();
+				button.Highlighted = Highlightable.HighlightDegree.Half;
 			}
 			
 			break;
@@ -166,8 +170,10 @@ public class GameController : MonoBehaviour {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = Part.HighlightDegree.Full;
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
+
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
-				Debug.Log ("BUTTON Picking");
+				Highlightable button = target.GetComponentInChildren<Highlightable>();
+				button.Highlighted = Highlightable.HighlightDegree.Full;
 			}
 
 			break;
