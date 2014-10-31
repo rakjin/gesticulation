@@ -30,11 +30,10 @@ public class Shelf : MonoBehaviour {
 			Debug.LogError("puppetPrefab required");
 
 		} else {
-			presets.Push (new Preset(Preset.PresetType.Static, null, "DefaultPose", "Stanton"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose00(), "RanPo 00", "Stanton"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose01(), "RanPo 01", "Mars"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose02(), "RanPo 02", "Greco"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.RandomPose03(), "RanPo 03", "Nguyen"));
+			presets.Push (new Preset(Preset.PresetType.Static, null, "Default", "Noname"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseHaveAQuestion(), "선생님 질문있어요", "김고삼"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL", "곰"));
+			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseThinker(), "생각하는 사람", "Rodin"));
 			presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
 			FillSlots ();
 		}
