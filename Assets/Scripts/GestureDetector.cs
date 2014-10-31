@@ -57,7 +57,7 @@ public class GestureDetector : MonoBehaviour {
 				if (circleGesture.Progress >= 1.0f) {
 					
 					if (!IsIdInOldGesturesOrAdd(circleGesture.Id)) {
-						Debug.Log ("CIRCLE: " + circleGesture.Id.ToString());
+						//Debug.Log ("CIRCLE: " + circleGesture.Id.ToString());
 						
 					}
 					
@@ -76,16 +76,18 @@ public class GestureDetector : MonoBehaviour {
 						Vector direction = swipeGesture.Direction;
 						Debug.Log (direction.x);
 						if (direction.y > directionDetectionThreshold) {
-							Debug.Log ("\tUP");
+							//Debug.Log ("\tUP");
 							
 						} else if (direction.y < -directionDetectionThreshold) {
-							Debug.Log ("\tDOWN");
+							//Debug.Log ("\tDOWN");
 							
 						} else if (direction.x > directionDetectionThreshold) {
-							Debug.Log ("\tRIGHT");
+							//Debug.Log ("\tRIGHT");
+							GameController.Instance.OnGestureSwipeRight();
 							
 						} else if (direction.x < -directionDetectionThreshold) {
-							Debug.Log ("\tLEFT");
+							//Debug.Log ("\tLEFT");
+							GameController.Instance.OnGestureSwipeLeft();
 							
 						}
 					}

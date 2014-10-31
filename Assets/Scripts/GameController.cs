@@ -5,7 +5,7 @@ using Leap;
 
 public class GameController : MonoBehaviour {
 
-	public static GameController Instance;
+	public static GameController Instance { get; private set; }
 
 	const string TAG_PART = "Part";
 
@@ -113,6 +113,13 @@ public class GameController : MonoBehaviour {
 
 			break;
 		}
+	}
+
+	public void OnGestureSwipeLeft() {
+		shelf.FlipLeft ();
+	}
+	public void OnGestureSwipeRight() {
+		shelf.FlipRight ();
 	}
 
 }
