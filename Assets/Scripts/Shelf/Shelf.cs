@@ -119,5 +119,9 @@ public class Shelf : MonoBehaviour {
 	public Preset CurrentPreset() {
 		return presets.Get(index);
 	}
+
+	public Poser CurrentPoser() {
+		return slots[CenterSlot];
+	}
 	
 }

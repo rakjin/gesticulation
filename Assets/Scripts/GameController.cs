@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour {
 				part.Highlighted = Part.HighlightDegree.Full;
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
 
-			} else if (target && target.tag.Equals(TAG_BUTTON)) {
+			} else if (target && target.tag.Equals(TAG_BUTTON) && state == State.Show) {
 				Highlightable button = target.GetComponentInChildren<Highlightable>();
 				button.Highlighted = Highlightable.HighlightDegree.Full;
 
@@ -273,6 +273,8 @@ public class GameController : MonoBehaviour {
 
 	void OnEditButtonPicked() {
 
+		state = State.Edit;
+
 		LeanTween.scale (
 			editButton.gameObject,
 			Vector3.one,
@@ -285,6 +287,10 @@ public class GameController : MonoBehaviour {
 			0.125f)
 			.setEase (LeanTweenType.easeInOutCubic)
 			.setDelay (0.25f);
+
+		Poser poser = shelf.CurrentPoser();
+		poser.EditEnabled = true;
+		poser.Highlighted = Highlightable.HighlightDegree.None;
 	}
 
 	#endregion
