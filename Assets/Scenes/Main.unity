@@ -564,7 +564,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1215175275}
   m_Layer: 0
-  m_Name: Buttons
+  m_Name: ButtonContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,6 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3776f973182694856950b5b0b6128699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonContainer: {fileID: 1215175275}
   shelf: {fileID: 1652420003}
   titleStyle:
     m_Name: 

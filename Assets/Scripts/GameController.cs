@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
 	const string TAG_PART = "Part";
 
 
+	public Transform buttonContainer;
 	public Shelf shelf;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
@@ -173,7 +174,6 @@ public class GameController : MonoBehaviour {
 			Preset preset = shelf.CurrentPreset();
 			displayingTitle = preset.Title;
 			displayingAuthor = preset.Author;
-			Debug.Log (preset);
 		}
 	}
 
