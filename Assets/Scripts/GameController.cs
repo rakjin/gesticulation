@@ -29,6 +29,10 @@ public class GameController : MonoBehaviour {
 	string displayingTitle = "";
 	string displayingAuthor = "";
 	Button3D editButton;
+	readonly Vector3 editButtonEnablePositon = new Vector3 (0, 2.3f, -1);
+	readonly Vector3 editButtonEnableScale = new Vector3 (.5f, .5f, .5f);
+	readonly Vector3 editButtonDisablePositon = new Vector3 (0, -.5f, 0);
+	readonly Vector3 editButtonDisableScale = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
@@ -42,7 +46,8 @@ public class GameController : MonoBehaviour {
 		displayingTitle = preset.Title;
 		displayingAuthor = preset.Author;
 
-		Transform editButtonTransform = (Transform)Instantiate(button3D, new Vector3 (0, 2.3f, -1), Quaternion.identity);
+		Transform editButtonTransform = (Transform)Instantiate(button3D, editButtonDisablePositon, Quaternion.identity);
+		editButtonTransform.localScale = editButtonDisableScale;
 		editButtonTransform.parent = buttonContainer;
 		editButton = editButtonTransform.GetComponent<Button3D>();
 		editButton.Text = "편집";
@@ -183,7 +188,7 @@ public class GameController : MonoBehaviour {
 	#region gesture
 
 	bool ignoreGesture = false;
-	const float ignoreGestureTimeSpan = 0.75f;
+	const float ignoreGestureTimeSpan = 0.5625f;
 
 	public void OnGestureSwipe(bool toLeft) {
 		if(ignoreGesture == false && state == State.Show) {
@@ -193,6 +198,32 @@ public class GameController : MonoBehaviour {
 
 			Preset preset = shelf.CurrentPreset();
 			StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
+
+			if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
+				LeanTween.moveLocal(
+					editButton.gameObject,
+					editButtonEnablePositon,
+					0.5625f)
+					.setEase (LeanTweenType.easeInOutCubic);
+				LeanTween.scale(
+					editButton.gameObject,
+					editButtonEnableScale,
+					0.5625f)
+					.setEase (LeanTweenType.easeInOutCubic);
+
+			} else {
+				LeanTween.moveLocal(
+					editButton.gameObject,
+					editButtonDisablePositon,
+					0.125f)
+					.setEase (LeanTweenType.easeInOutCubic);
+				LeanTween.scale(
+					editButton.gameObject,
+					editButtonDisableScale,
+					0.125f)
+					.setEase (LeanTweenType.easeInOutCubic);
+				
+			}
 		}
 	}
 
