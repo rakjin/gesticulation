@@ -73,13 +73,40 @@ public class Shelf : MonoBehaviour {
 
 	private bool Flip(bool toLeft = true) {
 
-		int desiredIndex = (toLeft ? index+1 : index-1);
+		int desiredIndex = (toLeft? index+1 : index-1);
 		if (0 > desiredIndex || desiredIndex >= presets.Count) {
 			return false;
 		}
 		
 		Debug.Log ("Flip(" + index.ToString() + " => " + desiredIndex.ToString() + ")");
 		index = desiredIndex;
+
+		int tweenSlotBeginIndex = 0;
+		int tweenSlotEndIndex = 0;
+		int lastSlotIndex = SlotsNum - 1;
+
+		if (toLeft) {
+			tweenSlotBeginIndex = 1;
+			tweenSlotEndIndex = lastSlotIndex;
+		} else {
+			tweenSlotBeginIndex = 0;
+			tweenSlotEndIndex = lastSlotIndex - 1;
+		}
+
+		for (int i = tweenSlotBeginIndex; i <= tweenSlotEndIndex; i++) {
+			int newIndex = i + (toLeft? -1 : +1);
+			Vector3 newPosition = GetSlotPosition(newIndex);
+			LeanTween.moveLocal(slots[i].gameObject, newPosition, 1);
+		}
+		
+		int poppingSlotIndex = (toLeft? 0 : lastSlotIndex);
+		Poser reusedSlot = slots[poppingSlotIndex];
+		slots.RemoveAt (poppingSlotIndex);
+
+		int pushingSlotIndex = (toLeft? lastSlotIndex : 0);
+		slots.Insert (pushingSlotIndex, reusedSlot);
+
+		reusedSlot.transform.localPosition = GetSlotPosition (pushingSlotIndex);
 
 		return true;
 	}
