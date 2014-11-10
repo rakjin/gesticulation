@@ -186,10 +186,24 @@ public class GameController : MonoBehaviour {
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
 
 			} else if (target && target.tag.Equals(TAG_BUTTON) && state == State.Show) {
-				Highlightable button = target.GetComponentInChildren<Highlightable>();
-				button.Highlighted = Highlightable.HighlightDegree.Full;
+				Highlightable highlightable = target.GetComponentInChildren<Highlightable>();
+				highlightable.Highlighted = Highlightable.HighlightDegree.Full;
 
-				OnEditButtonPicked();
+				Button3D button = target.transform.parent.GetComponent<Button3D>();
+
+				Debug.Log (button);
+
+				if (button == editButton) {
+					OnEditButtonPicked();
+				
+				} else if (button == saveEditingButton) {
+					Debug.Log ("save editing");
+
+				} else if (button == saveEditingButton) {
+					Debug.Log ("cancel editing");
+
+				}
+
 			}
 
 			break;
