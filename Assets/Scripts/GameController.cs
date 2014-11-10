@@ -63,16 +63,21 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Setup3DGUI() {
-		editButton = Setup3DButton ("편집");
+		editButton = Setup3DButton ("편집", editButtonEnablePosition, editButtonEnableScale);
 	}
 
-	Button3D Setup3DButton(string label) {
+	Button3D Setup3DButton(string label, Vector3 enablePosition, Vector3 enableScale) {
 		Transform buttonTransform = (Transform)Instantiate(button3D, buttonDisablePosition, Quaternion.identity);
 		buttonTransform.parent = buttonContainer;
 		buttonTransform.localScale = buttonDisableScale;
 		buttonTransform.localPosition = buttonDisablePosition;
 		Button3D button = buttonTransform.GetComponent<Button3D>();
+		button.EnablePosition = enablePosition;
+		button.EnableScale = enableScale;
+		button.DisablePosition = buttonDisablePosition;
+		button.DisableScale = buttonDisableScale;
 		button.Text = label;
+		button.enabled = false;
 		return button;
 	}
 
@@ -196,28 +201,10 @@ public class GameController : MonoBehaviour {
 			StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
 
 			if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
-				LeanTween.moveLocal(
-					editButton.gameObject,
-					editButtonEnablePosition,
-					0.5625f)
-					.setEase (LeanTweenType.easeInOutCubic);
-				LeanTween.scale(
-					editButton.gameObject,
-					editButtonEnableScale,
-					0.5625f)
-					.setEase (LeanTweenType.easeInOutCubic);
+				editButton.enabled = true;
 
 			} else {
-				LeanTween.moveLocal(
-					editButton.gameObject,
-					buttonDisablePosition,
-					0.125f)
-					.setEase (LeanTweenType.easeInOutCubic);
-				LeanTween.scale(
-					editButton.gameObject,
-					buttonDisableScale,
-					0.125f)
-					.setEase (LeanTweenType.easeInOutCubic);
+				editButton.enabled = false;
 				
 			}
 		}

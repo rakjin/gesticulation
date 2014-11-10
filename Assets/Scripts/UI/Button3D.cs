@@ -3,6 +3,11 @@ using System.Collections;
 
 public class Button3D : MonoBehaviour {
 
+	public Vector3 EnablePosition;
+	public Vector3 EnableScale;
+	public Vector3 DisablePosition;
+	public Vector3 DisableScale;
+	
 	TextMesh textMesh;
 	Transform boxShape;
 
@@ -38,4 +43,40 @@ public class Button3D : MonoBehaviour {
 
 		boxShape = transform.Find ("BoxShape");
 	}
+
+	new public bool enabled {
+
+		set {
+			if (value == true) {
+				LeanTween.moveLocal(
+					gameObject,
+					EnablePosition,
+					0.5625f)
+					.setEase (LeanTweenType.easeInOutCubic);
+				LeanTween.scale(
+					gameObject,
+					EnableScale,
+					0.5625f)
+					.setEase (LeanTweenType.easeInOutCubic);
+			} else {
+				LeanTween.moveLocal(
+					gameObject,
+					DisablePosition,
+					0.125f)
+					.setEase (LeanTweenType.easeInOutCubic);
+				LeanTween.scale(
+					gameObject,
+					DisableScale,
+					0.125f)
+					.setEase (LeanTweenType.easeInOutCubic);
+			}
+			base.enabled = value;
+		}
+
+		get {
+			return base.enabled;
+		}
+
+	}
+
 }
