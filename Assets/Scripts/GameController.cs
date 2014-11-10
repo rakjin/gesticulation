@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour {
 	readonly Vector3 editButtonDisablePositon = new Vector3 (0, -.5f, 0);
 	readonly Vector3 editButtonDisableScale = Vector3.zero;
 
+	bool showDebugUI = false;
+
 	// Use this for initialization
 	void Start () {
 		Instance = this;
@@ -85,6 +87,20 @@ public class GameController : MonoBehaviour {
 
 			GUI.Label (titleRect, displayingTitle, titleStyle);
 			GUI.Label (authorRect, displayingAuthor, authorStyle);
+		}
+
+		if (showDebugUI) {
+			if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
+				OnGestureSwipe(toLeft:true);
+			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
+				OnGestureSwipe(toLeft:false);
+			}
+		}
+	}
+
+	void Update() {
+		if (Input.GetKeyUp (KeyCode.BackQuote)) {
+			showDebugUI = !showDebugUI;
 		}
 	}
 
