@@ -63,12 +63,17 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Setup3DGUI() {
-		Transform editButtonTransform = (Transform)Instantiate(button3D, buttonDisablePosition, Quaternion.identity);
-		editButtonTransform.parent = buttonContainer;
-		editButtonTransform.localScale = buttonDisableScale;
-		editButtonTransform.localPosition = buttonDisablePosition;
-		editButton = editButtonTransform.GetComponent<Button3D>();
-		editButton.Text = "편집";
+		editButton = Setup3DButton ("편집");
+	}
+
+	Button3D Setup3DButton(string label) {
+		Transform buttonTransform = (Transform)Instantiate(button3D, buttonDisablePosition, Quaternion.identity);
+		buttonTransform.parent = buttonContainer;
+		buttonTransform.localScale = buttonDisableScale;
+		buttonTransform.localPosition = buttonDisablePosition;
+		Button3D button = buttonTransform.GetComponent<Button3D>();
+		button.Text = label;
+		return button;
 	}
 
 
