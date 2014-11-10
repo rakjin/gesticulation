@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour {
 
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
+	readonly Vector3 buttonSwollenScale = Vector3.one;
 
 	Button3D editButton;
 	readonly Vector3 editButtonEnablePosition = new Vector3 (0, 2.3f, -1);
@@ -76,6 +77,7 @@ public class GameController : MonoBehaviour {
 		button.EnableScale = enableScale;
 		button.DisablePosition = buttonDisablePosition;
 		button.DisableScale = buttonDisableScale;
+		button.SwollenScale = buttonSwollenScale;
 		button.Text = label;
 		button.enabled = false;
 		return button;
@@ -256,18 +258,7 @@ public class GameController : MonoBehaviour {
 
 		state = State.Edit;
 
-		LeanTween.scale (
-			editButton.gameObject,
-			Vector3.one,
-			0.25f)
-			.setEase (LeanTweenType.easeInOutCubic);
-
-		LeanTween.scale (
-			editButton.gameObject,
-			Vector3.zero,
-			0.125f)
-			.setEase (LeanTweenType.easeInOutCubic)
-			.setDelay (0.25f);
+		editButton.SwellAndDisable ();
 
 		Poser poser = shelf.CurrentPoser();
 		poser.EditEnabled = true;

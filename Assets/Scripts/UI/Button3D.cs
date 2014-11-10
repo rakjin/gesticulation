@@ -7,6 +7,7 @@ public class Button3D : MonoBehaviour {
 	public Vector3 EnableScale;
 	public Vector3 DisablePosition;
 	public Vector3 DisableScale;
+	public Vector3 SwollenScale;
 	
 	TextMesh textMesh;
 	Transform boxShape;
@@ -77,6 +78,28 @@ public class Button3D : MonoBehaviour {
 			return base.enabled;
 		}
 
+	}
+
+	public void SwellAndDisable() {
+		LeanTween.scale (
+			gameObject,
+			SwollenScale,
+			0.25f)
+			.setEase (LeanTweenType.easeInOutCubic);
+		
+		LeanTween.moveLocal(
+			gameObject,
+			DisablePosition,
+			0.125f)
+			.setEase (LeanTweenType.easeInOutCubic)
+			.setDelay (0.25f);
+
+		LeanTween.scale (
+			gameObject,
+			DisableScale,
+			0.125f)
+			.setEase (LeanTweenType.easeInOutCubic)
+			.setDelay (0.25f);
 	}
 
 }
