@@ -50,12 +50,7 @@ public class GameController : MonoBehaviour {
 		displayingTitle = preset.Title;
 		displayingAuthor = preset.Author;
 
-		Transform editButtonTransform = (Transform)Instantiate(button3D, buttonDisablePosition, Quaternion.identity);
-		editButtonTransform.parent = buttonContainer;
-		editButtonTransform.localScale = buttonDisableScale;
-		editButtonTransform.localPosition = buttonDisablePosition;
-		editButton = editButtonTransform.GetComponent<Button3D>();
-		editButton.Text = "편집";
+		Setup3DGUI ();
 	}
 	
 	Poser GetDefaultPoser() {
@@ -66,6 +61,16 @@ public class GameController : MonoBehaviour {
 		}
 		return null;
 	}
+
+	void Setup3DGUI() {
+		Transform editButtonTransform = (Transform)Instantiate(button3D, buttonDisablePosition, Quaternion.identity);
+		editButtonTransform.parent = buttonContainer;
+		editButtonTransform.localScale = buttonDisableScale;
+		editButtonTransform.localPosition = buttonDisablePosition;
+		editButton = editButtonTransform.GetComponent<Button3D>();
+		editButton.Text = "편집";
+	}
+
 
 	void OnGUI () {
 
