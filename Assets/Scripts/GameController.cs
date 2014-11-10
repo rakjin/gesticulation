@@ -196,8 +196,8 @@ public class GameController : MonoBehaviour {
 				} else if (button == saveEditingButton) {
 					Debug.Log ("save editing");
 
-				} else if (button == saveEditingButton) {
-					Debug.Log ("cancel editing");
+				} else if (button == cancelEditingButton) {
+					OnCancelButtonPicked();
 
 				}
 
@@ -288,6 +288,29 @@ public class GameController : MonoBehaviour {
 		Poser poser = shelf.CurrentPoser();
 		poser.EditEnabled = true;
 		poser.Highlighted = Highlightable.HighlightDegree.None;
+	}
+
+	#endregion
+
+
+	#region CancelEditingButton
+
+	void OnCancelButtonPicked() {
+
+		if (state != State.Edit) {
+			return;
+		}
+
+		state = State.Show;
+
+		cancelEditingButton.SwellAndDisable ();
+		editButton.enabled = true;
+		saveEditingButton.enabled = false;
+
+		Poser poser = shelf.CurrentPoser ();
+		poser.ApplyPose (Pose.DefaultPose (), 1);
+		poser.Highlighted = Highlightable.HighlightDegree.Pale;
+		poser.EditEnabled = false;
 	}
 
 	#endregion
