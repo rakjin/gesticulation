@@ -36,6 +36,12 @@ public class GameController : MonoBehaviour {
 	Button3D editButton;
 	readonly Vector3 editButtonEnablePosition = new Vector3 (0, 2.3f, -1);
 	readonly Vector3 editButtonEnableScale = new Vector3 (.5625f, .5625f, .5625f);
+	Button3D saveEditingButton;
+	readonly Vector3 saveEditingButtonEnablePosition = new Vector3 (2f, 2.7f, -1);
+	readonly Vector3 saveEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
+	Button3D cancelEditingButton;
+	readonly Vector3 cancelEditingButtonEnablePosition = new Vector3 (2f, 2.2f, -1);
+	readonly Vector3 cancelEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
 
 	bool showDebugUI = false;
 
@@ -65,6 +71,8 @@ public class GameController : MonoBehaviour {
 
 	void Setup3DGUI() {
 		editButton = Setup3DButton ("편집", editButtonEnablePosition, editButtonEnableScale);
+		cancelEditingButton = Setup3DButton ("취소", cancelEditingButtonEnablePosition, cancelEditingButtonEnableScale);
+		saveEditingButton = Setup3DButton ("저장", saveEditingButtonEnablePosition, saveEditingButtonEnableScale);
 	}
 
 	Button3D Setup3DButton(string label, Vector3 enablePosition, Vector3 enableScale) {
@@ -259,6 +267,8 @@ public class GameController : MonoBehaviour {
 		state = State.Edit;
 
 		editButton.SwellAndDisable ();
+		cancelEditingButton.enabled = true;
+		saveEditingButton.enabled = true;
 
 		Poser poser = shelf.CurrentPoser();
 		poser.EditEnabled = true;
