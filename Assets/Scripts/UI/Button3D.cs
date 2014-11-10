@@ -49,6 +49,7 @@ public class Button3D : MonoBehaviour {
 
 		set {
 			if (value == true) {
+				GetComponentInChildren<Highlightable>().Highlighted = Highlightable.HighlightDegree.None;
 				LeanTween.moveLocal(
 					gameObject,
 					EnablePosition,
