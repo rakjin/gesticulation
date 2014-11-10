@@ -28,11 +28,13 @@ public class GameController : MonoBehaviour {
 
 	string displayingTitle = "";
 	string displayingAuthor = "";
+
+	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
+	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
+
 	Button3D editButton;
-	readonly Vector3 editButtonEnablePositon = new Vector3 (0, 2.3f, -1);
+	readonly Vector3 editButtonEnablePosition = new Vector3 (0, 2.3f, -1);
 	readonly Vector3 editButtonEnableScale = new Vector3 (.5625f, .5625f, .5625f);
-	readonly Vector3 editButtonDisablePositon = new Vector3 (0, -.5f, 0);
-	readonly Vector3 editButtonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
 
 	bool showDebugUI = false;
 
@@ -48,9 +50,10 @@ public class GameController : MonoBehaviour {
 		displayingTitle = preset.Title;
 		displayingAuthor = preset.Author;
 
-		Transform editButtonTransform = (Transform)Instantiate(button3D, editButtonDisablePositon, Quaternion.identity);
+		Transform editButtonTransform = (Transform)Instantiate(button3D, buttonDisablePosition, Quaternion.identity);
 		editButtonTransform.parent = buttonContainer;
-		editButtonTransform.localScale = editButtonDisableScale;
+		editButtonTransform.localScale = buttonDisableScale;
+		editButtonTransform.localPosition = buttonDisablePosition;
 		editButton = editButtonTransform.GetComponent<Button3D>();
 		editButton.Text = "편집";
 	}
@@ -185,7 +188,7 @@ public class GameController : MonoBehaviour {
 			if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
 				LeanTween.moveLocal(
 					editButton.gameObject,
-					editButtonEnablePositon,
+					editButtonEnablePosition,
 					0.5625f)
 					.setEase (LeanTweenType.easeInOutCubic);
 				LeanTween.scale(
@@ -197,12 +200,12 @@ public class GameController : MonoBehaviour {
 			} else {
 				LeanTween.moveLocal(
 					editButton.gameObject,
-					editButtonDisablePositon,
+					buttonDisablePosition,
 					0.125f)
 					.setEase (LeanTweenType.easeInOutCubic);
 				LeanTween.scale(
 					editButton.gameObject,
-					editButtonDisableScale,
+					buttonDisableScale,
 					0.125f)
 					.setEase (LeanTweenType.easeInOutCubic);
 				
