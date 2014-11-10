@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 	readonly Vector3 editButtonEnablePositon = new Vector3 (0, 2.3f, -1);
 	readonly Vector3 editButtonEnableScale = new Vector3 (.5625f, .5625f, .5625f);
 	readonly Vector3 editButtonDisablePositon = new Vector3 (0, -.5f, 0);
-	readonly Vector3 editButtonDisableScale = Vector3.zero;
+	readonly Vector3 editButtonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
 
 	bool showDebugUI = false;
 
@@ -49,8 +49,8 @@ public class GameController : MonoBehaviour {
 		displayingAuthor = preset.Author;
 
 		Transform editButtonTransform = (Transform)Instantiate(button3D, editButtonDisablePositon, Quaternion.identity);
-		editButtonTransform.localScale = editButtonDisableScale;
 		editButtonTransform.parent = buttonContainer;
+		editButtonTransform.localScale = editButtonDisableScale;
 		editButton = editButtonTransform.GetComponent<Button3D>();
 		editButton.Text = "편집";
 	}
