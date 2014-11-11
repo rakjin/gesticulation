@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour {
 		float gap = unit;
 
 
-		if (state == State.Show) {
+		if (state == State.Show || state == State.TypeTextInfo) {
 			float authorWidth = unit*60;
 			float authorHeight = unit*3;
 			Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
@@ -114,12 +114,19 @@ public class GameController : MonoBehaviour {
 			Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
 			titleStyle.fontSize = (int)(unit * 4);
 
-			GUI.Label (titleRect, displayingTitle, titleStyle);
-			GUI.Label (authorRect, displayingAuthor, authorStyle);
+			if (state == State.Show) {
+				GUI.Label (titleRect, displayingTitle, titleStyle);
+				GUI.Label (authorRect, displayingAuthor, authorStyle);
 
-		} else if (state == State.TypeTextInfo) {
-
-
+			} else if (state == State.TypeTextInfo) {
+				GUI.SetNextControlName("title");
+				displayingTitle = GUI.TextField (titleRect, displayingTitle, titleStyle);
+				GUI.SetNextControlName("author");
+				displayingAuthor = GUI.TextField (authorRect, displayingAuthor, authorStyle);
+				if (GUI.GetNameOfFocusedControl() == string.Empty) {
+					GUI.FocusControl("title");
+				}
+			}
 		}
 
 
@@ -275,6 +282,25 @@ public class GameController : MonoBehaviour {
 		yield break;
 	}
 
+	IEnumerator FadeInTitleAuthorTextField() {
+
+		displayingTitle = "TITLE";
+		displayingAuthor = "NAME";
+
+		int frames = 10;
+		Color titleTextColor = titleStyle.normal.textColor;
+		Color authorTextColor = authorStyle.normal.textColor;
+		
+		for (int i = 0; i <= frames; i++) {
+			float alpha = i/(float)frames;
+			titleStyle.normal.textColor = new Color(titleTextColor.r, titleTextColor.g, titleTextColor.b, alpha);
+			authorStyle.normal.textColor = new Color(authorTextColor.r, authorTextColor.g, authorTextColor.b, alpha);
+			yield return new WaitForSeconds(1f/60);
+		}
+		
+		yield break;
+	}
+
 	#endregion
 
 
@@ -336,6 +362,7 @@ public class GameController : MonoBehaviour {
 		saveEditingButton.SwellAndDisable ();
 		cancelEditingButton.enabled = false;
 
+		StartCoroutine(FadeInTitleAuthorTextField());
 	}
 
 	#endregion
