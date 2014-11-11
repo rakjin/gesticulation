@@ -7,6 +7,8 @@ public class Picker : MonoBehaviour {
 
 	const float PINCH_DISTANCE = 0.5f;
 
+	public Transform PointerPrefab;
+
 	public Vector3 MiddlePosition {
 		get {
 			return middlePointContainer.transform.localPosition;
@@ -54,9 +56,11 @@ public class Picker : MonoBehaviour {
 		middlePointContainer.rigidbody.isKinematic = true;
 
 		middlePoint = middlePointContainer.gameObject.AddComponent<SphereCollider> ();
-		middlePoint.radius = 0.140625f; // / transform.localScale.x;
+		middlePoint.radius = 0.001953125f; // / transform.localScale.x;
 		middlePoint.isTrigger = true;
 	
+		Transform pointer = (Transform)Instantiate (PointerPrefab);
+		pointer.parent = middlePointContainer;
 	}
 	
 	// Update is called once per frame
