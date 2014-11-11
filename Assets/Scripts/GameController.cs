@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour {
 
 		yield return new WaitForSeconds (5);
 
-		for (float alpha = 1; alpha >= 0; alpha-= 0.015625f) {
+		for (float alpha = 1; alpha >= 0; alpha-= 0.0078125f) {
 			splashAlpha = alpha;
 			yield return null;
 		}

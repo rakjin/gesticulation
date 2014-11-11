@@ -12,7 +12,7 @@ public class Part : Highlightable {
 	override protected Color normalColor { get { return new Color (0.5f, 0.5f, 0.5f); } }
 	override protected Color halfHighlightedColor { get { return new Color (0.5f, 0.875f, 0.875f); } }
 	override protected Color highlightedColor { get { return new Color (0.125f, 1, 0); } }
-	override protected Color paleColor { get { return new Color (0.375f, 0.625f, 1); } }
+	override protected Color paleColor { get { return new Color (44f/255, 77f/255, 121f/255); } }
 
 
 	void Awake () {
