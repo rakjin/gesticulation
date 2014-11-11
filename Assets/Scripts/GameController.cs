@@ -23,8 +23,8 @@ public class GameController : MonoBehaviour {
 	public Shelf shelf;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
-
-	public GUIStyle splashStyle;
+	public Texture2D texSplash;
+	float splashAlpha = 1;
 
 
 	State state = State.Splash;
@@ -68,7 +68,12 @@ public class GameController : MonoBehaviour {
 
 		Setup3DGUI ();
 
-		yield return new WaitForSeconds (3);
+		yield return new WaitForSeconds (5);
+
+		for (float alpha = 1; alpha >= 0; alpha-= 0.015625f) {
+			splashAlpha = alpha;
+			yield return null;
+		}
 
 		state = State.Show;
 	}
@@ -147,10 +152,8 @@ public class GameController : MonoBehaviour {
 			float splashHeight = screenHeight;
 			float splashX = (screenWidth-splashWidth)/2;
 			float splashY = (screenHeight-splashHeight)/2;
-			splashStyle.fixedWidth = splashWidth;
-			splashStyle.fixedHeight = splashHeight;
-			splashStyle.contentOffset = new Vector2(splashX, splashY);
-			GUI.Label (new Rect(splashX, splashY, splashWidth, splashHeight), "", splashStyle);
+			GUI.color = new Color(1, 1, 1, splashAlpha);
+			GUI.DrawTexture(new Rect(splashX, splashY, splashWidth, splashHeight), texSplash, ScaleMode.ScaleToFit);
 
 		}
 
