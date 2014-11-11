@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour {
 
 	string displayingTitle = "";
 	string displayingAuthor = "";
+	bool needsSetFocusToTitleTextField = true;
 
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
@@ -127,8 +128,9 @@ public class GameController : MonoBehaviour {
 				displayingTitle = GUI.TextField (titleRect, displayingTitle, titleStyle);
 				GUI.SetNextControlName("author");
 				displayingAuthor = GUI.TextField (authorRect, displayingAuthor, authorStyle);
-				if (GUI.GetNameOfFocusedControl() == string.Empty) {
+				if (needsSetFocusToTitleTextField || GUI.GetNameOfFocusedControl() == string.Empty) {
 					GUI.FocusControl("title");
+					needsSetFocusToTitleTextField = false;
 				}
 			}
 		}
@@ -209,7 +211,7 @@ public class GameController : MonoBehaviour {
 
 				Button3D button = target.transform.parent.GetComponent<Button3D>();
 				if (button == editButton) {
-					OnEditButtonPicked();
+					StartCoroutine(OnEditButtonPicked());
 				
 				} else if (button == saveEditingButton) {
 					OnSaveButtonPicked();
@@ -313,10 +315,10 @@ public class GameController : MonoBehaviour {
 
 	#region EditButton
 
-	void OnEditButtonPicked() {
+	IEnumerator OnEditButtonPicked() {
 
 		if (state != State.Show) {
-			return;
+			yield break;
 		}
 
 		state = State.Edit;
@@ -326,7 +328,14 @@ public class GameController : MonoBehaviour {
 		saveEditingButton.enabled = true;
 
 		Poser poser = shelf.CurrentPoser();
+
+		yield return new WaitForSeconds (1);
+
 		poser.EditEnabled = true;
+		poser.Highlighted = Highlightable.HighlightDegree.Full;
+
+		yield return new WaitForSeconds (.25f);
+		
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 	}
 
@@ -370,6 +379,7 @@ public class GameController : MonoBehaviour {
 		cancelEditingButton.enabled = false;
 		doneEditingButton.enabled = true;
 
+		needsSetFocusToTitleTextField = true;
 		StartCoroutine(FadeInTitleAuthorTextField());
 	}
 
