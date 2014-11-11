@@ -6,6 +6,7 @@ using Leap;
 public class GameController : MonoBehaviour {
 
 	public enum State {
+		Splash,
 		Show,
 		Edit,
 		TypeTextInfo,
@@ -23,9 +24,10 @@ public class GameController : MonoBehaviour {
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
 
+	public GUIStyle splashStyle;
 
 
-	State state = State.Show;
+	State state = State.Splash;
 
 	string displayingTitle = "";
 	string displayingAuthor = "";
@@ -53,7 +55,7 @@ public class GameController : MonoBehaviour {
 	bool showDebugUI = false;
 
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start () {
 		Instance = this;
 
 		if (shelf == null) {
@@ -65,6 +67,10 @@ public class GameController : MonoBehaviour {
 		displayingAuthor = preset.Author;
 
 		Setup3DGUI ();
+
+		yield return new WaitForSeconds (3);
+
+		state = State.Show;
 	}
 	
 	Poser GetDefaultPoser() {
@@ -135,6 +141,17 @@ public class GameController : MonoBehaviour {
 					needsSetFocusToTitleTextField = false;
 				}
 			}
+
+		} else if (state == State.Splash) {
+			float splashWidth = screenWidth;
+			float splashHeight = screenHeight;
+			float splashX = (screenWidth-splashWidth)/2;
+			float splashY = (screenHeight-splashHeight)/2;
+			splashStyle.fixedWidth = splashWidth;
+			splashStyle.fixedHeight = splashHeight;
+			splashStyle.contentOffset = new Vector2(splashX, splashY);
+			GUI.Label (new Rect(splashX, splashY, splashWidth, splashHeight), "", splashStyle);
+
 		}
 
 
