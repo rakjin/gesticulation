@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour {
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
 	public Texture2D texSplash;
+	public Texture2D texTextFieldBorder;
 	float splashAlpha = 1;
 
 
@@ -118,19 +119,21 @@ public class GameController : MonoBehaviour {
 		float unit = screenWidth / 120;
 
 		float padding = unit*2;
-		float gap = unit;
+		float gap = unit/2;
 
 
 		if (state == State.Show || state == State.TypeTextInfo) {
 			float authorWidth = unit*60;
-			float authorHeight = unit*3;
+			float authorHeight = unit*4;
 			Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
 			authorStyle.fontSize = (int)(unit * 3);
+			authorStyle.padding.top = (int)authorHeight/16;
 
 			float titleWidth = unit*60;
-			float titleHeight = unit*5;
+			float titleHeight = unit*6;
 			Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
 			titleStyle.fontSize = (int)(unit * 4);
+			titleStyle.padding.top = (int)titleHeight/16;
 
 			if (state == State.Show) {
 				GUI.Label (titleRect, displayingTitle, titleStyle);
@@ -289,6 +292,9 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator FadeTitleAuthor(string title, string author) {
 
+		titleStyle.normal.background = null;
+		authorStyle.normal.background = null;
+
 		int frames = 10;
 		Color titleTextColor = titleStyle.normal.textColor;
 		Color authorTextColor = authorStyle.normal.textColor;
@@ -314,6 +320,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator FadeInTitleAuthorTextField() {
+
+		needsSetFocusToTitleTextField = true;
+		titleStyle.normal.background = texTextFieldBorder;
+		authorStyle.normal.background = texTextFieldBorder;
 
 		displayingTitle = TITLE_PLACEHOLDER;
 		displayingAuthor = AUTHOR_PLACEHOLDER;
@@ -400,8 +410,7 @@ public class GameController : MonoBehaviour {
 		saveEditingButton.SwellAndDisable ();
 		cancelEditingButton.enabled = false;
 		doneEditingButton.enabled = true;
-
-		needsSetFocusToTitleTextField = true;
+		
 		StartCoroutine(FadeInTitleAuthorTextField());
 	}
 
@@ -424,6 +433,8 @@ public class GameController : MonoBehaviour {
 		if (displayingAuthor.Equals(AUTHOR_PLACEHOLDER)) {
 			displayingAuthor = "익명";
 		}
+		titleStyle.normal.background = null;
+		authorStyle.normal.background = null;
 
 		doneEditingButton.SwellAndDisable ();
 

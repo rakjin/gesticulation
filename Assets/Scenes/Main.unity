@@ -495,18 +495,18 @@ MonoBehaviour:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
+      m_Left: 3
+      m_Right: 4
+      m_Top: 3
+      m_Bottom: 4
     m_Margin:
       m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
     m_Padding:
-      m_Left: 0
-      m_Right: 0
+      m_Left: 8
+      m_Right: 8
       m_Top: 0
       m_Bottom: 0
     m_Overflow:
@@ -554,18 +554,18 @@ MonoBehaviour:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
+      m_Left: 3
+      m_Right: 4
+      m_Top: 3
+      m_Bottom: 4
     m_Margin:
       m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
     m_Padding:
-      m_Left: 0
-      m_Right: 0
+      m_Left: 8
+      m_Right: 8
       m_Top: 0
       m_Bottom: 0
     m_Overflow:
@@ -587,6 +587,7 @@ MonoBehaviour:
     m_StretchWidth: 0
     m_StretchHeight: 0
   texSplash: {fileID: 2800000, guid: 58e0996c50628834db117954d96d1382, type: 3}
+  texTextFieldBorder: {fileID: 2800000, guid: 2c746ad408397c442b42f9f1dfc6689a, type: 3}
 --- !u!114 &1247361068
 MonoBehaviour:
   m_ObjectHideFlags: 0
