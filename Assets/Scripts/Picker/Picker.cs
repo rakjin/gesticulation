@@ -232,9 +232,6 @@ public class Picker : MonoBehaviour {
 						currentCollider.gameObject);
 
 				}
-			} else {
-				Assert (false);
-
 			}
 
 			break;
