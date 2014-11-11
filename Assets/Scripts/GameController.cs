@@ -217,6 +217,9 @@ public class GameController : MonoBehaviour {
 				} else if (button == cancelEditingButton) {
 					OnCancelButtonPicked();
 
+				} else if (button == doneEditingButton) {
+					OnDoneButtonPicked();
+
 				}
 
 			}
@@ -368,6 +371,24 @@ public class GameController : MonoBehaviour {
 		doneEditingButton.enabled = true;
 
 		StartCoroutine(FadeInTitleAuthorTextField());
+	}
+
+	#endregion
+
+
+	#region DoneButton
+
+	void OnDoneButtonPicked() {
+
+		if (state != State.TypeTextInfo) {
+			return;
+		}
+
+		state = State.Show;
+
+		doneEditingButton.enabled = false;
+
+		//
 	}
 
 	#endregion
