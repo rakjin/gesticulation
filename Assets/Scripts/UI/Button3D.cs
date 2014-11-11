@@ -72,6 +72,7 @@ public class Button3D : MonoBehaviour {
 					0.125f)
 					.setEase (LeanTweenType.easeInOutCubic);
 			}
+			GetComponentInChildren<BoxCollider>().enabled = value;
 			base.enabled = value;
 		}
 
