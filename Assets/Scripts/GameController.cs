@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour {
 	string displayingTitle = "";
 	string displayingAuthor = "";
 	bool needsSetFocusToTitleTextField = true;
+	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
+	const string AUTHOR_PLACEHOLDER = "Tab 키를 누른 후 이름을 입력해주세요.";
 
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
@@ -293,8 +295,8 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator FadeInTitleAuthorTextField() {
 
-		displayingTitle = "TITLE";
-		displayingAuthor = "NAME";
+		displayingTitle = TITLE_PLACEHOLDER;
+		displayingAuthor = AUTHOR_PLACEHOLDER;
 
 		int frames = 10;
 		Color titleTextColor = titleStyle.normal.textColor;
@@ -395,6 +397,13 @@ public class GameController : MonoBehaviour {
 		}
 
 		state = State.Show;
+
+		if (displayingTitle.Equals(TITLE_PLACEHOLDER)) {
+			displayingTitle = "무제";
+		}
+		if (displayingAuthor.Equals(AUTHOR_PLACEHOLDER)) {
+			displayingAuthor = "익명";
+		}
 
 		doneEditingButton.SwellAndDisable ();
 
