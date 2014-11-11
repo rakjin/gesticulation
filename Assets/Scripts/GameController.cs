@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour {
 		Button3D button = buttonTransform.GetComponent<Button3D>();
 		button.EnablePosition = enablePosition;
 		button.EnableScale = enableScale;
-		button.DisablePosition = buttonDisablePosition;
+		button.DisablePosition = enablePosition;
 		button.DisableScale = buttonDisableScale;
 		button.SwollenScale = buttonSwollenScale;
 		button.Text = label;
