@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	public enum State {
 		Show,
 		Edit,
+		TypeTextInfo,
 	}
 
 	public static GameController Instance { get; private set; }
@@ -115,7 +116,13 @@ public class GameController : MonoBehaviour {
 
 			GUI.Label (titleRect, displayingTitle, titleStyle);
 			GUI.Label (authorRect, displayingAuthor, authorStyle);
+
+		} else if (state == State.TypeTextInfo) {
+
+
 		}
+
+
 
 		if (showDebugUI) {
 			if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
@@ -194,7 +201,7 @@ public class GameController : MonoBehaviour {
 					OnEditButtonPicked();
 				
 				} else if (button == saveEditingButton) {
-					Debug.Log ("save editing");
+					OnSaveButtonPicked();
 
 				} else if (button == cancelEditingButton) {
 					OnCancelButtonPicked();
@@ -314,4 +321,23 @@ public class GameController : MonoBehaviour {
 	}
 
 	#endregion
+
+
+	#region SaveEditingButton
+
+	void OnSaveButtonPicked() {
+
+		if (state != State.Edit) {
+			return;
+		}
+
+		state = State.TypeTextInfo;
+
+		saveEditingButton.SwellAndDisable ();
+		cancelEditingButton.enabled = false;
+
+	}
+
+	#endregion
+
 }
