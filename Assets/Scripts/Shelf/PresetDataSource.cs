@@ -32,4 +32,8 @@ public class PresetDataSource {
 		presets.Add (item);
 	}
 
+	public void InsertBeforeLast(Preset item) {
+		presets.Insert (presets.Count - 1, item);
+	}
+
 }

@@ -386,9 +386,15 @@ public class GameController : MonoBehaviour {
 
 		state = State.Show;
 
-		doneEditingButton.enabled = false;
+		doneEditingButton.SwellAndDisable ();
 
-		//
+		Poser poser = shelf.CurrentPoser ();
+		Pose pose = poser.GetCurrentPose ();
+		Preset preset = new Preset (Preset.PresetType.Static, pose, displayingTitle, displayingAuthor);
+		poser.Highlighted = Highlightable.HighlightDegree.None;
+		poser.EditEnabled = false;
+
+		shelf.InsertPresetBeforeLast (preset);
 	}
 
 	#endregion

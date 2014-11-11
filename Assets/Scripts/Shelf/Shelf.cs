@@ -122,5 +122,12 @@ public class Shelf : MonoBehaviour {
 	public Poser CurrentPoser() {
 		return slots[CenterSlot];
 	}
+
+	public void InsertPresetBeforeLast(Preset preset) {
+		presets.InsertBeforeLast (preset);
+
+		Poser lastSlot = slots [(SlotsNum / 2) + 1];
+		lastSlot.ApplyPreset (presets.Get (presets.Count - 1));
+	}
 	
 }
