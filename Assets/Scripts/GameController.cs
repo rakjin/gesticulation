@@ -43,6 +43,9 @@ public class GameController : MonoBehaviour {
 	Button3D cancelEditingButton;
 	readonly Vector3 cancelEditingButtonEnablePosition = new Vector3 (2f, 2.2f, -1);
 	readonly Vector3 cancelEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
+	Button3D doneEditingButton;
+	readonly Vector3 doneEditingButtonEnablePosition = new Vector3 (2f, 2.2f, -1);
+	readonly Vector3 doneEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
 
 	bool showDebugUI = false;
 
@@ -74,6 +77,7 @@ public class GameController : MonoBehaviour {
 		editButton = Setup3DButton ("편집", editButtonEnablePosition, editButtonEnableScale);
 		cancelEditingButton = Setup3DButton ("취소", cancelEditingButtonEnablePosition, cancelEditingButtonEnableScale);
 		saveEditingButton = Setup3DButton ("저장", saveEditingButtonEnablePosition, saveEditingButtonEnableScale);
+		doneEditingButton = Setup3DButton ("완료", doneEditingButtonEnablePosition, doneEditingButtonEnableScale);
 	}
 
 	Button3D Setup3DButton(string label, Vector3 enablePosition, Vector3 enableScale) {
@@ -361,6 +365,7 @@ public class GameController : MonoBehaviour {
 
 		saveEditingButton.SwellAndDisable ();
 		cancelEditingButton.enabled = false;
+		doneEditingButton.enabled = true;
 
 		StartCoroutine(FadeInTitleAuthorTextField());
 	}
