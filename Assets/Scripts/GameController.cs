@@ -33,8 +33,8 @@ public class GameController : MonoBehaviour {
 	string displayingTitle = "";
 	string displayingAuthor = "";
 	bool needsSetFocusToTitleTextField = true;
-	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
-	const string AUTHOR_PLACEHOLDER = "Tab 키를 누른 후 이름을 입력해주세요.";
+	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요. (ENTER)";
+	const string AUTHOR_PLACEHOLDER = "이름을 입력해주세요. (ENTER)";
 
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
@@ -123,13 +123,13 @@ public class GameController : MonoBehaviour {
 
 
 		if (state == State.Show || state == State.TypeTextInfo) {
-			float authorWidth = unit*60;
+			float authorWidth = unit*80;
 			float authorHeight = unit*4;
 			Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
 			authorStyle.fontSize = (int)(unit * 3);
 			authorStyle.padding.top = (int)authorHeight/16;
 
-			float titleWidth = unit*60;
+			float titleWidth = unit*80;
 			float titleHeight = unit*6;
 			Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
 			titleStyle.fontSize = (int)(unit * 4);
