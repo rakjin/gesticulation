@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour {
 	readonly Vector3 cancelEditingButtonEnablePosition = new Vector3 (2f, 2.2f, -1);
 	readonly Vector3 cancelEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
 	Button3D doneEditingButton;
-	readonly Vector3 doneEditingButtonEnablePosition = new Vector3 (2f, 2.2f, -1);
+	readonly Vector3 doneEditingButtonEnablePosition = new Vector3 (2f, 1.7f, -1);
 	readonly Vector3 doneEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
 
 	bool showDebugUI = false;
@@ -147,6 +147,15 @@ public class GameController : MonoBehaviour {
 				if (needsSetFocusToTitleTextField || GUI.GetNameOfFocusedControl() == string.Empty) {
 					GUI.FocusControl("title");
 					needsSetFocusToTitleTextField = false;
+				}
+
+				Event e = Event.current;
+				if (e.isKey && e.keyCode == KeyCode.Return && GUI.GetNameOfFocusedControl().Equals("title")) {
+					GUI.FocusControl("author");
+
+				} else if (e.isKey && e.keyCode == KeyCode.Return && GUI.GetNameOfFocusedControl().Equals("author")) {
+					OnDoneButtonPicked();
+
 				}
 			}
 
