@@ -43,6 +43,14 @@ public class Highlightable : MonoBehaviour {
 		}
 		
 	}
+
+	void OnMouseUpAsButton() {
+		GameController.Instance.OnPickStateChanged (
+			GameController.PickState.Hovering,
+			GameController.PickState.Picking,
+			null,
+			gameObject);
+	}
 	
 	#endregion
 }

@@ -203,7 +203,9 @@ public class GameController : MonoBehaviour {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = Part.HighlightDegree.None;
 				part.DisconnectFromRigidbody();
-				picker.Reset();
+				if (picker != null) {
+					picker.Reset();
+				}
 
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
 				Highlightable button = target.GetComponentInChildren<Highlightable>();
@@ -221,7 +223,9 @@ public class GameController : MonoBehaviour {
 				part.DisconnectFromRigidbody();
 				if (prevState == PickState.Picking) {
 					part.Highlighted = Part.HighlightDegree.None;
-					picker.Reset();
+					if (picker != null) {
+						picker.Reset();
+					}
 				}
 
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
@@ -234,7 +238,7 @@ public class GameController : MonoBehaviour {
 
 		case PickState.Picking:
 
-			if (target && target.tag.Equals(TAG_PART)) {
+			if (target && target.tag.Equals(TAG_PART) && picker != null) {
 				Part part = target.GetComponent<Part>();
 				part.Highlighted = Part.HighlightDegree.Full;
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
