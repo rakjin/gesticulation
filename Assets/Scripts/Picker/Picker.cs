@@ -249,7 +249,8 @@ public class Picker : MonoBehaviour {
 				prevPickState = currentPickState = GameController.PickState.None;
 
 			} else if (prevCollider != currentCollider) { // PickNothing to PickNothingColliding
-				prevCollider = currentCollider;
+				prevCollider = null;
+				currentCollider = null;
 
 			}
 
