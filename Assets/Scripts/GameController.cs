@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Setup3DGUI() {
-		editButton = Setup3DButton ("편집", editButtonEnablePosition, editButtonEnableScale);
+		editButton = Setup3DButton ("새로 만들기", editButtonEnablePosition, editButtonEnableScale);
 		cancelEditingButton = Setup3DButton ("취소", cancelEditingButtonEnablePosition, cancelEditingButtonEnableScale);
 		saveEditingButton = Setup3DButton ("저장", saveEditingButtonEnablePosition, saveEditingButtonEnableScale);
 		doneEditingButton = Setup3DButton ("완료", doneEditingButtonEnablePosition, doneEditingButtonEnableScale);
