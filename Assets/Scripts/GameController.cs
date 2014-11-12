@@ -78,15 +78,6 @@ public class GameController : MonoBehaviour {
 
 		state = State.Show;
 	}
-	
-	Poser GetDefaultPoser() {
-		GameObject defaultPuppet = GameObject.Find ("/Puppet");
-		if (defaultPuppet) {
-			Poser defaultPoser = defaultPuppet.GetComponent<Poser> ();
-			return defaultPoser;
-		}
-		return null;
-	}
 
 	void Setup3DGUI() {
 		editButton = Setup3DButton ("편집", editButtonEnablePosition, editButtonEnableScale);
@@ -172,7 +163,9 @@ public class GameController : MonoBehaviour {
 
 
 		if (showDebugUI) {
-			if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
+			if (GUI.Button (new Rect(0, 10, 200, 30), "print pose")) {
+				Debug.Log (shelf.CurrentPoser().GetCurrentPose());
+			} else if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
 				OnGestureSwipe(toLeft:true);
 			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
 				OnGestureSwipe(toLeft:false);
