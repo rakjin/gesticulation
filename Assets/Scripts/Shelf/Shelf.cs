@@ -78,6 +78,12 @@ public class Shelf : MonoBehaviour {
 			return false;
 		}
 
+		Poser currentPoser = CurrentPoser ();
+		Preset currentPreset = CurrentPreset ();
+		if (currentPreset.Pose != null) {
+			currentPoser.ApplyPose (currentPreset.Pose, 0.25f);
+		}
+
 		index = desiredIndex;
 
 		int tweenSlotBeginIndex = 0;
