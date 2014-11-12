@@ -448,7 +448,6 @@ public class GameController : MonoBehaviour {
 		Pose pose = poser.GetCurrentPose ();
 		Preset preset = new Preset (Preset.PresetType.Static, pose, displayingTitle, displayingAuthor);
 		poser.Highlighted = Highlightable.HighlightDegree.None;
-		poser.EditEnabled = false;
 
 		shelf.InsertPresetBeforeLast (preset);
 	}
