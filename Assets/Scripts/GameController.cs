@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour {
 	string displayingTitle = "";
 	string displayingAuthor = "";
 	bool needsSetFocusToTitleTextField = true;
-	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요. (ENTER)";
+	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
 	const string AUTHOR_PLACEHOLDER = "이름을 입력해주세요. (ENTER)";
 
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
