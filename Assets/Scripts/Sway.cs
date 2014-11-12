@@ -20,8 +20,8 @@ public class Sway : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		float x = Mathf.Sin (Time.time * 0.125f * SPEED) * 0.25f;
-		float y = Mathf.Cos (Time.time * 0.0625f * SPEED) * 0.125f;
+		float x = Mathf.Sin (Time.time * 0.125f * SPEED) * 1f;
+		float y = Mathf.Cos (Time.time * 0.0625f * SPEED) * 0.25f;
 
 		Vector3 swayPosition = new Vector3 (
 			initialPosition.x + x,
