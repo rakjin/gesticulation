@@ -1870,7 +1870,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .150000006
+  m_Radius: .25
   m_Height: .600000024
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: .300000012}
@@ -1883,7 +1883,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .200000003
+  m_Radius: .230000004
   m_Height: .600000024
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: .300000012}
@@ -1896,7 +1896,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .200000003
+  m_Radius: .230000004
   m_Height: .5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 1.79999995}
@@ -1909,10 +1909,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
-  m_Height: .800000012
+  m_Radius: .140000001
+  m_Height: .699999988
   m_Direction: 2
-  m_Center: {x: .0500000007, y: .00999999978, z: -.400000006}
+  m_Center: {x: .0500000007, y: .00999999978, z: -.349999994}
 --- !u!136 &13600008
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1922,10 +1922,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
-  m_Height: .800000012
+  m_Radius: .140000001
+  m_Height: .699999988
   m_Direction: 2
-  m_Center: {x: -.0500000007, y: .00999999978, z: -.400000006}
+  m_Center: {x: -.0500000007, y: .00999999978, z: -.349999994}
 --- !u!136 &13600010
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1935,7 +1935,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
+  m_Radius: .140000001
   m_Height: .600000024
   m_Direction: 2
   m_Center: {x: .0500000007, y: -0, z: -.300000012}
@@ -1948,7 +1948,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
+  m_Radius: .140000001
   m_Height: .600000024
   m_Direction: 2
   m_Center: {x: -.0500000007, y: -0, z: -.300000012}
@@ -1988,7 +1988,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: .0700000003
-  m_Height: .300000012
+  m_Height: .200000003
   m_Direction: 0
   m_Center: {x: .100000001, y: 0, z: 0}
 --- !u!136 &13600020
@@ -2001,7 +2001,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: .0700000003
-  m_Height: .300000012
+  m_Height: .200000003
   m_Direction: 0
   m_Center: {x: -.100000001, y: 0, z: 0}
 --- !u!136 &13600022
@@ -2013,10 +2013,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
-  m_Height: .5
+  m_Radius: .140000001
+  m_Height: .550000012
   m_Direction: 2
-  m_Center: {x: .0500000007, y: 0, z: -.300000012}
+  m_Center: {x: .0700000003, y: 0, z: -.330000013}
 --- !u!136 &13600024
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2026,10 +2026,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
-  m_Height: .5
+  m_Radius: .140000001
+  m_Height: .550000012
   m_Direction: 2
-  m_Center: {x: -.0500000007, y: 0, z: -.300000012}
+  m_Center: {x: -.0700000003, y: 0, z: -.330000013}
 --- !u!136 &13600026
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2039,7 +2039,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
+  m_Radius: .140000001
   m_Height: .5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -.300000012}
@@ -2052,7 +2052,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
+  m_Radius: .140000001
   m_Height: .5
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -.300000012}
@@ -2065,7 +2065,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
+  m_Radius: .119999997
   m_Height: .300000012
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -.200000003}
@@ -2078,7 +2078,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .100000001
+  m_Radius: .119999997
   m_Height: .300000012
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -.200000003}
