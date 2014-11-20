@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 using Leap;
 
@@ -58,6 +59,13 @@ public class GameController : MonoBehaviour {
 	readonly Vector3 doneEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
 
 	bool showDebugUI = false;
+
+	const float recordDuration = 17;
+	const float recordFPS = 2;
+	const float recordInterval = 1f / recordFPS;
+	const int recordCount = (int) (recordDuration * recordFPS);
+	List<Pose> records;
+	bool isRecording = false;
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -432,6 +440,8 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds (.25f);
 		
 		poser.Highlighted = Highlightable.HighlightDegree.None;
+
+		StartCoroutine (Record ());
 	}
 
 	#endregion
@@ -509,6 +519,28 @@ public class GameController : MonoBehaviour {
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 
 		shelf.InsertPresetBeforeLast (preset);
+	}
+
+	#endregion
+
+
+	#region Record
+
+	IEnumerator Record() {
+		records = new List<Pose> (recordCount);
+		isRecording = true;
+		Poser poser = shelf.CurrentPoser ();
+
+		for (int i = 0; i < recordCount; i++) {
+			if (isRecording == false) {
+				yield break;
+			}
+			records.Add (poser.GetCurrentPose());
+			yield return new WaitForSeconds(recordInterval);
+
+		}
+
+		Debug.Log (records.Count);
 	}
 
 	#endregion
