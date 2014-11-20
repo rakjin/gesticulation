@@ -460,6 +460,7 @@ public class GameController : MonoBehaviour {
 			yield break;
 		}
 
+		isRecording = false;
 
 		cancelEditingButton.SwellAndDisable ();
 		editButton.enabled = true;
@@ -484,6 +485,8 @@ public class GameController : MonoBehaviour {
 		if (state != State.Edit) {
 			yield break;
 		}
+
+		isRecording = false;
 
 		saveEditingButton.SwellAndDisable ();
 		cancelEditingButton.enabled = false;
@@ -539,6 +542,7 @@ public class GameController : MonoBehaviour {
 
 		for (int i = 0; i < recordCount; i++) {
 			if (isRecording == false) {
+				recordBeginTime = 0;
 				yield break;
 			}
 			records.Add (poser.GetCurrentPose());
