@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour {
 	float splashAlpha = 1;
 	public Texture2D texVignette;
 	public Texture2D texRec;
+	float vignetteAlpha = 0;
 
 
 	State state = State.Splash;
@@ -71,7 +72,7 @@ public class GameController : MonoBehaviour {
 
 		Setup3DGUI ();
 
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (0.00001f);
 
 		for (float alpha = 1; alpha >= 0; alpha-= 0.0078125f) {
 			splashAlpha = alpha;
@@ -165,6 +166,7 @@ public class GameController : MonoBehaviour {
 			float vignetteHeight = screenHeight;
 			float vignetteX = (screenWidth-vignetteWidth)/2;
 			float vignetteY = (screenHeight-vignetteHeight)/2;
+			GUI.color = new Color(1, 1, 1, vignetteAlpha);
 			GUI.DrawTexture(new Rect(vignetteX, vignetteY, vignetteWidth, vignetteHeight), texVignette, ScaleMode.ScaleToFit);
 
 		}
@@ -254,10 +256,10 @@ public class GameController : MonoBehaviour {
 					StartCoroutine(OnEditButtonPicked());
 				
 				} else if (button == saveEditingButton) {
-					OnSaveButtonPicked();
+					StartCoroutine(OnSaveButtonPicked());
 
 				} else if (button == cancelEditingButton) {
-					OnCancelButtonPicked();
+					StartCoroutine(OnCancelButtonPicked());
 
 				} else if (button == doneEditingButton) {
 					OnDoneButtonPicked();
@@ -357,6 +359,20 @@ public class GameController : MonoBehaviour {
 		yield break;
 	}
 
+	IEnumerator FadeInVignette() {
+		for (float alpha = 0; alpha <= 1; alpha+= 0.015625f) {
+			vignetteAlpha = alpha;
+			yield return null;
+		}
+	}
+
+	IEnumerator FadeOutVignette() {
+		for (float alpha = 1; alpha >= 0; alpha-= 0.0625f) {
+			vignetteAlpha = alpha;
+			yield return null;
+		}
+	}
+
 	#endregion
 
 
@@ -374,10 +390,10 @@ public class GameController : MonoBehaviour {
 		cancelEditingButton.enabled = true;
 		saveEditingButton.enabled = true;
 
-		Poser poser = shelf.CurrentPoser();
+		StartCoroutine (FadeInVignette ());
+		yield return new WaitForSeconds (0.5f);
 
-		yield return new WaitForSeconds (1);
-
+		Poser poser = shelf.CurrentPoser();		
 		poser.EditEnabled = true;
 		poser.Highlighted = Highlightable.HighlightDegree.Full;
 
@@ -391,17 +407,19 @@ public class GameController : MonoBehaviour {
 
 	#region CancelEditingButton
 
-	void OnCancelButtonPicked() {
+	IEnumerator OnCancelButtonPicked() {
 
 		if (state != State.Edit) {
-			return;
+			yield break;
 		}
 
-		state = State.Show;
 
 		cancelEditingButton.SwellAndDisable ();
 		editButton.enabled = true;
 		saveEditingButton.enabled = false;
+
+		yield return StartCoroutine (FadeOutVignette ());
+		state = State.Show;
 
 		Poser poser = shelf.CurrentPoser ();
 		poser.ApplyPose (Pose.DefaultPose (), 1);
@@ -414,19 +432,19 @@ public class GameController : MonoBehaviour {
 
 	#region SaveEditingButton
 
-	void OnSaveButtonPicked() {
+	IEnumerator OnSaveButtonPicked() {
 
 		if (state != State.Edit) {
-			return;
+			yield break;
 		}
-
-		state = State.TypeTextInfo;
 
 		saveEditingButton.SwellAndDisable ();
 		cancelEditingButton.enabled = false;
 		doneEditingButton.enabled = true;
 		
-		StartCoroutine(FadeInTitleAuthorTextField());
+		yield return StartCoroutine (FadeOutVignette ());
+		state = State.TypeTextInfo;
+		yield return StartCoroutine(FadeInTitleAuthorTextField());
 	}
 
 	#endregion
