@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour {
 	public Texture2D texVignette;
 	public Texture2D texRec;
 	float vignetteAlpha = 0;
+	Texture2D texEmpty;
 
 
 	State state = State.Splash;
@@ -65,6 +66,11 @@ public class GameController : MonoBehaviour {
 		if (shelf == null) {
 			Debug.LogError ("shelf required");
 		}
+
+		texEmpty = new Texture2D (1, 1);
+		texEmpty.anisoLevel = 0;
+		texEmpty.filterMode = FilterMode.Point;
+		texEmpty.SetPixel (0, 0, Color.white);
 
 		Preset preset = shelf.CurrentPreset();
 		displayingTitle = preset.Title;
@@ -169,6 +175,12 @@ public class GameController : MonoBehaviour {
 			GUI.color = new Color(1, 1, 1, vignetteAlpha);
 			GUI.DrawTexture(new Rect(vignetteX, vignetteY, vignetteWidth, vignetteHeight), texVignette, ScaleMode.ScaleToFit);
 
+			float barBackgroundWidth = unit*90;
+			float barBackgroundHeight = unit*3;
+			float barBackgroundX = (screenWidth-barBackgroundWidth)/2;
+			float barBackgroundY = screenHeight - barBackgroundHeight - unit*1.5f;
+			GUI.DrawTexture(new Rect(barBackgroundX, barBackgroundY, barBackgroundWidth, barBackgroundHeight), texEmpty, ScaleMode.StretchToFill);
+			
 			float recWidth = unit*16;
 			float recHeight = unit*8;
 			float recX = unit*4;
