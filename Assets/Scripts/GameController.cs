@@ -66,6 +66,7 @@ public class GameController : MonoBehaviour {
 	const int recordCount = (int) (recordDuration * recordFPS);
 	List<Pose> records;
 	bool isRecording = false;
+	float recordBeginTime;
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -192,7 +193,11 @@ public class GameController : MonoBehaviour {
 				GUI.DrawTexture(new Rect(barBackgroundX, barBackgroundY, barBackgroundWidth, barBackgroundHeight), texEmpty, ScaleMode.StretchToFill);
 				
 				float barWidth = barBackgroundWidth - unit;
-				barWidth *= 0.7777777f;
+				float progress = Mathf.Clamp01( (Time.time - recordBeginTime)/recordDuration );
+				if (recordBeginTime == 0) {
+					progress = 0;
+				}
+				barWidth *= progress;
 				float barHeight = barBackgroundHeight - unit;
 				float barX = barBackgroundX + unit/2;
 				float barY = barBackgroundY + unit/2;
@@ -529,6 +534,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator Record() {
 		records = new List<Pose> (recordCount);
 		isRecording = true;
+		recordBeginTime = Time.time;
 		Poser poser = shelf.CurrentPoser ();
 
 		for (int i = 0; i < recordCount; i++) {
