@@ -238,6 +238,7 @@ public class Poser : MonoBehaviour {
 			break;
 
 		case Preset.PresetType.Static:
+		case Preset.PresetType.Animated:
 			EditEnabled = true;
 			Highlighted = Part.HighlightDegree.None;
 			Visible = true;

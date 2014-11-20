@@ -523,8 +523,9 @@ public class GameController : MonoBehaviour {
 		doneEditingButton.SwellAndDisable ();
 
 		Poser poser = shelf.CurrentPoser ();
-		Pose pose = poser.GetCurrentPose ();
-		Preset preset = new Preset (Preset.PresetType.Static, pose, displayingTitle, displayingAuthor);
+		List<Pose> motion = records;
+		records = null;
+		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 
 		shelf.InsertPresetBeforeLast (preset);
@@ -542,7 +543,7 @@ public class GameController : MonoBehaviour {
 		Poser poser = shelf.CurrentPoser ();
 
 		for (int i = 0; i < recordCount; i++) {
-			if (isRecording == false) {
+			if (isRecording == false || records == null) {
 				recordBeginTime = 0;
 				yield break;
 			}
