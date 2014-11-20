@@ -199,6 +199,26 @@ public class Poser : MonoBehaviour {
 		}
 	}
 
+	public void DisconnectFromRigidbody() {
+		Root.DisconnectFromRigidbody ();
+		Chest.DisconnectFromRigidbody ();
+		Head.DisconnectFromRigidbody ();
+		ThighL.DisconnectFromRigidbody ();
+		ThighR.DisconnectFromRigidbody ();
+		ShinL.DisconnectFromRigidbody ();
+		ShinR.DisconnectFromRigidbody ();
+		FootL.DisconnectFromRigidbody ();
+		FootR.DisconnectFromRigidbody ();
+		ShoulderL.DisconnectFromRigidbody ();
+		ShoulderR.DisconnectFromRigidbody ();
+		UpperArmL.DisconnectFromRigidbody ();
+		UpperArmR.DisconnectFromRigidbody ();
+		ForearmL.DisconnectFromRigidbody ();
+		ForearmR.DisconnectFromRigidbody ();
+		HandL.DisconnectFromRigidbody ();
+		HandR.DisconnectFromRigidbody ();
+	}
+
 	public void ApplyPreset(Preset preset) {
 		Pose pose = preset.Pose;
 		if (pose == null) {

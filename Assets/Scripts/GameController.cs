@@ -461,6 +461,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		isRecording = false;
+		records = null;
 
 		cancelEditingButton.SwellAndDisable ();
 		editButton.enabled = true;
@@ -550,7 +551,9 @@ public class GameController : MonoBehaviour {
 
 		}
 
-		Debug.Log (records.Count);
+		poser.DisconnectFromRigidbody ();
+		poser.Highlighted = Highlightable.HighlightDegree.Pale;
+		poser.EditEnabled = false;
 	}
 
 	#endregion
