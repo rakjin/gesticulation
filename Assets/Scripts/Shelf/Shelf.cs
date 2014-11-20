@@ -101,7 +101,10 @@ public class Shelf : MonoBehaviour {
 		for (int i = tweenSlotBeginIndex; i <= tweenSlotEndIndex; i++) {
 			int newIndex = i + (toLeft? -1 : +1);
 			Vector3 newPosition = GetSlotPosition(newIndex);
-			LeanTween.moveLocal(slots[i].gameObject, newPosition, .5f).setEase(LeanTweenType.easeInOutCubic);
+			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, .5f).setEase(LeanTweenType.easeInOutCubic);
+			if (i == CenterSlot) {
+				tween.setOnComplete(OnFlipComplete);
+			}
 		}
 		
 		int poppingSlotIndex = (toLeft? 0 : lastSlotIndex);
@@ -133,6 +136,10 @@ public class Shelf : MonoBehaviour {
 
 		Poser lastSlot = slots [(SlotsNum / 2) + 1];
 		lastSlot.ApplyPreset (presets.Get (presets.Count - 1));
+	}
+
+	void OnFlipComplete() {
+		Debug.Log ("on flip complete");
 	}
 	
 }
