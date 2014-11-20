@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour {
 		if (shelf == null) {
 			Debug.LogError ("shelf required");
 		}
+		shelf.OnFlipComplete += OnShelfFlipComplete;
 
 		texEmpty = new Texture2D (1, 1);
 		texEmpty.anisoLevel = 0;
@@ -95,6 +96,10 @@ public class GameController : MonoBehaviour {
 		}
 
 		state = State.Show;
+	}
+
+	void OnShelfFlipComplete () {
+		Debug.Log ("shelf flip complete");
 	}
 
 	void Setup3DGUI() {

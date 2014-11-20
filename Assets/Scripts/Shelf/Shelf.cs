@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Shelf : MonoBehaviour {
+	public delegate void TweenComplete();
+	public event TweenComplete OnFlipComplete;
 
 	public Transform puppetPrefab;
 
@@ -25,6 +27,8 @@ public class Shelf : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+
+		OnFlipComplete += () => {};
 
 		if (puppetPrefab == null) {
 			Debug.LogError("puppetPrefab required");
@@ -103,7 +107,7 @@ public class Shelf : MonoBehaviour {
 			Vector3 newPosition = GetSlotPosition(newIndex);
 			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, .5f).setEase(LeanTweenType.easeInOutCubic);
 			if (i == CenterSlot) {
-				tween.setOnComplete(OnFlipComplete);
+				tween.setOnComplete(OnCenterSlotFlipComplete);
 			}
 		}
 		
@@ -138,8 +142,8 @@ public class Shelf : MonoBehaviour {
 		lastSlot.ApplyPreset (presets.Get (presets.Count - 1));
 	}
 
-	void OnFlipComplete() {
-		Debug.Log ("on flip complete");
+	void OnCenterSlotFlipComplete() {
+		OnFlipComplete ();
 	}
 	
 }
