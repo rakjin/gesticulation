@@ -588,6 +588,8 @@ MonoBehaviour:
     m_StretchHeight: 0
   texSplash: {fileID: 2800000, guid: 58e0996c50628834db117954d96d1382, type: 3}
   texTextFieldBorder: {fileID: 2800000, guid: 2c746ad408397c442b42f9f1dfc6689a, type: 3}
+  texVignette: {fileID: 2800000, guid: 3676ab77b34be8f4fb82779eb080d42b, type: 3}
+  texRec: {fileID: 2800000, guid: fb95cd81048deb44da87ed52b520722d, type: 3}
 --- !u!114 &1247361068
 MonoBehaviour:
   m_ObjectHideFlags: 0

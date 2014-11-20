@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour {
 	public Texture2D texSplash;
 	public Texture2D texTextFieldBorder;
 	float splashAlpha = 1;
+	public Texture2D texVignette;
+	public Texture2D texRec;
 
 
 	State state = State.Splash;
@@ -157,6 +159,13 @@ public class GameController : MonoBehaviour {
 			float splashY = (screenHeight-splashHeight)/2;
 			GUI.color = new Color(1, 1, 1, splashAlpha);
 			GUI.DrawTexture(new Rect(splashX, splashY, splashWidth, splashHeight), texSplash, ScaleMode.ScaleToFit);
+
+		} else if (state == State.Edit) {
+			float vignetteWidth = screenWidth;
+			float vignetteHeight = screenHeight;
+			float vignetteX = (screenWidth-vignetteWidth)/2;
+			float vignetteY = (screenHeight-vignetteHeight)/2;
+			GUI.DrawTexture(new Rect(vignetteX, vignetteY, vignetteWidth, vignetteHeight), texVignette, ScaleMode.ScaleToFit);
 
 		}
 
