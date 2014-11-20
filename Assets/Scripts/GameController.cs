@@ -175,11 +175,21 @@ public class GameController : MonoBehaviour {
 			GUI.color = new Color(1, 1, 1, vignetteAlpha);
 			GUI.DrawTexture(new Rect(vignetteX, vignetteY, vignetteWidth, vignetteHeight), texVignette, ScaleMode.ScaleToFit);
 
-			float barBackgroundWidth = unit*90;
-			float barBackgroundHeight = unit*3;
-			float barBackgroundX = (screenWidth-barBackgroundWidth)/2;
-			float barBackgroundY = screenHeight - barBackgroundHeight - unit*1.5f;
-			GUI.DrawTexture(new Rect(barBackgroundX, barBackgroundY, barBackgroundWidth, barBackgroundHeight), texEmpty, ScaleMode.StretchToFill);
+			GUI.color = new Color(1, 1, 1, vignetteAlpha*0.5f);
+			{
+				float barBackgroundWidth = unit*90;
+				float barBackgroundHeight = unit*3;
+				float barBackgroundX = (screenWidth-barBackgroundWidth)/2;
+				float barBackgroundY = screenHeight - barBackgroundHeight - unit*1.5f;
+				GUI.DrawTexture(new Rect(barBackgroundX, barBackgroundY, barBackgroundWidth, barBackgroundHeight), texEmpty, ScaleMode.StretchToFill);
+				
+				float barWidth = barBackgroundWidth - unit;
+				barWidth *= 0.7777777f;
+				float barHeight = barBackgroundHeight - unit;
+				float barX = barBackgroundX + unit/2;
+				float barY = barBackgroundY + unit/2;
+				GUI.DrawTexture(new Rect(barX, barY, barWidth, barHeight), texEmpty, ScaleMode.StretchToFill);
+			}
 			
 			float recWidth = unit*16;
 			float recHeight = unit*8;
