@@ -169,6 +169,16 @@ public class GameController : MonoBehaviour {
 			GUI.color = new Color(1, 1, 1, vignetteAlpha);
 			GUI.DrawTexture(new Rect(vignetteX, vignetteY, vignetteWidth, vignetteHeight), texVignette, ScaleMode.ScaleToFit);
 
+			float recWidth = unit*16;
+			float recHeight = unit*8;
+			float recX = unit*4;
+			float recY = unit*4;
+			bool showRec = ((Time.frameCount % 300) > 150);
+			if (showRec) {
+				GUI.color = Color.white;
+				GUI.DrawTexture(new Rect(recX, recY, recWidth, recHeight), texRec, ScaleMode.ScaleToFit);
+			}
+
 		}
 
 
