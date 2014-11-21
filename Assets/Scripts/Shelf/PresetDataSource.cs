@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class PresetDataSource {
 
@@ -35,5 +36,20 @@ public class PresetDataSource {
 	public void InsertBeforeLast(Preset item) {
 		presets.Insert (presets.Count - 1, item);
 	}
+
+
+	#region JSON
+	
+	public JSONArray Serialize() {
+		JSONArray json = new JSONArray ();
+		foreach(Preset preset in presets) {
+			if (preset.Type == Preset.PresetType.Static || preset.Type == Preset.PresetType.Animated) {
+				json.Add(preset.Serialize());
+			}
+		}
+		return json;
+	}
+	
+	#endregion
 
 }

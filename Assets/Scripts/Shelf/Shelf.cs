@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class Shelf : MonoBehaviour {
 	public delegate void TweenComplete();
@@ -147,5 +148,13 @@ public class Shelf : MonoBehaviour {
 	void OnCenterSlotFlipComplete() {
 		OnFlipComplete ();
 	}
+
+
+	#region JSON
 	
+	public JSONArray Serialize() {
+		return presets.Serialize();
+	}
+	
+	#endregion
 }
