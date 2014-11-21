@@ -286,6 +286,8 @@ public class GameController : MonoBehaviour {
 	void Update() {
 		if (Input.GetKeyUp (KeyCode.BackQuote)) {
 			showDebugUI = !showDebugUI;
+		} else if (Input.GetKey (KeyCode.F1)) {
+			OnGestureHelp();
 		}
 
 		if (helpAlpha > 0) {
