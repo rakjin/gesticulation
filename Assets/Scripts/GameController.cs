@@ -295,6 +295,11 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+
+	#region Pick
+
+	bool pickedAnyPart = false;
+
 	public enum PickState {
 		None,
 		Hovering,
@@ -352,6 +357,8 @@ public class GameController : MonoBehaviour {
 				part.Highlighted = Part.HighlightDegree.Full;
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
 
+				pickedAnyPart = true;
+
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
 				Highlightable highlightable = target.GetComponentInChildren<Highlightable>();
 				highlightable.Highlighted = Highlightable.HighlightDegree.Full;
@@ -376,6 +383,9 @@ public class GameController : MonoBehaviour {
 			break;
 		}
 	}
+
+	#endregion
+
 
 	#region gesture
 
@@ -515,7 +525,6 @@ public class GameController : MonoBehaviour {
 
 		editButton.SwellAndDisable ();
 		cancelEditingButton.enabled = true;
-		saveEditingButton.enabled = true;
 
 		StartCoroutine (FadeInVignette ());
 		yield return new WaitForSeconds (0.5f);
@@ -528,7 +537,9 @@ public class GameController : MonoBehaviour {
 		
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 
-		StartCoroutine (Record ());
+		isWaitingFirstPick = true;
+		pickedAnyPart = false;
+		StartCoroutine (WaitFirstPickAndRecord ());
 	}
 
 	#endregion
@@ -542,6 +553,8 @@ public class GameController : MonoBehaviour {
 			yield break;
 		}
 
+		pickedAnyPart = false;
+		isWaitingFirstPick = false;
 		isRecording = false;
 		records = null;
 
@@ -626,6 +639,23 @@ public class GameController : MonoBehaviour {
 
 
 	#region Record
+
+	bool isWaitingFirstPick = false;
+
+	IEnumerator WaitFirstPickAndRecord() {
+		while (isWaitingFirstPick && !pickedAnyPart) {
+			yield return null;
+		}
+
+		if (isWaitingFirstPick == false) {
+			yield break;
+
+		} else if (pickedAnyPart) {
+			saveEditingButton.enabled = true;
+			yield return StartCoroutine(Record());
+
+		}
+	}
 
 	IEnumerator Record() {
 		records = new List<Pose> (recordCount);
