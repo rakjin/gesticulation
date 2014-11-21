@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class Preset {
 
@@ -40,5 +41,24 @@ public class Preset {
 		Title = title;
 		Author = author;
 	}
+
+
+	#region JSON
+
+	public JSONClass Serialize() {
+		JSONArray motion = new JSONArray ();
+		foreach(Pose pose in Motion) {
+			motion.Add (pose.Serialize());
+		}
+
+		JSONClass json = new JSONClass ();
+		json.Add ("title", new JSONData(Title));
+		json.Add ("author", new JSONData(Author));
+		json.Add ("motion", motion);
+		
+		return json;
+	}
+
+	#endregion
 
 }
