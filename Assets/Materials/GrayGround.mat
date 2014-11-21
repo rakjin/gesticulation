@@ -32,7 +32,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .193014681, g: .203473613, b: .220588207, a: 1}
+        second: {r: .501960814, g: .501960814, b: .501960814, a: 1}
       data:
         first:
           name: _ReflectColor
