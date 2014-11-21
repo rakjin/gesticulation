@@ -218,9 +218,9 @@ public class GameController : MonoBehaviour {
 			float recHeight = unit*8;
 			float recX = unit*4;
 			float recY = unit*4;
-			bool showRec = ((Time.frameCount % 300) > 150);
-			if (showRec) {
-				GUI.color = Color.white;
+			if (isRecording) {
+				bool showFlickeringRec = ((Time.frameCount % 200) > 100);
+				GUI.color = showFlickeringRec? Color.white : new Color(1, 1, 1, 0.25f);
 				GUI.DrawTexture(new Rect(recX, recY, recWidth, recHeight), texRec, ScaleMode.ScaleToFit);
 			}
 
@@ -568,6 +568,8 @@ public class GameController : MonoBehaviour {
 			yield return new WaitForSeconds(recordInterval);
 
 		}
+
+		isRecording = false;
 
 		poser.DisconnectFromRigidbody ();
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
