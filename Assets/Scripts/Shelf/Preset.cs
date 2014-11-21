@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 public class Preset {
 
@@ -11,22 +10,14 @@ public class Preset {
 		Animated,
 		NewPresetPlaceHolder,
 	}
-
-	private List<Pose> motion;
-	public ReadOnlyCollection<Pose> Motion {
-		get {
-			if (motion == null) {
-				return null;
-			}
-			return motion.AsReadOnly();
-		}
-	}
+	
+	public List<Pose> Motion { get; private set; }
 	public Pose Pose {
 		get {
-			if (motion == null || motion.Count == 0) {
+			if (Motion == null || Motion.Count == 0) {
 				return null;
 			}
-			return motion[motion.Count-1];
+			return Motion[Motion.Count-1];
 		}
 	}
 	public string Title { get; private set; }
@@ -35,7 +26,7 @@ public class Preset {
 
 	public Preset(List<Pose> motion, string title = "", string author = "") {
 		Type = PresetType.Animated;
-		this.motion = motion;
+		Motion = motion;
 		Title = title;
 		Author = author;
 	}
@@ -43,8 +34,8 @@ public class Preset {
 	public Preset(PresetType type = PresetType.Empty, Pose pose = null, string title = "", string author = "") {
 		Type = type;
 		if (pose != null) {
-			motion = new List<Pose>();
-			motion.Add(pose);
+			Motion = new List<Pose>();
+			Motion.Add(pose);
 		}
 		Title = title;
 		Author = author;

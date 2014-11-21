@@ -102,8 +102,8 @@ public class GameController : MonoBehaviour {
 		Preset centerPreset = shelf.CurrentPreset ();
 		if (centerPreset.Type == Preset.PresetType.Animated) {
 			Poser centerPoser = shelf.CurrentPoser();
-			ICollection<Pose> motion = centerPreset.Motion;
-			centerPoser.BeginMotion(motion, recordInterval, isForward:false);
+			List<Pose> motion = centerPreset.Motion;
+			StartCoroutine(centerPoser.BeginMotion(motion, recordInterval));
 		}
 	}
 

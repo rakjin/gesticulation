@@ -262,8 +262,20 @@ public class Poser : MonoBehaviour {
 		}
 	}
 
-	public void BeginMotion(ICollection<Pose> motion, float interval, bool isForward = true) {
-		Debug.Log ("Begin motion length: " + motion.Count);
+	public IEnumerator BeginMotion(List<Pose> motion, float interval, bool isForward = true) {
+
+		int from = isForward? 0 : motion.Count-1;
+		int to = isForward? motion.Count : -1;
+		int inc = isForward? +1 : -1;
+
+		for (int i = from; i != to; i += inc) {
+			Pose pose = motion[i];
+			ApplyPose (pose, interval);
+			yield return new WaitForSeconds(interval);
+		}
+
+		Debug.Log ("DONE");
+
 	}
 
 }
