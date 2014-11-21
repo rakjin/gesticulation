@@ -99,7 +99,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	void OnShelfFlipComplete () {
-		Debug.Log ("shelf flip complete");
+		Preset centerPreset = shelf.CurrentPreset ();
+		if (centerPreset.Type == Preset.PresetType.Animated) {
+			Poser centerPoser = shelf.CurrentPoser();
+			ICollection<Pose> motion = centerPreset.Motion;
+			centerPoser.BeginMotion(motion, recordInterval, isForward:false);
+		}
 	}
 
 	void Setup3DGUI() {

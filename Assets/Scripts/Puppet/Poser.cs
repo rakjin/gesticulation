@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Poser : MonoBehaviour {
 
@@ -259,6 +260,10 @@ public class Poser : MonoBehaviour {
 			break;
 
 		}
+	}
+
+	public void BeginMotion(ICollection<Pose> motion, float interval, bool isForward = true) {
+		Debug.Log ("Begin motion length: " + motion.Count);
 	}
 
 }
