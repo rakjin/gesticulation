@@ -103,9 +103,10 @@ public class GestureDetector : MonoBehaviour {
 			Hand h1 = frame.Hands[0];
 			Hand h2 = frame.Hands[1];
 
-			if (h1.PalmNormal.y < -0.8f &&
-			    h2.PalmNormal.y < -0.8f) {
-				Debug.Log ("HELP!");
+			const float downVectorYThreshold = -0.75f;
+			float normalYSum = h1.PalmNormal.y + h2.PalmNormal.y;
+			if (normalYSum < downVectorYThreshold*2) {
+				GameController.Instance.OnGestureHelp();
 			}
 		}
 	}

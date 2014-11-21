@@ -77,6 +77,11 @@ public class GameController : MonoBehaviour {
 	const float GROUND_SHIFT = 2;
 
 
+	const float helpAlphaInc = 0.125f;
+	const float helpAlphaDec = helpAlphaInc / -2;
+	float helpAlpha = 0;
+
+
 	// Use this for initialization
 	IEnumerator Start () {
 		Instance = this;
@@ -237,6 +242,12 @@ public class GameController : MonoBehaviour {
 		}
 
 
+		if (helpAlpha > 0) {
+			Debug.Log (helpAlpha);
+		} else {
+			Debug.Log ("");
+		}
+
 
 		if (showDebugUI) {
 			GUI.color = Color.white;
@@ -271,6 +282,10 @@ public class GameController : MonoBehaviour {
 	void Update() {
 		if (Input.GetKeyUp (KeyCode.BackQuote)) {
 			showDebugUI = !showDebugUI;
+		}
+
+		if (helpAlpha > 0) {
+			helpAlpha += helpAlphaDec;
 		}
 	}
 
@@ -399,6 +414,13 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds(ignoreGestureTimeSpan);
 		ignoreGesture = false;
 		yield break;
+	}
+
+
+	public void OnGestureHelp() {
+		if(helpAlpha < 1) {
+			helpAlpha += helpAlphaInc;
+		}
 	}
 
 	#endregion
