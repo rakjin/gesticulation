@@ -26,6 +26,8 @@ public class Poser : MonoBehaviour {
 	public Part HandL { get; private set; }
 	public Part HandR { get; private set; }
 
+	private bool isPlayingAnimation = false;
+
 	// Use this for initialization
 	void Awake () {
 		ReadParts ();
@@ -268,14 +270,25 @@ public class Poser : MonoBehaviour {
 		int to = isForward? motion.Count : -1;
 		int inc = isForward? +1 : -1;
 
+		isPlayingAnimation = true;
+
 		for (int i = from; i != to; i += inc) {
+			if (isPlayingAnimation == false) {
+				yield break;
+			}
 			Pose pose = motion[i];
 			ApplyPose (pose, interval);
-			yield return new WaitForSeconds(interval);
+			yield return new WaitForSeconds(interval + 0.00048828125f);
 		}
+
+		isPlayingAnimation = false;
 
 		Debug.Log ("DONE");
 
+	}
+
+	public void StopMotion() {
+		isPlayingAnimation = false;
 	}
 
 }

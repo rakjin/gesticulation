@@ -336,6 +336,7 @@ public class GameController : MonoBehaviour {
 	public void OnGestureSwipe(bool toLeft) {
 		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
+			shelf.CurrentPoser().StopMotion();
 			shelf.Flip(toLeft);
 			StartCoroutine(ResetIgnoreGestureFlag());
 
