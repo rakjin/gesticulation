@@ -71,6 +71,7 @@ public class GameController : MonoBehaviour {
 
 	bool isPlaying = false;
 	float playBeginTime;
+	const float PLAYBACK_SPEED = 2;
 
 
 	const float GROUND_SHIFT = 2;
@@ -111,7 +112,7 @@ public class GameController : MonoBehaviour {
 		if (centerPreset.Type == Preset.PresetType.Animated) {
 			Poser centerPoser = shelf.CurrentPoser();
 			List<Pose> motion = centerPreset.Motion;
-			StartCoroutine(centerPoser.BeginMotion(motion, recordInterval));
+			StartCoroutine(centerPoser.BeginMotion(motion, recordInterval / PLAYBACK_SPEED));
 			isPlaying = true;
 			playBeginTime = Time.time;
 		}
@@ -169,7 +170,7 @@ public class GameController : MonoBehaviour {
 				GUI.Label (authorRect, displayingAuthor, authorStyle);
 
 				if (shelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
-					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(shelf.CurrentPreset().Motion.Count*recordInterval) );
+					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(shelf.CurrentPreset().Motion.Count*recordInterval/PLAYBACK_SPEED) );
 					if (playBeginTime == 0) {
 						progress = 0;
 					}
