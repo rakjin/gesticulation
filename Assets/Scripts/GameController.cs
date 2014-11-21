@@ -68,6 +68,9 @@ public class GameController : MonoBehaviour {
 	bool isRecording = false;
 	float recordBeginTime;
 
+	bool isPlaying = false;
+	float playBeginTime;
+
 	// Use this for initialization
 	IEnumerator Start () {
 		Instance = this;
@@ -104,6 +107,8 @@ public class GameController : MonoBehaviour {
 			Poser centerPoser = shelf.CurrentPoser();
 			List<Pose> motion = centerPreset.Motion;
 			StartCoroutine(centerPoser.BeginMotion(motion, recordInterval));
+			isPlaying = true;
+			playBeginTime = Time.time;
 		}
 	}
 
@@ -158,6 +163,14 @@ public class GameController : MonoBehaviour {
 				GUI.Label (titleRect, displayingTitle, titleStyle);
 				GUI.Label (authorRect, displayingAuthor, authorStyle);
 
+				if (shelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
+					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(shelf.CurrentPreset().Motion.Count*recordInterval) );
+					if (playBeginTime == 0) {
+						progress = 0;
+					}
+					DrawProgressBar(new Vector2(screenWidth, screenHeight), unit, titleStyle.normal.textColor.a, progress);
+				}
+				
 			} else if (state == State.TypeTextInfo) {
 				GUI.SetNextControlName("title");
 				displayingTitle = GUI.TextField (titleRect, displayingTitle, titleStyle);
@@ -227,7 +240,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void DrawProgressBar(Vector2 screenSize, float unit, float baseAlpha, float progress) {
-		GUI.color = new Color(1, 1, 1, vignetteAlpha*0.5f);
+		GUI.color = new Color(1, 1, 1, baseAlpha*0.5f);
 		{
 			float barBackgroundWidth = unit*90;
 			float barBackgroundHeight = unit*3;
@@ -340,7 +353,11 @@ public class GameController : MonoBehaviour {
 	public void OnGestureSwipe(bool toLeft) {
 		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
+
 			shelf.CurrentPoser().StopMotion();
+			isPlaying = false;
+			playBeginTime = 0;
+
 			shelf.Flip(toLeft);
 			StartCoroutine(ResetIgnoreGestureFlag());
 
