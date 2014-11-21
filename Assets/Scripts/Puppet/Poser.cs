@@ -282,9 +282,6 @@ public class Poser : MonoBehaviour {
 		}
 
 		isPlayingAnimation = false;
-
-		Debug.Log ("DONE");
-
 	}
 
 	public void StopMotion() {
