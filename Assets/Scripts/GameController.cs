@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 	const string TAG_BUTTON = "Button3D";
 
 
+	public Transform ground;
 	public Transform buttonContainer;
 	public Transform button3D;
 	public Shelf shelf;
@@ -70,6 +71,10 @@ public class GameController : MonoBehaviour {
 
 	bool isPlaying = false;
 	float playBeginTime;
+
+
+	const float GROUND_SHIFT = 2;
+
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -358,7 +363,7 @@ public class GameController : MonoBehaviour {
 			isPlaying = false;
 			playBeginTime = 0;
 
-			shelf.Flip(toLeft);
+			bool flipped = shelf.Flip(toLeft);
 			StartCoroutine(ResetIgnoreGestureFlag());
 
 			Preset preset = shelf.CurrentPreset();
@@ -370,6 +375,16 @@ public class GameController : MonoBehaviour {
 			} else {
 				editButton.enabled = false;
 				
+			}
+
+			if (flipped) {
+				float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
+				LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION)
+					.setEase(LeanTweenType.easeInOutSine)
+					.setOnComplete(() => {
+						Vector3 backToOrigin = new Vector3(0, ground.localPosition.y, ground.localPosition.z);
+						ground.localPosition = backToOrigin;
+					});
 			}
 		}
 	}

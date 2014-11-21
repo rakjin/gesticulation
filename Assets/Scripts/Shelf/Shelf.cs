@@ -6,6 +6,8 @@ public class Shelf : MonoBehaviour {
 	public delegate void TweenComplete();
 	public event TweenComplete OnFlipComplete;
 
+	public const float FLIP_DURATION = 0.5f;
+
 	public Transform puppetPrefab;
 
 	const int slotsNum = 3;
@@ -105,7 +107,7 @@ public class Shelf : MonoBehaviour {
 		for (int i = tweenSlotBeginIndex; i <= tweenSlotEndIndex; i++) {
 			int newIndex = i + (toLeft? -1 : +1);
 			Vector3 newPosition = GetSlotPosition(newIndex);
-			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, .5f).setEase(LeanTweenType.easeInOutCubic);
+			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, FLIP_DURATION).setEase(LeanTweenType.easeInOutCubic);
 			if (i == CenterSlot) {
 				tween.setOnComplete(OnCenterSlotFlipComplete);
 			}
