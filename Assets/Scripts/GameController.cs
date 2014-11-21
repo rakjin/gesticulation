@@ -503,6 +503,10 @@ public class GameController : MonoBehaviour {
 		cancelEditingButton.enabled = false;
 		doneEditingButton.enabled = true;
 		
+		Poser poser = shelf.CurrentPoser ();
+		poser.Highlighted = Highlightable.HighlightDegree.Pale;
+		poser.EditEnabled = false;
+
 		yield return StartCoroutine (FadeOutVignette ());
 		state = State.TypeTextInfo;
 		yield return StartCoroutine(FadeInTitleAuthorTextField());
@@ -533,10 +537,13 @@ public class GameController : MonoBehaviour {
 		doneEditingButton.SwellAndDisable ();
 
 		Poser poser = shelf.CurrentPoser ();
+		poser.EditEnabled = true;
+		poser.Highlighted = Highlightable.HighlightDegree.None;
+		poser.EditEnabled = false;
+		
 		List<Pose> motion = records;
 		records = null;
 		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
-		poser.Highlighted = Highlightable.HighlightDegree.None;
 
 		shelf.InsertPresetBeforeLast (preset);
 	}
