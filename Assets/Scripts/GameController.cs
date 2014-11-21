@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour {
 	public Texture2D texRec;
 	float vignetteAlpha = 0;
 	Texture2D texEmpty;
+	public Texture2D texHelp;
 
 
 	State state = State.Splash;
@@ -243,9 +244,12 @@ public class GameController : MonoBehaviour {
 
 
 		if (helpAlpha > 0) {
-			Debug.Log (helpAlpha);
-		} else {
-			Debug.Log ("");
+			float helpWidth = screenWidth;
+			float helpHeight = screenHeight;
+			float helpX = (screenWidth-helpWidth)/2;
+			float helpY = (screenHeight-helpHeight)/2;
+			GUI.color = new Color(1, 1, 1, helpAlpha);
+			GUI.DrawTexture(new Rect(helpX, helpY, helpWidth, helpHeight), texHelp, ScaleMode.ScaleToFit);
 		}
 
 
