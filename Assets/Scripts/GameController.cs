@@ -108,6 +108,11 @@ public class GameController : MonoBehaviour {
 	}
 
 	void OnShelfFlipComplete () {
+		BeginPlayCenterSlotIfAnimated ();
+	}
+
+	void BeginPlayCenterSlotIfAnimated ()
+	{
 		Preset centerPreset = shelf.CurrentPreset ();
 		if (centerPreset.Type == Preset.PresetType.Animated) {
 			Poser centerPoser = shelf.CurrentPoser();
@@ -585,6 +590,8 @@ public class GameController : MonoBehaviour {
 		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
 
 		shelf.InsertPresetBeforeLast (preset);
+
+		BeginPlayCenterSlotIfAnimated ();
 	}
 
 	#endregion
