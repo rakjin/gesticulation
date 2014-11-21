@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SimpleJSON;
 
 public class Pose {
 
@@ -238,4 +239,66 @@ public class Pose {
 		                      HandR.x, HandR.y, HandR.z, HandR.w);
 	}
 
+	#region JSON
+
+	public JSONClass Serialize() {
+		JSONClass rootPosition = SerializeVector3 (RootPosition);
+		JSONClass rootRotation = SerializeQuaternion (RootRotation);
+		JSONClass chest = SerializeQuaternion (Chest);
+		JSONClass head = SerializeQuaternion (Head);
+		JSONClass thighL = SerializeQuaternion (ThighL);
+		JSONClass thighR = SerializeQuaternion (ThighR);
+		JSONClass shinL = SerializeQuaternion (ShinL);
+		JSONClass shinR = SerializeQuaternion (ShinR);
+		JSONClass footL = SerializeQuaternion (FootL);
+		JSONClass footR = SerializeQuaternion (FootR);
+		JSONClass shoulderL = SerializeQuaternion (ShoulderL);
+		JSONClass shoulderR = SerializeQuaternion (ShoulderR);
+		JSONClass upperArmL = SerializeQuaternion (UpperArmL);
+		JSONClass upperArmR = SerializeQuaternion (UpperArmR);
+		JSONClass forearmL = SerializeQuaternion (ForearmL);
+		JSONClass forearmR = SerializeQuaternion (ForearmR);
+		JSONClass handL = SerializeQuaternion (HandL);
+		JSONClass handR = SerializeQuaternion (HandR);
+
+		JSONClass json = new JSONClass ();
+		json.Add ("RootPosition", rootPosition);
+		json.Add ("RootRotation", rootRotation);
+		json.Add ("Chest", chest);
+		json.Add ("Head", head);
+		json.Add ("ThighL", thighL);
+		json.Add ("ThighR", thighR);
+		json.Add ("ShinL", shinL);
+		json.Add ("ShinR", shinR);
+		json.Add ("FootL", footL);
+		json.Add ("FootR", footR);
+		json.Add ("ShoulderL", shoulderL);
+		json.Add ("ShoulderR", shoulderR);
+		json.Add ("UpperArmL", upperArmL);
+		json.Add ("UpperArmR", upperArmR);
+		json.Add ("ForearmL", forearmL);
+		json.Add ("ForearmR", forearmR);
+		json.Add ("HandL", handL);
+		json.Add ("HandR", handR);
+		return json;
+	}
+
+	static JSONClass SerializeVector3(Vector3 data) {
+		JSONClass json = new JSONClass ();
+		json.Add ("x", new JSONData (data.x));
+		json.Add ("y", new JSONData (data.y));
+		json.Add ("z", new JSONData (data.z));
+		return json;
+	}
+
+	static JSONClass SerializeQuaternion(Quaternion data) {
+		JSONClass json = new JSONClass ();
+		json.Add ("w", new JSONData (data.w));
+		json.Add ("x", new JSONData (data.x));
+		json.Add ("y", new JSONData (data.y));
+		json.Add ("z", new JSONData (data.z));
+		return json;
+	}
+
+	#endregion
 }
