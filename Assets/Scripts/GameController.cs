@@ -229,6 +229,7 @@ public class GameController : MonoBehaviour {
 
 
 		if (showDebugUI) {
+			GUI.color = Color.white;
 			if (GUI.Button (new Rect(0, 10, 200, 30), "print pose")) {
 				Debug.Log (shelf.CurrentPoser().GetCurrentPose());
 			} else if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
