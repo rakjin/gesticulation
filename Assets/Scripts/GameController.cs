@@ -194,25 +194,11 @@ public class GameController : MonoBehaviour {
 			GUI.color = new Color(1, 1, 1, vignetteAlpha);
 			GUI.DrawTexture(new Rect(vignetteX, vignetteY, vignetteWidth, vignetteHeight), texVignette, ScaleMode.ScaleToFit);
 
-			GUI.color = new Color(1, 1, 1, vignetteAlpha*0.5f);
-			{
-				float barBackgroundWidth = unit*90;
-				float barBackgroundHeight = unit*3;
-				float barBackgroundX = (screenWidth-barBackgroundWidth)/2;
-				float barBackgroundY = screenHeight - barBackgroundHeight - unit*1.5f;
-				GUI.DrawTexture(new Rect(barBackgroundX, barBackgroundY, barBackgroundWidth, barBackgroundHeight), texEmpty, ScaleMode.StretchToFill);
-				
-				float barWidth = barBackgroundWidth - unit;
-				float progress = Mathf.Clamp01( (Time.time - recordBeginTime)/recordDuration );
-				if (recordBeginTime == 0) {
-					progress = 0;
-				}
-				barWidth *= progress;
-				float barHeight = barBackgroundHeight - unit;
-				float barX = barBackgroundX + unit/2;
-				float barY = barBackgroundY + unit/2;
-				GUI.DrawTexture(new Rect(barX, barY, barWidth, barHeight), texEmpty, ScaleMode.StretchToFill);
+			float progress = Mathf.Clamp01( (Time.time - recordBeginTime)/recordDuration );
+			if (recordBeginTime == 0) {
+				progress = 0;
 			}
+			DrawProgressBar(new Vector2(screenWidth, screenHeight), unit, vignetteAlpha, progress);
 			
 			float recWidth = unit*16;
 			float recHeight = unit*8;
@@ -237,6 +223,24 @@ public class GameController : MonoBehaviour {
 			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
 				OnGestureSwipe(toLeft:false);
 			}
+		}
+	}
+
+	void DrawProgressBar(Vector2 screenSize, float unit, float baseAlpha, float progress) {
+		GUI.color = new Color(1, 1, 1, vignetteAlpha*0.5f);
+		{
+			float barBackgroundWidth = unit*90;
+			float barBackgroundHeight = unit*3;
+			float barBackgroundX = (screenSize.x-barBackgroundWidth)/2;
+			float barBackgroundY = screenSize.y - barBackgroundHeight - unit*1.5f;
+			GUI.DrawTexture(new Rect(barBackgroundX, barBackgroundY, barBackgroundWidth, barBackgroundHeight), texEmpty, ScaleMode.StretchToFill);
+			
+			float barWidth = barBackgroundWidth - unit;
+			barWidth *= progress;
+			float barHeight = barBackgroundHeight - unit;
+			float barX = barBackgroundX + unit/2;
+			float barY = barBackgroundY + unit/2;
+			GUI.DrawTexture(new Rect(barX, barY, barWidth, barHeight), texEmpty, ScaleMode.StretchToFill);
 		}
 	}
 
