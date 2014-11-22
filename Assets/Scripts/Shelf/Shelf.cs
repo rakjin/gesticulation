@@ -37,9 +37,9 @@ public class Shelf : MonoBehaviour {
 			Debug.LogError("puppetPrefab required");
 
 		} else {
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseFashionKing(), "패션왕", "주원"));
+			presets.Push (new Preset(Preset.PresetType.Animated, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
+			presets.Push (new Preset(Preset.PresetType.Animated, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
+			presets.Push (new Preset(Preset.PresetType.Animated, Pose.PresetPoseFashionKing(), "패션왕", "주원"));
 			presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
 			FillSlots ();
 		}
