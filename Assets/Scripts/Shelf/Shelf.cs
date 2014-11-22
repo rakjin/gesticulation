@@ -70,7 +70,7 @@ public class Shelf : MonoBehaviour {
 
 	}
 
-	public bool Flip(bool toLeft = true) {
+	public bool Flip(bool toLeft = true, float speedMultiplier = 1) {
 
 		int desiredIndex = (toLeft? index+1 : index-1);
 		if (0 > desiredIndex || desiredIndex >= presets.Count) {
@@ -80,7 +80,7 @@ public class Shelf : MonoBehaviour {
 		Poser currentPoser = CurrentPoser ();
 		Preset currentPreset = CurrentPreset ();
 		if (currentPreset.Pose != null) {
-			currentPoser.ApplyPose (currentPreset.Pose, 0.25f);
+			currentPoser.ApplyPose (currentPreset.Pose, 0.25f / speedMultiplier);
 		}
 
 		index = desiredIndex;
@@ -100,7 +100,7 @@ public class Shelf : MonoBehaviour {
 		for (int i = tweenSlotBeginIndex; i <= tweenSlotEndIndex; i++) {
 			int newIndex = i + (toLeft? -1 : +1);
 			Vector3 newPosition = GetSlotPosition(newIndex);
-			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, FLIP_DURATION).setEase(LeanTweenType.easeInOutCubic);
+			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, FLIP_DURATION / speedMultiplier).setEase(LeanTweenType.easeInOutCubic);
 			if (i == CenterSlot) {
 				tween.setOnComplete(OnCenterSlotFlipComplete);
 			}

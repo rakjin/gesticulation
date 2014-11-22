@@ -390,9 +390,9 @@ public class GameController : MonoBehaviour {
 	#region gesture
 
 	bool ignoreGesture = false;
-	const float ignoreGestureTimeSpan = 0.5625f;
+	const float ignoreGestureTimeSpan = Shelf.FLIP_DURATION + 0.015625f;
 
-	public void OnGestureSwipe(bool toLeft) {
+	public void OnGestureSwipe(bool toLeft, float speedMultiplier = 1) {
 		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
 
@@ -400,8 +400,8 @@ public class GameController : MonoBehaviour {
 			isPlaying = false;
 			playBeginTime = 0;
 
-			bool flipped = shelf.Flip(toLeft);
-			StartCoroutine(ResetIgnoreGestureFlag());
+			bool flipped = shelf.Flip(toLeft, speedMultiplier);
+			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
 			Preset preset = shelf.CurrentPreset();
 			StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
@@ -416,7 +416,7 @@ public class GameController : MonoBehaviour {
 
 			if (flipped) {
 				float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
-				LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION)
+				LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION / speedMultiplier)
 					.setEase(LeanTweenType.easeInOutSine)
 					.setOnComplete(() => {
 						Vector3 backToOrigin = new Vector3(0, ground.localPosition.y, ground.localPosition.z);
@@ -426,8 +426,8 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	IEnumerator ResetIgnoreGestureFlag() {
-		yield return new WaitForSeconds(ignoreGestureTimeSpan);
+	IEnumerator ResetIgnoreGestureFlag(float speedMultiplier = 1) {
+		yield return new WaitForSeconds(ignoreGestureTimeSpan / speedMultiplier);
 		ignoreGesture = false;
 		yield break;
 	}
@@ -441,7 +441,8 @@ public class GameController : MonoBehaviour {
 
 	public void OnGestureScroll(float strength) {
 		bool toLeft = (strength < 0);
-		OnGestureSwipe (toLeft);
+		float scrollSpeedMultiplier = (Mathf.Abs (strength)*4) + 1;
+		OnGestureSwipe (toLeft, scrollSpeedMultiplier);
 	}
 
 	#endregion
