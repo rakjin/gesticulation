@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour {
 	public Transform buttonContainer;
 	public Transform button3D;
 	public Shelf shelf;
+	public GUIStyle infoStyle;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
 	public Texture2D texSplash;
@@ -244,6 +245,18 @@ public class GameController : MonoBehaviour {
 				GUI.DrawTexture(new Rect(recX, recY, recWidth, recHeight), texRec, ScaleMode.ScaleToFit);
 			}
 
+		}
+
+		{ // info text
+			float infoWidth = screenWidth;
+			float infoHeight = unit*3;
+			float infoX = 0;
+			float infoY = padding;
+			Rect infoRect = new Rect (infoX, infoY, infoWidth, infoHeight);
+			infoStyle.fontSize = (int)(unit * 2);
+			infoStyle.padding.top = (int)infoHeight/16;
+			GUI.color = new Color(1, 1, 1, 0.5f);
+			GUI.Label (infoRect, "샘플 작품 갤러리", infoStyle);
 		}
 
 
