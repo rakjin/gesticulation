@@ -70,14 +70,6 @@ public class Shelf : MonoBehaviour {
 
 	}
 
-	public bool FlipLeft() {
-		return Flip (toLeft:true);
-	}
-	
-	public bool FlipRight() {
-		return Flip (toLeft:false);
-	}
-
 	public bool Flip(bool toLeft = true) {
 
 		int desiredIndex = (toLeft? index+1 : index-1);
