@@ -6,8 +6,11 @@ using Leap;
 public class Picker : MonoBehaviour {
 
 	const float PINCH_DISTANCE = 0.5f;
-	const float SCROLL_THRESHOLD = 0.15f;
-	const float SCROLL_SENSITIVITY_MULTIPLIER = 16;
+
+	int scrollThresholdAccumulatedFrames = 0;
+	const int SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MIN = 30;
+	const int SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MAX = 300;
+	const float SCROLL_THRESHOLD_X = 0.15f;
 
 	public Transform PointerPrefab;
 
@@ -83,11 +86,20 @@ public class Picker : MonoBehaviour {
 		}
 
 		float x = middlePosition.x;
-		if (Mathf.Abs(x) > SCROLL_THRESHOLD) {
-			x = (x > 0)? (x-SCROLL_THRESHOLD) : (x+SCROLL_THRESHOLD);
-			x *= SCROLL_SENSITIVITY_MULTIPLIER;
-			x = Mathf.Clamp(x, -1, 1);
-			gameController.OnGestureScroll(strength:x);
+		if (Mathf.Abs(x) > SCROLL_THRESHOLD_X) {
+			scrollThresholdAccumulatedFrames += 1;
+			if (scrollThresholdAccumulatedFrames > SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MIN) {
+				x = (x > 0)? +1 : -1;
+
+				if (scrollThresholdAccumulatedFrames > SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MAX) {
+					scrollThresholdAccumulatedFrames = SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MAX;
+				}
+				float strengthMultiplierUponAccumulatedFrames = ((float)scrollThresholdAccumulatedFrames-SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MIN)/(SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MAX-SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MIN);
+
+				gameController.OnGestureScroll(strength:x*strengthMultiplierUponAccumulatedFrames);
+			}
+		} else {
+			scrollThresholdAccumulatedFrames = 0;
 		}
 	}
 
