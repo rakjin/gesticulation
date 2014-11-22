@@ -52,6 +52,12 @@ public class GameController : MonoBehaviour {
 	const float INFO_ALPHA = 0.3f;
 	float infoAlpha = INFO_ALPHA;
 
+	string displayingComment = "";
+	Queue<string> displayingCommentQueue = new Queue<string>();
+	const float COMMENT_ALPHA = 0.7f;
+	float commentAlpha = COMMENT_ALPHA;
+	const float COMMENT_DISPLAY_DURATION = 2.5f;
+
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
 	readonly Vector3 buttonSwollenScale = Vector3.one;
@@ -120,7 +126,10 @@ public class GameController : MonoBehaviour {
 		}
 
 		state = State.Show;
+
 		UpdateInfoText ("샘플 갤러리");
+		EnqueueCommentText ("샘플 작품을 둘러보세요.");
+		StartCoroutine (CheckAndDequeueCommentText ());
 	}
 
 	void OnShelfFlipComplete () {
@@ -276,8 +285,8 @@ public class GameController : MonoBehaviour {
 			Rect commentRect = new Rect (commentX, commentY, commentWidth, commentHeight);
 			commentStyle.fontSize = (int)(unit * 2);
 			commentStyle.padding.top = (int)commentHeight/16;
-			GUI.color = WHITE_0_9;
-			GUI.Label (commentRect, "음극에서 나오는 전자의 수를 2차 방출로 증가시켜 양극에 흡수되도록 한 진공관", commentStyle);
+			GUI.color = new Color(1, 1, 1, commentAlpha);
+			GUI.Label (commentRect, displayingComment, commentStyle);
 		}
 		
 
@@ -333,6 +342,9 @@ public class GameController : MonoBehaviour {
 		}
 
 		infoAlpha = INFO_ALPHA + (infoAlpha-INFO_ALPHA)*0.95f;
+		if (displayingComment.Equals(string.Empty) == false) {
+			commentAlpha = COMMENT_ALPHA + (commentAlpha-COMMENT_ALPHA)*0.97f;
+		}
 	}
 
 
@@ -565,6 +577,31 @@ public class GameController : MonoBehaviour {
 	void UpdateInfoText(string text) {
 		displayingInfo = text;
 		infoAlpha = 1;
+	}
+
+	void EnqueueCommentText(string text) {
+		displayingCommentQueue.Enqueue (text);
+	}
+
+	IEnumerator CheckAndDequeueCommentText() {
+		while(true) {
+			if (displayingCommentQueue.Count > 0) {
+				displayingComment = displayingCommentQueue.Dequeue();
+				commentAlpha = 1;
+				yield return new WaitForSeconds(COMMENT_DISPLAY_DURATION);
+
+			} else {
+				if (displayingComment.Equals(string.Empty) == false) {
+					for(int i = 0; i < 30; i++) {
+						commentAlpha *= 0.75f;
+						yield return null;
+					}
+					displayingComment = string.Empty;
+				}
+				yield return null;
+
+			}
+		}
 	}
 
 	#endregion
