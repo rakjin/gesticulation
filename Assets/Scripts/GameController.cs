@@ -400,15 +400,15 @@ public class GameController : MonoBehaviour {
 		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
 
-			shelf.CurrentPoser().StopMotion();
-			isPlaying = false;
-			playBeginTime = 0;
-
 			bool flipped = shelf.Flip(toLeft, speedMultiplier);
 			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
 			if (flipped) {
 
+				shelf.CurrentPoser().StopMotion();
+				isPlaying = false;
+				playBeginTime = 0;
+				
 				Preset preset = shelf.CurrentPreset();
 				StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
 				
