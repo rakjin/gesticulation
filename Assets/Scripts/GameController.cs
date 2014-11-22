@@ -25,7 +25,9 @@ public class GameController : MonoBehaviour {
 	public Transform ground;
 	public Transform buttonContainer;
 	public Transform button3D;
-	public Shelf shelf;
+	Shelf currentShelf;
+	public Shelf sampleShelf;
+	public Shelf userShelf;
 	public GUIStyle infoStyle;
 	public GUIStyle commentStyle;
 	public GUIStyle titleStyle;
@@ -109,17 +111,19 @@ public class GameController : MonoBehaviour {
 	IEnumerator Start () {
 		Instance = this;
 
-		if (shelf == null) {
-			Debug.LogError ("shelf required");
+		if (sampleShelf == null || userShelf == null) {
+			Debug.LogError ("shelves required");
 		}
-		shelf.OnFlipComplete += OnShelfFlipComplete;
+		currentShelf = sampleShelf;
+		sampleShelf.OnFlipComplete += OnShelfFlipComplete;
+		userShelf.OnFlipComplete += OnShelfFlipComplete;
 
 		texEmpty = new Texture2D (1, 1);
 		texEmpty.anisoLevel = 0;
 		texEmpty.filterMode = FilterMode.Point;
 		texEmpty.SetPixel (0, 0, Color.white);
 
-		Preset preset = shelf.CurrentPreset();
+		Preset preset = currentShelf.CurrentPreset();
 		displayingTitle = preset.Title;
 		displayingAuthor = preset.Author;
 
@@ -145,9 +149,9 @@ public class GameController : MonoBehaviour {
 
 	void BeginPlayCenterSlotIfAnimated ()
 	{
-		Preset centerPreset = shelf.CurrentPreset ();
+		Preset centerPreset = currentShelf.CurrentPreset ();
 		if (centerPreset.Type == Preset.PresetType.Animated) {
-			Poser centerPoser = shelf.CurrentPoser();
+			Poser centerPoser = currentShelf.CurrentPoser();
 			List<Pose> motion = centerPreset.Motion;
 			StartCoroutine(centerPoser.BeginMotion(motion, recordInterval / PLAYBACK_SPEED));
 			isPlaying = true;
@@ -212,8 +216,8 @@ public class GameController : MonoBehaviour {
 				GUI.color = WHITE_0_5;
 				GUI.Label (authorRect, displayingAuthor, authorStyle);
 
-				if (shelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
-					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(shelf.CurrentPreset().Motion.Count*recordInterval/PLAYBACK_SPEED) );
+				if (currentShelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
+					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(currentShelf.CurrentPreset().Motion.Count*recordInterval/PLAYBACK_SPEED) );
 					if (playBeginTime == 0) {
 						progress = 0;
 					}
@@ -310,7 +314,7 @@ public class GameController : MonoBehaviour {
 		if (showDebugUI) {
 			GUI.color = Color.white;
 			if (GUI.Button (new Rect(0, 10, 200, 30), "print pose")) {
-				Debug.Log (shelf.CurrentPoser().GetCurrentPose());
+				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose());
 			} else if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
 				OnGestureSwipe(toLeft:true);
 			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
@@ -455,16 +459,16 @@ public class GameController : MonoBehaviour {
 		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
 
-			bool flipped = shelf.Flip(toLeft, speedMultiplier);
+			bool flipped = currentShelf.Flip(toLeft, speedMultiplier);
 			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
 			if (flipped) {
 
-				shelf.CurrentPoser().StopMotion();
+				currentShelf.CurrentPoser().StopMotion();
 				isPlaying = false;
 				playBeginTime = 0;
 				
-				Preset preset = shelf.CurrentPreset();
+				Preset preset = currentShelf.CurrentPreset();
 				StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
 				
 				if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
@@ -633,7 +637,7 @@ public class GameController : MonoBehaviour {
 		StartCoroutine (FadeInVignette ());
 		yield return new WaitForSeconds (0.5f);
 
-		Poser poser = shelf.CurrentPoser();		
+		Poser poser = currentShelf.CurrentPoser();		
 		poser.EditEnabled = true;
 		poser.Highlighted = Highlightable.HighlightDegree.Full;
 
@@ -669,7 +673,7 @@ public class GameController : MonoBehaviour {
 		yield return StartCoroutine (FadeOutVignette ());
 		state = State.Show;
 
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
 		poser.ApplyPose (Pose.DefaultPose (), 1);
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
@@ -697,7 +701,7 @@ public class GameController : MonoBehaviour {
 		cancelEditingButton.enabled = false;
 		doneEditingButton.enabled = true;
 		
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
 
@@ -730,7 +734,7 @@ public class GameController : MonoBehaviour {
 
 		doneEditingButton.SwellAndDisable ();
 
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
 		poser.EditEnabled = true;
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 		poser.EditEnabled = false;
@@ -739,7 +743,7 @@ public class GameController : MonoBehaviour {
 		records = null;
 		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
 
-		shelf.InsertPresetBeforeLast (preset);
+		currentShelf.InsertPresetBeforeLast (preset);
 
 		BeginPlayCenterSlotIfAnimated ();
 
@@ -772,7 +776,7 @@ public class GameController : MonoBehaviour {
 		records = new List<Pose> (recordCount);
 		isRecording = true;
 		recordBeginTime = Time.time;
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
 
 		UpdateInfoText (INFO_TEXT_NOW_RECORDING);
 
