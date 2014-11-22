@@ -439,6 +439,11 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void OnGestureScroll(float strength) {
+		bool toLeft = (strength < 0);
+		OnGestureSwipe (toLeft);
+	}
+
 	#endregion
 
 

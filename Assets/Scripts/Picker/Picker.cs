@@ -87,7 +87,7 @@ public class Picker : MonoBehaviour {
 			x = (x > 0)? (x-SCROLL_THRESHOLD) : (x+SCROLL_THRESHOLD);
 			x *= SCROLL_SENSITIVITY_MULTIPLIER;
 			x = Mathf.Clamp(x, -1, 1);
-			Debug.Log (x);
+			gameController.OnGestureScroll(strength:x);
 		}
 	}
 
