@@ -166,13 +166,17 @@ public class GameController : MonoBehaviour {
 		if (state == State.Show || state == State.TypeTextInfo) {
 			float authorWidth = unit*80;
 			float authorHeight = unit*4;
-			Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
+			float authorX = padding;
+			float authorY = screenHeight - authorHeight - padding*3;
+			Rect authorRect = new Rect (authorX, authorY, authorWidth, authorHeight);
 			authorStyle.fontSize = (int)(unit * 3);
 			authorStyle.padding.top = (int)authorHeight/16;
 
 			float titleWidth = unit*80;
 			float titleHeight = unit*6;
-			Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
+			float titleX = authorX;
+			float titleY = authorY - gap - titleHeight;
+			Rect titleRect = new Rect (titleX, titleY, titleWidth, titleHeight);
 			titleStyle.fontSize = (int)(unit * 4);
 			titleStyle.padding.top = (int)titleHeight/16;
 
