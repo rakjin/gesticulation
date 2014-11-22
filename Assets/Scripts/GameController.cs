@@ -403,18 +403,19 @@ public class GameController : MonoBehaviour {
 			bool flipped = shelf.Flip(toLeft, speedMultiplier);
 			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
-			Preset preset = shelf.CurrentPreset();
-			StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
-
-			if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
-				editButton.enabled = true;
-
-			} else {
-				editButton.enabled = false;
-				
-			}
-
 			if (flipped) {
+
+				Preset preset = shelf.CurrentPreset();
+				StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
+				
+				if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
+					editButton.enabled = true;
+					
+				} else {
+					editButton.enabled = false;
+					
+				}
+				
 				float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
 				LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION / speedMultiplier)
 					.setEase(LeanTweenType.easeInOutSine)
