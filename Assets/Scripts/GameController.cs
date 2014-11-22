@@ -51,12 +51,19 @@ public class GameController : MonoBehaviour {
 	string displayingInfo = "";
 	const float INFO_ALPHA = 0.3f;
 	float infoAlpha = INFO_ALPHA;
+	const string INFO_TEXT_SAMPLE_GALLERY = "샘플 갤러리";
+	const string INFO_TEXT_NEW_RECORDING = "새 작품 녹화";
+	const string INFO_TEXT_NOW_RECORDING = "녹화중...";
+	const string INFO_TEXT_RECORDING_DONE = "녹화 완료";
 
 	string displayingComment = "";
 	Queue<string> displayingCommentQueue = new Queue<string>();
 	const float COMMENT_ALPHA = 0.7f;
 	float commentAlpha = COMMENT_ALPHA;
-	const float COMMENT_DISPLAY_DURATION = 2.5f;
+	const float COMMENT_DISPLAY_DURATION = 5f;
+	const string COMMENT_TEXT_ENCOURAGE_PICK_A_PART = "목각인형을 붙잡아 자세를 바꿔보세요. 그 과정이 녹화됩니다.";
+	const string COMMENT_TEXT_RECORDING_DONE_BY_TIMER = "세션이 끝났습니다. 저장하시겠습니까?";
+	const string COMMENT_TEXT_RECORDING_DONE_BY_BUTTON = "작품 제목을 입력해주세요.";
 
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
@@ -127,7 +134,7 @@ public class GameController : MonoBehaviour {
 
 		state = State.Show;
 
-		UpdateInfoText ("샘플 갤러리");
+		UpdateInfoText (INFO_TEXT_SAMPLE_GALLERY);
 		EnqueueCommentText ("샘플 작품을 둘러보세요.");
 		StartCoroutine (CheckAndDequeueCommentText ());
 	}
@@ -617,6 +624,9 @@ public class GameController : MonoBehaviour {
 
 		state = State.Edit;
 
+		UpdateInfoText (INFO_TEXT_NEW_RECORDING);
+		EnqueueCommentText (COMMENT_TEXT_ENCOURAGE_PICK_A_PART);
+
 		editButton.SwellAndDisable ();
 		cancelEditingButton.enabled = true;
 
@@ -663,6 +673,8 @@ public class GameController : MonoBehaviour {
 		poser.ApplyPose (Pose.DefaultPose (), 1);
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
+
+		UpdateInfoText (INFO_TEXT_SAMPLE_GALLERY);
 	}
 
 	#endregion
@@ -675,6 +687,9 @@ public class GameController : MonoBehaviour {
 		if (state != State.Edit) {
 			yield break;
 		}
+
+		UpdateInfoText (INFO_TEXT_RECORDING_DONE);
+		EnqueueCommentText (COMMENT_TEXT_RECORDING_DONE_BY_BUTTON);
 
 		isRecording = false;
 
@@ -727,6 +742,8 @@ public class GameController : MonoBehaviour {
 		shelf.InsertPresetBeforeLast (preset);
 
 		BeginPlayCenterSlotIfAnimated ();
+
+		UpdateInfoText (INFO_TEXT_SAMPLE_GALLERY);
 	}
 
 	#endregion
@@ -757,6 +774,8 @@ public class GameController : MonoBehaviour {
 		recordBeginTime = Time.time;
 		Poser poser = shelf.CurrentPoser ();
 
+		UpdateInfoText (INFO_TEXT_NOW_RECORDING);
+
 		for (int i = 0; i < recordCount; i++) {
 			if (isRecording == false || records == null) {
 				recordBeginTime = 0;
@@ -772,6 +791,9 @@ public class GameController : MonoBehaviour {
 		poser.DisconnectFromRigidbody ();
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
+
+		UpdateInfoText (INFO_TEXT_RECORDING_DONE);
+		EnqueueCommentText (COMMENT_TEXT_RECORDING_DONE_BY_TIMER);
 	}
 
 	#endregion
