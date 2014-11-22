@@ -48,6 +48,10 @@ public class GameController : MonoBehaviour {
 	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
 	const string AUTHOR_PLACEHOLDER = "이름을 입력해주세요. (ENTER)";
 
+	string displayingInfo = "";
+	const float INFO_ALPHA = 0.3f;
+	float infoAlpha = INFO_ALPHA;
+
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
 	readonly Vector3 buttonSwollenScale = Vector3.one;
@@ -116,6 +120,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		state = State.Show;
+		UpdateInfoText ("샘플 갤러리");
 	}
 
 	void OnShelfFlipComplete () {
@@ -261,8 +266,8 @@ public class GameController : MonoBehaviour {
 			Rect infoRect = new Rect (infoX, infoY, infoWidth, infoHeight);
 			infoStyle.fontSize = (int)(unit * 2);
 			infoStyle.padding.top = (int)infoHeight/16;
-			GUI.color = WHITE_0_5;
-			GUI.Label (infoRect, "샘플 작품 갤러리", infoStyle);
+			GUI.color = new Color(1, 1, 1, infoAlpha);
+			GUI.Label (infoRect, displayingInfo, infoStyle);
 
 			float commentWidth = screenWidth;
 			float commentHeight = unit*3;
@@ -326,6 +331,8 @@ public class GameController : MonoBehaviour {
 		if (helpAlpha > 0) {
 			helpAlpha += helpAlphaDec;
 		}
+
+		infoAlpha = INFO_ALPHA + (infoAlpha-INFO_ALPHA)*0.95f;
 	}
 
 
@@ -548,6 +555,16 @@ public class GameController : MonoBehaviour {
 			vignetteAlpha = alpha;
 			yield return null;
 		}
+	}
+
+	#endregion
+
+
+	#region Info and Comment TextField
+
+	void UpdateInfoText(string text) {
+		displayingInfo = text;
+		infoAlpha = 1;
 	}
 
 	#endregion
