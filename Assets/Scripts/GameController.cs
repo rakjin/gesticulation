@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour {
 	const string TAG_PART = "Part";
 	const string TAG_BUTTON = "Button3D";
 
+	Color WHITE_0_9 = new Color (1, 1, 1, 0.9f);
+	Color WHITE_0_5 = new Color (1, 1, 1, 0.5f);
+	Color WHITE_0_25 = new Color (1, 1, 1, 0.25f);
 
 	public Transform ground;
 	public Transform buttonContainer;
@@ -183,7 +186,9 @@ public class GameController : MonoBehaviour {
 			titleStyle.padding.top = (int)titleHeight/16;
 
 			if (state == State.Show) {
+				GUI.color = WHITE_0_9;
 				GUI.Label (titleRect, displayingTitle, titleStyle);
+				GUI.color = WHITE_0_5;
 				GUI.Label (authorRect, displayingAuthor, authorStyle);
 
 				if (shelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
@@ -242,7 +247,7 @@ public class GameController : MonoBehaviour {
 			float recY = unit*4;
 			if (isRecording) {
 				bool showFlickeringRec = ((Time.frameCount % 200) > 100);
-				GUI.color = showFlickeringRec? Color.white : new Color(1, 1, 1, 0.25f);
+				GUI.color = showFlickeringRec? Color.white : WHITE_0_25;
 				GUI.DrawTexture(new Rect(recX, recY, recWidth, recHeight), texRec, ScaleMode.ScaleToFit);
 			}
 
@@ -256,7 +261,7 @@ public class GameController : MonoBehaviour {
 			Rect infoRect = new Rect (infoX, infoY, infoWidth, infoHeight);
 			infoStyle.fontSize = (int)(unit * 2);
 			infoStyle.padding.top = (int)infoHeight/16;
-			GUI.color = new Color(1, 1, 1, 0.5f);
+			GUI.color = WHITE_0_5;
 			GUI.Label (infoRect, "샘플 작품 갤러리", infoStyle);
 
 			float commentWidth = screenWidth;
@@ -266,7 +271,7 @@ public class GameController : MonoBehaviour {
 			Rect commentRect = new Rect (commentX, commentY, commentWidth, commentHeight);
 			commentStyle.fontSize = (int)(unit * 2);
 			commentStyle.padding.top = (int)commentHeight/16;
-			GUI.color = new Color(1, 1, 1, 0.9f);
+			GUI.color = WHITE_0_9;
 			GUI.Label (commentRect, "음극에서 나오는 전자의 수를 2차 방출로 증가시켜 양극에 흡수되도록 한 진공관", commentStyle);
 		}
 		
