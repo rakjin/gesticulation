@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour {
 	public Transform button3D;
 	public Shelf shelf;
 	public GUIStyle infoStyle;
+	public GUIStyle commentStyle;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
 	public Texture2D texSplash;
@@ -247,7 +248,7 @@ public class GameController : MonoBehaviour {
 
 		}
 
-		{ // info text
+		{ // info and comment text
 			float infoWidth = screenWidth;
 			float infoHeight = unit*3;
 			float infoX = 0;
@@ -257,8 +258,18 @@ public class GameController : MonoBehaviour {
 			infoStyle.padding.top = (int)infoHeight/16;
 			GUI.color = new Color(1, 1, 1, 0.5f);
 			GUI.Label (infoRect, "샘플 작품 갤러리", infoStyle);
-		}
 
+			float commentWidth = screenWidth;
+			float commentHeight = unit*3;
+			float commentX = 0;
+			float commentY = infoY + infoHeight + gap;
+			Rect commentRect = new Rect (commentX, commentY, commentWidth, commentHeight);
+			commentStyle.fontSize = (int)(unit * 2);
+			commentStyle.padding.top = (int)commentHeight/16;
+			GUI.color = new Color(1, 1, 1, 0.9f);
+			GUI.Label (commentRect, "음극에서 나오는 전자의 수를 2차 방출로 증가시켜 양극에 흡수되도록 한 진공관", commentStyle);
+		}
+		
 
 		if (helpAlpha > 0) {
 			float helpWidth = screenWidth;
