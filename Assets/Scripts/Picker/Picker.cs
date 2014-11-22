@@ -6,6 +6,8 @@ using Leap;
 public class Picker : MonoBehaviour {
 
 	const float PINCH_DISTANCE = 0.5f;
+	const float SCROLL_THRESHOLD = 0.15f;
+	const float SCROLL_SENSITIVITY_MULTIPLIER = 16;
 
 	public Transform PointerPrefab;
 
@@ -78,6 +80,14 @@ public class Picker : MonoBehaviour {
 		isPinching = (distance < PINCH_DISTANCE);
 		if (isPinching != wasPinching) {
 			StateTransition();
+		}
+
+		float x = middlePosition.x;
+		if (Mathf.Abs(x) > SCROLL_THRESHOLD) {
+			x = (x > 0)? (x-SCROLL_THRESHOLD) : (x+SCROLL_THRESHOLD);
+			x *= SCROLL_SENSITIVITY_MULTIPLIER;
+			x = Mathf.Clamp(x, -1, 1);
+			Debug.Log (x);
 		}
 	}
 
