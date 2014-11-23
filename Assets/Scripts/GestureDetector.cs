@@ -82,18 +82,16 @@ public class GestureDetector : MonoBehaviour {
 						
 						Vector direction = swipeGesture.Direction;
 
-						if (direction.y > directionDetectionThreshold) {
-							//Debug.Log ("\tUP");
+						if (direction.z > directionDetectionThreshold) {
+							GameController.Instance.OnGestureSwipe(Direction.Pull);
 							
-						} else if (direction.y < -directionDetectionThreshold) {
-							//Debug.Log ("\tDOWN");
+						} else if (direction.z < -directionDetectionThreshold) {
+							GameController.Instance.OnGestureSwipe(Direction.Push);
 							
 						} else if (direction.x > directionDetectionThreshold) {
-							//Debug.Log ("\tRIGHT");
 							GameController.Instance.OnGestureSwipe(Direction.ToRight);
 							
 						} else if (direction.x < -directionDetectionThreshold) {
-							//Debug.Log ("\tLEFT");
 							GameController.Instance.OnGestureSwipe(Direction.ToLeft);
 							
 						}
