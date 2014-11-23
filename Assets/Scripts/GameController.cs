@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour {
 
 	bool isPlaying = false;
 	float playBeginTime;
-	const float PLAYBACK_SPEED = 2;
+	const float PLAYBACK_SPEED = 3;
 
 
 	const float GROUND_SHIFT = 2;
@@ -707,7 +707,7 @@ public class GameController : MonoBehaviour {
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
 
-		UpdateGalleryInfoAndComment ();
+		UpdateGalleryInfoAndComment (skipComment:true);
 	}
 
 	#endregion
@@ -776,7 +776,7 @@ public class GameController : MonoBehaviour {
 
 		BeginPlayCenterSlotIfAnimated ();
 
-		UpdateGalleryInfoAndComment ();
+		UpdateGalleryInfoAndComment (skipComment:true);
 	}
 
 	#endregion
@@ -844,9 +844,12 @@ public class GameController : MonoBehaviour {
 		UpdateGalleryInfoAndComment ();
 	}
 
-	void UpdateGalleryInfoAndComment() {
+	void UpdateGalleryInfoAndComment(bool skipComment = false) {
 		bool isSampleShelf = (currentShelf == sampleShelf) ? true : false;
 		UpdateInfoText (isSampleShelf ? INFO_TEXT_SAMPLE_GALLERY : INFO_TEXT_USER_GALLERY);
+		if (skipComment) {
+			return;
+		}
 		ClearCommentTextQueueAndImmediatelyUpdate (isSampleShelf ? COMMENT_TEXT_SAMPLE_GALLERY : COMMENT_TEXT_USER_GALLERY);
 	}
 
