@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour {
 	const float INFO_ALPHA = 0.3f;
 	float infoAlpha = INFO_ALPHA;
 	const string INFO_TEXT_SAMPLE_GALLERY = "샘플 갤러리";
+	const string INFO_TEXT_USER_GALLERY = "관람객 참여 갤러리";
 	const string INFO_TEXT_NEW_RECORDING = "새 작품 녹화";
 	const string INFO_TEXT_NOW_RECORDING = "녹화중...";
 	const string INFO_TEXT_RECORDING_DONE = "녹화 완료";
@@ -64,6 +65,8 @@ public class GameController : MonoBehaviour {
 	const float COMMENT_ALPHA = 0.7f;
 	float commentAlpha = COMMENT_ALPHA;
 	const float COMMENT_DISPLAY_DURATION = 5f;
+	const string COMMENT_TEXT_SAMPLE_GALLERY = "미리 만들어둔 샘플 작품들입니다.";
+	const string COMMENT_TEXT_USER_GALLERY = "여러분이 직접 만든 작품들입니다. 오른쪽 끝의 인형으로 이동해서 참여해보세요.";
 	const string COMMENT_TEXT_ENCOURAGE_PICK_A_PART = "목각인형을 붙잡아 자세를 바꿔보세요. 그 과정이 녹화됩니다.";
 	const string COMMENT_TEXT_RECORDING_DONE_BY_TIMER = "세션이 끝났습니다. 저장하시겠습니까?";
 	const string COMMENT_TEXT_RECORDING_DONE_BY_BUTTON = "작품 제목을 입력해주세요.";
@@ -140,7 +143,7 @@ public class GameController : MonoBehaviour {
 		state = State.Show;
 
 		UpdateInfoText (INFO_TEXT_SAMPLE_GALLERY);
-		EnqueueCommentText ("샘플 작품을 둘러보세요.");
+		EnqueueCommentText (COMMENT_TEXT_SAMPLE_GALLERY);
 		StartCoroutine (CheckAndDequeueCommentText ());
 	}
 
@@ -825,6 +828,12 @@ public class GameController : MonoBehaviour {
 		float destZ = (toUserShelf) ? 17 : 0;
 		currentShelf = (toUserShelf) ? userShelf : sampleShelf;
 		LeanTween.moveLocalZ (container.gameObject, destZ, Shelf.FLIP_DURATION).setEase(LeanTweenType.easeInOutExpo);
+
+		string infoText = (toUserShelf) ? INFO_TEXT_USER_GALLERY : INFO_TEXT_SAMPLE_GALLERY;
+		string commentText = (toUserShelf) ? COMMENT_TEXT_USER_GALLERY : COMMENT_TEXT_SAMPLE_GALLERY;
+
+		UpdateInfoText (infoText);
+		EnqueueCommentText (commentText);
 	}
 
 	#endregion
