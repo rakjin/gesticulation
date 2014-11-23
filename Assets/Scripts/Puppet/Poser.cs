@@ -245,6 +245,7 @@ public class Poser : MonoBehaviour {
 			EditEnabled = true;
 			Highlighted = Part.HighlightDegree.None;
 			Visible = true;
+			EditEnabled = false;
 			
 			break;
 			
