@@ -59,6 +59,21 @@ public class Preset {
 		return json;
 	}
 
+	public static Preset Deserialize(JSONClass json) {
+		JSONArray jsonMotion = json ["motion"].AsArray;
+		List<Pose> motion = new List<Pose> ();
+		foreach(JSONClass jsonPose in jsonMotion.Childs) {
+			Pose pose = Pose.Deserialize(jsonPose);
+			motion.Add (pose);
+		}
+
+		string title = json ["title"].Value;
+		string author = json ["author"].Value;
+
+		Preset preset = new Preset (motion, title, author);
+		return preset;
+	}
+
 	#endregion
 
 }

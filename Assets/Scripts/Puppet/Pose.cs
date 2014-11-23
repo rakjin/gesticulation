@@ -293,11 +293,68 @@ public class Pose {
 
 	static JSONClass SerializeQuaternion(Quaternion data) {
 		JSONClass json = new JSONClass ();
-		json.Add ("w", new JSONData (data.w));
 		json.Add ("x", new JSONData (data.x));
 		json.Add ("y", new JSONData (data.y));
 		json.Add ("z", new JSONData (data.z));
+		json.Add ("w", new JSONData (data.w));
 		return json;
+	}
+
+	public static Pose Deserialize(JSONClass json) {
+		Vector3 rootPosition = DeserializeVector3 ((JSONClass)json ["RootPosition"]);
+		Quaternion rootRotation = DeserializeQuaternion ((JSONClass)json ["RootRotation"]);
+		Quaternion chest = DeserializeQuaternion ((JSONClass)json ["Chest"]);
+		Quaternion head = DeserializeQuaternion ((JSONClass)json ["Head"]);
+		Quaternion thighL = DeserializeQuaternion ((JSONClass)json ["ThighL"]);
+		Quaternion thighR = DeserializeQuaternion ((JSONClass)json ["ThighR"]);
+		Quaternion shinL = DeserializeQuaternion ((JSONClass)json ["ShinL"]);
+		Quaternion shinR = DeserializeQuaternion ((JSONClass)json ["ShinR"]);
+		Quaternion footL = DeserializeQuaternion ((JSONClass)json ["FootL"]);
+		Quaternion footR = DeserializeQuaternion ((JSONClass)json ["FootR"]);
+		Quaternion shoulderL = DeserializeQuaternion ((JSONClass)json ["ShoulderL"]);
+		Quaternion shoulderR = DeserializeQuaternion ((JSONClass)json ["ShoulderR"]);
+		Quaternion upperArmL = DeserializeQuaternion ((JSONClass)json ["UpperArmL"]);
+		Quaternion upperArmR = DeserializeQuaternion ((JSONClass)json ["UpperArmR"]);
+		Quaternion forearmL = DeserializeQuaternion ((JSONClass)json ["ForearmL"]);
+		Quaternion forearmR = DeserializeQuaternion ((JSONClass)json ["ForearmR"]);
+		Quaternion handL = DeserializeQuaternion ((JSONClass)json ["HandL"]);
+		Quaternion handR = DeserializeQuaternion ((JSONClass)json ["HandR"]);
+
+		Pose pose = new Pose ();
+		pose.RootPosition = rootPosition;
+		pose.RootRotation = rootRotation;
+		pose.Chest = chest;
+		pose.Head = head;
+		pose.ThighL = thighL;
+		pose.ThighR = thighR;
+		pose.ShinL = shinL;
+		pose.ShinR = shinR;
+		pose.FootL = footL;
+		pose.FootR = footR;
+		pose.ShoulderL = shoulderL;
+		pose.ShoulderR = shoulderR;
+		pose.UpperArmL = upperArmL;
+		pose.UpperArmR = upperArmR;
+		pose.ForearmL = forearmL;
+		pose.ForearmR = forearmR;
+		pose.HandL = handL;
+		pose.HandR = handR;
+		return pose;
+	}
+
+	static Vector3 DeserializeVector3(JSONClass json) {
+		float x = json ["x"].AsFloat;
+		float y = json ["y"].AsFloat;
+		float z = json ["z"].AsFloat;
+		return new Vector3(x, y, z);
+	}
+
+	static Quaternion DeserializeQuaternion(JSONClass json) {
+		float w = json ["w"].AsFloat;
+		float x = json ["x"].AsFloat;
+		float y = json ["y"].AsFloat;
+		float z = json ["z"].AsFloat;
+		return new Quaternion(x, y, z, w);
 	}
 
 	#endregion
