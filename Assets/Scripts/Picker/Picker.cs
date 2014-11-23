@@ -9,7 +9,7 @@ public class Picker : MonoBehaviour {
 
 	int scrollThresholdAccumulatedFrames = 0;
 	const int SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MIN = 30;
-	const int SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MAX = 300;
+	const int SCROLL_THRESHOLD_ACCUMULATED_FRAMES_MAX = 600;
 	const float SCROLL_THRESHOLD_X = 0.15f;
 
 	public Transform PointerPrefab;
