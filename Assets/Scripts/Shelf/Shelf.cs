@@ -80,6 +80,7 @@ public class Shelf : MonoBehaviour {
 		Poser currentPoser = CurrentPoser ();
 		Preset currentPreset = CurrentPreset ();
 		if (currentPreset.Pose != null) {
+			currentPoser.StopMotion();
 			currentPoser.ApplyPose (currentPreset.Pose, 0.25f / speedMultiplier);
 		}
 

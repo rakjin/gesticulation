@@ -470,7 +470,6 @@ public class GameController : MonoBehaviour {
 				bool toLeft = (direction == GestureDetector.Direction.ToLeft);
 				bool flipped = currentShelf.Flip(toLeft, speedMultiplier);
 				if (flipped) {
-					currentShelf.CurrentPoser().StopMotion();
 					isPlaying = false;
 					playBeginTime = 0;
 					
