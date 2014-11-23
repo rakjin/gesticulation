@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour {
 	float vignetteAlpha = 0;
 	Texture2D texEmpty;
 	public Texture2D texHelp;
+	public Texture2D texHelpIcon;
 
 
 	State state = State.Splash;
@@ -305,7 +306,15 @@ public class GameController : MonoBehaviour {
 				GUI.Label (commentRect, displayingComment, commentStyle);
 			}
 		}
-		
+
+		{ // help icon
+			float helpIconWidth = unit*13;
+			float helpIconHeight = unit*8;
+			float helpIconX = screenWidth-helpIconWidth-gap/4;
+			float helpIconY = screenHeight-helpIconHeight-gap/4;
+			GUI.color = new Color(1, 1, 1, (1-vignetteAlpha)*0.5f);
+			GUI.DrawTexture(new Rect(helpIconX, helpIconY, helpIconWidth, helpIconHeight), texHelpIcon, ScaleMode.ScaleToFit);
+		}
 
 		if (helpAlpha > 0) {
 			float helpWidth = screenWidth;
