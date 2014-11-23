@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
 	Color WHITE_0_5 = new Color (1, 1, 1, 0.5f);
 	Color WHITE_0_25 = new Color (1, 1, 1, 0.25f);
 
+	public Transform container;
 	public Transform ground;
 	public Transform buttonContainer;
 	public Transform button3D;
