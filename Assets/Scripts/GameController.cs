@@ -473,20 +473,8 @@ public class GameController : MonoBehaviour {
 				bool toLeft = (direction == GestureDetector.Direction.ToLeft);
 				bool flipped = currentShelf.Flip(toLeft, speedMultiplier);
 				if (flipped) {
-					isPlaying = false;
-					playBeginTime = 0;
-					
-					Preset preset = currentShelf.CurrentPreset();
-					StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
-					
-					if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
-						editButton.enabled = true;
-						
-					} else {
-						editButton.enabled = false;
-						
-					}
-					
+					UpdateTitleAuthorAndEditButton ();
+
 					float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
 					LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION / speedMultiplier)
 						.setEase(LeanTweenType.easeInOutSine)
@@ -841,6 +829,8 @@ public class GameController : MonoBehaviour {
 		currentShelf = (toUserShelf) ? userShelf : sampleShelf;
 		LeanTween.moveLocalZ (container.gameObject, destZ, Shelf.FLIP_DURATION).setEase(LeanTweenType.easeInOutExpo);
 
+		UpdateTitleAuthorAndEditButton ();
+		BeginPlayCenterSlotIfAnimated ();
 		UpdateGalleryInfoAndComment ();
 	}
 
@@ -854,5 +844,20 @@ public class GameController : MonoBehaviour {
 	}
 
 	#endregion
+
+
+	void UpdateTitleAuthorAndEditButton ()
+	{
+		isPlaying = false;
+		playBeginTime = 0;
+		Preset preset = currentShelf.CurrentPreset ();
+		StartCoroutine (FadeTitleAuthor (preset.Title, preset.Author));
+		if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
+			editButton.enabled = true;
+		}
+		else {
+			editButton.enabled = false;
+		}
+	}
 
 }
