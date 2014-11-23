@@ -225,7 +225,7 @@ public class GameController : MonoBehaviour {
 					if (playBeginTime == 0) {
 						progress = 0;
 					}
-					DrawProgressBar(new Vector2(screenWidth, screenHeight), unit, titleStyle.normal.textColor.a, progress);
+					DrawProgressBar(new Vector2(screenWidth, screenHeight), unit, progress*progress*4, progress);
 				}
 				
 			} else if (state == State.TypeTextInfo) {
@@ -330,6 +330,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void DrawProgressBar(Vector2 screenSize, float unit, float baseAlpha, float progress) {
+		baseAlpha = Mathf.Clamp01 (baseAlpha);
 		GUI.color = new Color(1, 1, 1, baseAlpha*0.5f);
 		{
 			float barBackgroundWidth = unit*90;
@@ -537,7 +538,7 @@ public class GameController : MonoBehaviour {
 		titleStyle.normal.background = null;
 		authorStyle.normal.background = null;
 
-		int frames = 10;
+		const int frames = 13;
 		Color titleTextColor = titleStyle.normal.textColor;
 		Color authorTextColor = authorStyle.normal.textColor;
 
@@ -545,7 +546,7 @@ public class GameController : MonoBehaviour {
 			float alpha = (frames-i)/(float)frames;
 			titleStyle.normal.textColor = new Color(titleTextColor.r, titleTextColor.g, titleTextColor.b, alpha);
 			authorStyle.normal.textColor = new Color(authorTextColor.r, authorTextColor.g, authorTextColor.b, alpha);
-			yield return new WaitForSeconds(1f/60);
+			yield return null;
 		}
 
 		displayingTitle = title;
@@ -555,7 +556,7 @@ public class GameController : MonoBehaviour {
 			float alpha = i/(float)frames;
 			titleStyle.normal.textColor = new Color(titleTextColor.r, titleTextColor.g, titleTextColor.b, alpha);
 			authorStyle.normal.textColor = new Color(authorTextColor.r, authorTextColor.g, authorTextColor.b, alpha);
-			yield return new WaitForSeconds(1f/60);
+			yield return null;
 		}
 
 		yield break;
