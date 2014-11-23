@@ -141,10 +141,9 @@ public class GameController : MonoBehaviour {
 		}
 
 		state = State.Show;
-
-		UpdateInfoText (INFO_TEXT_SAMPLE_GALLERY);
-		EnqueueCommentText (COMMENT_TEXT_SAMPLE_GALLERY);
 		StartCoroutine (CheckAndDequeueCommentText ());
+
+		UpdateGalleryInfoAndComment ();
 	}
 
 	void OnShelfFlipComplete () {
@@ -293,15 +292,17 @@ public class GameController : MonoBehaviour {
 			GUI.color = new Color(1, 1, 1, infoAlpha);
 			GUI.Label (infoRect, displayingInfo, infoStyle);
 
-			float commentWidth = screenWidth;
-			float commentHeight = unit*3;
-			float commentX = 0;
-			float commentY = infoY + infoHeight + gap;
-			Rect commentRect = new Rect (commentX, commentY, commentWidth, commentHeight);
-			commentStyle.fontSize = (int)(unit * 2);
-			commentStyle.padding.top = (int)commentHeight/16;
-			GUI.color = new Color(1, 1, 1, commentAlpha);
-			GUI.Label (commentRect, displayingComment, commentStyle);
+			if (commentAlpha >= 0) {
+				float commentWidth = screenWidth;
+				float commentHeight = unit*3;
+				float commentX = 0;
+				float commentY = infoY + infoHeight + gap;
+				Rect commentRect = new Rect (commentX, commentY, commentWidth, commentHeight);
+				commentStyle.fontSize = (int)(unit * 2);
+				commentStyle.padding.top = (int)commentHeight/16;
+				GUI.color = new Color(1, 1, 1, commentAlpha);
+				GUI.Label (commentRect, displayingComment, commentStyle);
+			}
 		}
 		
 
@@ -610,6 +611,11 @@ public class GameController : MonoBehaviour {
 		displayingCommentQueue.Enqueue (text);
 	}
 
+	void ClearCommentTextQueueAndImmediatelyUpdate(string text) {
+		displayingCommentQueue.Clear ();
+		EnqueueCommentText(text);
+	}
+
 	IEnumerator CheckAndDequeueCommentText() {
 		while(true) {
 			if (displayingCommentQueue.Count > 0) {
@@ -619,8 +625,8 @@ public class GameController : MonoBehaviour {
 
 			} else {
 				if (displayingComment.Equals(string.Empty) == false) {
-					for(int i = 0; i < 30; i++) {
-						commentAlpha *= 0.75f;
+					for(int i = 0; i < 60; i++) {
+						commentAlpha -= 0.03125f;
 						yield return null;
 					}
 					displayingComment = string.Empty;
@@ -694,7 +700,7 @@ public class GameController : MonoBehaviour {
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
 
-		UpdateInfoText (INFO_TEXT_SAMPLE_GALLERY);
+		UpdateGalleryInfoAndComment ();
 	}
 
 	#endregion
@@ -763,7 +769,7 @@ public class GameController : MonoBehaviour {
 
 		BeginPlayCenterSlotIfAnimated ();
 
-		UpdateInfoText (INFO_TEXT_SAMPLE_GALLERY);
+		UpdateGalleryInfoAndComment ();
 	}
 
 	#endregion
@@ -828,11 +834,13 @@ public class GameController : MonoBehaviour {
 		currentShelf = (toUserShelf) ? userShelf : sampleShelf;
 		LeanTween.moveLocalZ (container.gameObject, destZ, Shelf.FLIP_DURATION).setEase(LeanTweenType.easeInOutExpo);
 
-		string infoText = (toUserShelf) ? INFO_TEXT_USER_GALLERY : INFO_TEXT_SAMPLE_GALLERY;
-		string commentText = (toUserShelf) ? COMMENT_TEXT_USER_GALLERY : COMMENT_TEXT_SAMPLE_GALLERY;
+		UpdateGalleryInfoAndComment ();
+	}
 
-		UpdateInfoText (infoText);
-		EnqueueCommentText (commentText);
+	void UpdateGalleryInfoAndComment() {
+		bool isSampleShelf = (currentShelf == sampleShelf) ? true : false;
+		UpdateInfoText (isSampleShelf ? INFO_TEXT_SAMPLE_GALLERY : INFO_TEXT_USER_GALLERY);
+		ClearCommentTextQueueAndImmediatelyUpdate (isSampleShelf ? COMMENT_TEXT_SAMPLE_GALLERY : COMMENT_TEXT_USER_GALLERY);
 	}
 
 	#endregion
