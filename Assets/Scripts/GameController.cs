@@ -492,7 +492,13 @@ public class GameController : MonoBehaviour {
 				}
 			} else if (direction == GestureDetector.Direction.Pull ||
 			           direction == GestureDetector.Direction.Push) {
-				Debug.Log (direction);
+
+				if((currentShelf == sampleShelf && direction == GestureDetector.Direction.Push) ||
+				   (currentShelf == userShelf && direction == GestureDetector.Direction.Pull)) {
+					return;
+				}
+
+				SwapShelf();
 			}
 		}
 	}
@@ -806,6 +812,19 @@ public class GameController : MonoBehaviour {
 
 		UpdateInfoText (INFO_TEXT_RECORDING_DONE);
 		EnqueueCommentText (COMMENT_TEXT_RECORDING_DONE_BY_TIMER);
+	}
+
+	#endregion
+
+
+	#region Swap Shelf
+
+	void SwapShelf() {
+
+		bool toUserShelf = (currentShelf == sampleShelf) ? true : false;
+		float destZ = (toUserShelf) ? 17 : 0;
+		currentShelf = (toUserShelf) ? userShelf : sampleShelf;
+		LeanTween.moveLocalZ (container.gameObject, destZ, Shelf.FLIP_DURATION).setEase(LeanTweenType.easeInOutExpo);
 	}
 
 	#endregion
