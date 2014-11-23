@@ -64,7 +64,8 @@ public class GameController : MonoBehaviour {
 	Queue<string> displayingCommentQueue = new Queue<string>();
 	const float COMMENT_ALPHA = 0.7f;
 	float commentAlpha = COMMENT_ALPHA;
-	const float COMMENT_DISPLAY_DURATION = 5f;
+	const int COMMENT_DISPLAY_FRAMES = 5 * 60;
+	int commentDisplayFrames = 0;
 	const string COMMENT_TEXT_SAMPLE_GALLERY = "미리 만들어둔 샘플 작품들입니다.";
 	const string COMMENT_TEXT_USER_GALLERY = "여러분이 직접 만든 작품들입니다. 오른쪽 끝의 인형으로 이동해서 참여해보세요.";
 	const string COMMENT_TEXT_ENCOURAGE_PICK_A_PART = "목각인형을 붙잡아 자세를 바꿔보세요. 그 과정이 녹화됩니다.";
@@ -614,6 +615,7 @@ public class GameController : MonoBehaviour {
 	void ClearCommentTextQueueAndImmediatelyUpdate(string text) {
 		displayingCommentQueue.Clear ();
 		EnqueueCommentText(text);
+		commentDisplayFrames = COMMENT_DISPLAY_FRAMES;
 	}
 
 	IEnumerator CheckAndDequeueCommentText() {
@@ -621,7 +623,11 @@ public class GameController : MonoBehaviour {
 			if (displayingCommentQueue.Count > 0) {
 				displayingComment = displayingCommentQueue.Dequeue();
 				commentAlpha = 1;
-				yield return new WaitForSeconds(COMMENT_DISPLAY_DURATION);
+				commentDisplayFrames = 0;
+				while(commentDisplayFrames < COMMENT_DISPLAY_FRAMES) {
+					commentDisplayFrames += 1;
+					yield return null;
+				}
 
 			} else {
 				if (displayingComment.Equals(string.Empty) == false) {
