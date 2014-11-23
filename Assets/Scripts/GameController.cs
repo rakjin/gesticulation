@@ -317,9 +317,9 @@ public class GameController : MonoBehaviour {
 			if (GUI.Button (new Rect(0, 10, 200, 30), "print pose")) {
 				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose());
 			} else if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
-				OnGestureSwipe(toLeft:true);
+				OnGestureSwipe(GestureDetector.Direction.ToLeft);
 			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
-				OnGestureSwipe(toLeft:false);
+				OnGestureSwipe(GestureDetector.Direction.ToRight);
 			}
 		}
 	}
@@ -456,37 +456,43 @@ public class GameController : MonoBehaviour {
 	bool ignoreGesture = false;
 	const float ignoreGestureTimeSpan = Shelf.FLIP_DURATION + 0.015625f;
 
-	public void OnGestureSwipe(bool toLeft, float speedMultiplier = 1) {
+	public void OnGestureSwipe(GestureDetector.Direction direction, float speedMultiplier = 1) {
 		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
-
-			bool flipped = currentShelf.Flip(toLeft, speedMultiplier);
 			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
-			if (flipped) {
+			if (direction == GestureDetector.Direction.ToLeft ||
+			    direction == GestureDetector.Direction.ToRight) {
 
-				currentShelf.CurrentPoser().StopMotion();
-				isPlaying = false;
-				playBeginTime = 0;
-				
-				Preset preset = currentShelf.CurrentPreset();
-				StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
-				
-				if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
-					editButton.enabled = true;
+				bool toLeft = (direction == GestureDetector.Direction.ToLeft);
+				bool flipped = currentShelf.Flip(toLeft, speedMultiplier);
+				if (flipped) {
+					currentShelf.CurrentPoser().StopMotion();
+					isPlaying = false;
+					playBeginTime = 0;
 					
-				} else {
-					editButton.enabled = false;
+					Preset preset = currentShelf.CurrentPreset();
+					StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
 					
+					if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
+						editButton.enabled = true;
+						
+					} else {
+						editButton.enabled = false;
+						
+					}
+					
+					float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
+					LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION / speedMultiplier)
+						.setEase(LeanTweenType.easeInOutSine)
+						.setOnComplete(() => {
+							Vector3 backToOrigin = new Vector3(0, ground.localPosition.y, ground.localPosition.z);
+							ground.localPosition = backToOrigin;
+						});
 				}
-				
-				float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
-				LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION / speedMultiplier)
-					.setEase(LeanTweenType.easeInOutSine)
-					.setOnComplete(() => {
-						Vector3 backToOrigin = new Vector3(0, ground.localPosition.y, ground.localPosition.z);
-						ground.localPosition = backToOrigin;
-					});
+			} else if (direction == GestureDetector.Direction.Pull ||
+			           direction == GestureDetector.Direction.Push) {
+				Debug.Log (direction);
 			}
 		}
 	}
@@ -506,8 +512,9 @@ public class GameController : MonoBehaviour {
 
 	public void OnGestureScroll(float strength) {
 		bool toLeft = (strength < 0);
+		GestureDetector.Direction direction = toLeft ? GestureDetector.Direction.ToLeft : GestureDetector.Direction.ToRight;
 		float scrollSpeedMultiplier = (Mathf.Abs (strength)*4) + 1;
-		OnGestureSwipe (toLeft, scrollSpeedMultiplier);
+		OnGestureSwipe (direction, scrollSpeedMultiplier);
 	}
 
 	#endregion
