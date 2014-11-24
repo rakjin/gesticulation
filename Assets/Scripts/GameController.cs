@@ -116,6 +116,7 @@ public class GameController : MonoBehaviour {
 	const float helpAlphaDec = helpAlphaInc / -2;
 	float helpAlpha = 0;
 
+	string debugPoseJSON = "";
 
 	#region audio clips
 
@@ -361,7 +362,19 @@ public class GameController : MonoBehaviour {
 				OnGestureSwipe(GestureDetector.Direction.Push);
 			} else if (GUI.Button (new Rect(w*2, h, w, h), ">>")) {
 				OnGestureSwipe(GestureDetector.Direction.ToLeft);
+			} else if (GUI.Button (new Rect(0, h*3, w, h), "GET")) {
+				debugPoseJSON = currentShelf.CurrentPreset().Serialize().ToString();
+			} else if (GUI.Button (new Rect(w, h*3, w, h), "SET")) {
+				try {
+					Preset preset = Preset.Deserialize((SimpleJSON.JSONClass)SimpleJSON.JSON.Parse(debugPoseJSON));
+					currentShelf.SetCurrentPreset(preset);
+				} catch {
+					Debug.Log ("exception");
+				}
+			} else if (GUI.Button (new Rect(w*2, h*3, w, h), "DEL")) {
+				currentShelf.RemoveCurrentPreset();
 			}
+			debugPoseJSON = GUI.TextArea (new Rect(0, h*4, w*3, h*5), debugPoseJSON);
 		}
 	}
 
