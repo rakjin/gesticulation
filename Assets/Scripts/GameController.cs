@@ -362,6 +362,10 @@ public class GameController : MonoBehaviour {
 				OnGestureSwipe(GestureDetector.Direction.Push);
 			} else if (GUI.Button (new Rect(w*2, h, w, h), ">>")) {
 				OnGestureSwipe(GestureDetector.Direction.ToLeft);
+			} else if (GUI.RepeatButton(new Rect(0, h*2, w, h), "<<<")) {
+				OnGestureScroll(+1);
+			} else if (GUI.RepeatButton(new Rect(w*2, h*2, w, h), ">>>")) {
+				OnGestureScroll(-1);
 			} else if (GUI.Button (new Rect(0, h*3, w, h), "GET")) {
 				debugPoseJSON = currentShelf.CurrentPreset().Serialize().ToString();
 				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose().ToString());
