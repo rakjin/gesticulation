@@ -6,14 +6,13 @@ public class Sway : MonoBehaviour {
 	const float SPEED = 4;
 
 	Vector3 initialPosition;
-	Transform lookAtTransform;
+	public Transform lookAtTransform;
 	Vector3 lookAt;
 
 	// Use this for initialization
 	void Start () {
 	
 		initialPosition = transform.localPosition;
-		lookAtTransform = GameObject.Find ("/LookAt").transform;
 		lookAt = lookAtTransform.position;
 	}
 	

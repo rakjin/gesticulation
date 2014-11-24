@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using Leap;
 
 public class GestureDetector : MonoBehaviour {
+
+	public enum Direction {
+		ToLeft,
+		ToRight,
+		Push,
+		Pull,
+	}
 	
 	Controller controller;
 	const int oldGesturesMaxCount = 10;
@@ -75,19 +82,17 @@ public class GestureDetector : MonoBehaviour {
 						
 						Vector direction = swipeGesture.Direction;
 
-						if (direction.y > directionDetectionThreshold) {
-							//Debug.Log ("\tUP");
+						if (direction.z > directionDetectionThreshold) {
+							GameController.Instance.OnGestureSwipe(Direction.Pull);
 							
-						} else if (direction.y < -directionDetectionThreshold) {
-							//Debug.Log ("\tDOWN");
+						} else if (direction.z < -directionDetectionThreshold) {
+							GameController.Instance.OnGestureSwipe(Direction.Push);
 							
 						} else if (direction.x > directionDetectionThreshold) {
-							//Debug.Log ("\tRIGHT");
-							GameController.Instance.OnGestureSwipe(toLeft:false);
+							GameController.Instance.OnGestureSwipe(Direction.ToRight);
 							
 						} else if (direction.x < -directionDetectionThreshold) {
-							//Debug.Log ("\tLEFT");
-							GameController.Instance.OnGestureSwipe(toLeft:true);
+							GameController.Instance.OnGestureSwipe(Direction.ToLeft);
 							
 						}
 					}

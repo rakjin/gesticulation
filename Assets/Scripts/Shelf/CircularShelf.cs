@@ -45,7 +45,7 @@ public class CircularShelf : Shelf {
 		z += transform.position.z;
 
 		if (slotNum == centerSlot) {
-			z = 0;
+			z = transform.position.z - 17;
 		}
 
 		return new Vector3(x, y, z);

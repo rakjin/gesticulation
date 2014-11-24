@@ -15,16 +15,27 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance { get; private set; }
 
+	public const string SAVE_FILE_NAME_FORMAT = "gest_data/user_{0}.pose";
+
 	const string TAG_PART = "Part";
 	const string TAG_BUTTON = "Button3D";
 
+	Color WHITE_0_9 = new Color (1, 1, 1, 0.9f);
+	Color WHITE_0_5 = new Color (1, 1, 1, 0.5f);
+	Color WHITE_0_25 = new Color (1, 1, 1, 0.25f);
 
+	public Transform container;
 	public Transform ground;
 	public Transform buttonContainer;
 	public Transform button3D;
-	public Shelf shelf;
+	Shelf currentShelf;
+	public Shelf sampleShelf;
+	public Shelf userShelf;
+	public GUIStyle infoStyle;
+	public GUIStyle commentStyle;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
+	public GUIStyle indexStyle;
 	public Texture2D texSplash;
 	public Texture2D texTextFieldBorder;
 	float splashAlpha = 1;
@@ -33,15 +44,38 @@ public class GameController : MonoBehaviour {
 	float vignetteAlpha = 0;
 	Texture2D texEmpty;
 	public Texture2D texHelp;
+	public Texture2D texHelpIcon;
 
 
 	State state = State.Splash;
 
 	string displayingTitle = "";
 	string displayingAuthor = "";
+	string displayingIndex = "";
 	bool needsSetFocusToTitleTextField = true;
 	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
 	const string AUTHOR_PLACEHOLDER = "이름을 입력해주세요. (ENTER)";
+
+	string displayingInfo = "";
+	const float INFO_ALPHA = 0.3f;
+	float infoAlpha = INFO_ALPHA;
+	const string INFO_TEXT_SAMPLE_GALLERY = "샘플 갤러리";
+	const string INFO_TEXT_USER_GALLERY = "관람객 참여 갤러리";
+	const string INFO_TEXT_NEW_RECORDING = "새 작품 녹화";
+	const string INFO_TEXT_NOW_RECORDING = "녹화중...";
+	const string INFO_TEXT_RECORDING_DONE = "녹화 완료";
+
+	string displayingComment = "";
+	Queue<string> displayingCommentQueue = new Queue<string>();
+	const float COMMENT_ALPHA = 0.7f;
+	float commentAlpha = COMMENT_ALPHA;
+	const int COMMENT_DISPLAY_FRAMES = 5 * 60;
+	int commentDisplayFrames = 0;
+	const string COMMENT_TEXT_SAMPLE_GALLERY = "미리 만들어둔 샘플 작품들입니다.";
+	const string COMMENT_TEXT_USER_GALLERY = "여러분이 직접 만든 작품들입니다. 오른쪽 끝의 인형으로 이동해서 참여해보세요.";
+	const string COMMENT_TEXT_ENCOURAGE_PICK_A_PART = "목각인형을 붙잡아 자세를 바꿔보세요. 그 과정이 녹화됩니다.";
+	const string COMMENT_TEXT_RECORDING_DONE_BY_TIMER = "세션이 끝났습니다. 저장하시겠습니까?";
+	const string COMMENT_TEXT_RECORDING_DONE_BY_BUTTON = "작품 제목을 입력해주세요.";
 
 	readonly Vector3 buttonDisablePosition = new Vector3 (0, -.5f, 0);
 	readonly Vector3 buttonDisableScale = new Vector3 (0.00048828125f, 0.00048828125f, 0.00048828125f);
@@ -62,8 +96,8 @@ public class GameController : MonoBehaviour {
 
 	bool showDebugUI = false;
 
-	const float recordDuration = 17;
-	const float recordFPS = 2;
+	const float recordDuration = 90;
+	const float recordFPS = 4;
 	const float recordInterval = 1f / recordFPS;
 	const int recordCount = (int) (recordDuration * recordFPS);
 	List<Pose> records;
@@ -72,7 +106,7 @@ public class GameController : MonoBehaviour {
 
 	bool isPlaying = false;
 	float playBeginTime;
-	const float PLAYBACK_SPEED = 2;
+	const float PLAYBACK_SPEED = 3;
 
 
 	const float GROUND_SHIFT = 2;
@@ -83,23 +117,34 @@ public class GameController : MonoBehaviour {
 	float helpAlpha = 0;
 
 
+	#region audio clips
+
+	public AudioClip audioHover;
+	public AudioClip audioFlipLeft;
+	public AudioClip audioFlipRight;
+	public AudioClip audioSwapGallery;
+	public AudioClip audioPickPart;
+	public AudioClip audioPickButton;
+	public AudioClip audioSaveSuccess;
+
+	#endregion
+
+
 	// Use this for initialization
 	IEnumerator Start () {
 		Instance = this;
 
-		if (shelf == null) {
-			Debug.LogError ("shelf required");
+		if (sampleShelf == null || userShelf == null) {
+			Debug.LogError ("shelves required");
 		}
-		shelf.OnFlipComplete += OnShelfFlipComplete;
+		currentShelf = sampleShelf;
+		sampleShelf.OnFlipComplete += OnShelfFlipComplete;
+		userShelf.OnFlipComplete += OnShelfFlipComplete;
 
 		texEmpty = new Texture2D (1, 1);
 		texEmpty.anisoLevel = 0;
 		texEmpty.filterMode = FilterMode.Point;
 		texEmpty.SetPixel (0, 0, Color.white);
-
-		Preset preset = shelf.CurrentPreset();
-		displayingTitle = preset.Title;
-		displayingAuthor = preset.Author;
 
 		Setup3DGUI ();
 
@@ -111,6 +156,10 @@ public class GameController : MonoBehaviour {
 		}
 
 		state = State.Show;
+		StartCoroutine (CheckAndDequeueCommentText ());
+
+		UpdateGalleryInfoAndComment ();
+		UpdateTitleAuthorAndEditButton ();
 	}
 
 	void OnShelfFlipComplete () {
@@ -119,9 +168,9 @@ public class GameController : MonoBehaviour {
 
 	void BeginPlayCenterSlotIfAnimated ()
 	{
-		Preset centerPreset = shelf.CurrentPreset ();
+		Preset centerPreset = currentShelf.CurrentPreset ();
 		if (centerPreset.Type == Preset.PresetType.Animated) {
-			Poser centerPoser = shelf.CurrentPoser();
+			Poser centerPoser = currentShelf.CurrentPoser();
 			List<Pose> motion = centerPreset.Motion;
 			StartCoroutine(centerPoser.BeginMotion(motion, recordInterval / PLAYBACK_SPEED));
 			isPlaying = true;
@@ -164,28 +213,43 @@ public class GameController : MonoBehaviour {
 
 
 		if (state == State.Show || state == State.TypeTextInfo) {
+			float indexWidth = unit*10;
+			float indexHeight = unit*4;
+			float indexX = padding;
+			float indexY = screenHeight - indexHeight - unit/4;
+			Rect indexRect = new Rect(indexX, indexY, indexWidth, indexHeight);
+			indexStyle.fontSize = (int)(unit*2);
+
 			float authorWidth = unit*80;
 			float authorHeight = unit*4;
-			Rect authorRect = new Rect (padding, screenHeight - authorHeight - padding, authorWidth, authorHeight);
+			float authorX = padding;
+			float authorY = screenHeight - authorHeight - padding*3;
+			Rect authorRect = new Rect (authorX, authorY, authorWidth, authorHeight);
 			authorStyle.fontSize = (int)(unit * 3);
 			authorStyle.padding.top = (int)authorHeight/16;
 
 			float titleWidth = unit*80;
 			float titleHeight = unit*6;
-			Rect titleRect = new Rect (padding, screenHeight - authorHeight - gap - titleHeight - padding, titleWidth, titleHeight);
+			float titleX = authorX;
+			float titleY = authorY - gap - titleHeight;
+			Rect titleRect = new Rect (titleX, titleY, titleWidth, titleHeight);
 			titleStyle.fontSize = (int)(unit * 4);
 			titleStyle.padding.top = (int)titleHeight/16;
 
 			if (state == State.Show) {
+				GUI.color = WHITE_0_9;
 				GUI.Label (titleRect, displayingTitle, titleStyle);
+				GUI.color = WHITE_0_5;
 				GUI.Label (authorRect, displayingAuthor, authorStyle);
+				GUI.color = WHITE_0_25;
+				GUI.Label (indexRect, displayingIndex, indexStyle);
 
-				if (shelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
-					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(shelf.CurrentPreset().Motion.Count*recordInterval/PLAYBACK_SPEED) );
+				if (currentShelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
+					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(currentShelf.CurrentPreset().Motion.Count*recordInterval/PLAYBACK_SPEED) );
 					if (playBeginTime == 0) {
 						progress = 0;
 					}
-					DrawProgressBar(new Vector2(screenWidth, screenHeight), unit, titleStyle.normal.textColor.a, progress);
+					DrawProgressBar(new Vector2(screenWidth, screenHeight), unit, progress*progress*4, progress);
 				}
 				
 			} else if (state == State.TypeTextInfo) {
@@ -236,12 +300,44 @@ public class GameController : MonoBehaviour {
 			float recY = unit*4;
 			if (isRecording) {
 				bool showFlickeringRec = ((Time.frameCount % 200) > 100);
-				GUI.color = showFlickeringRec? Color.white : new Color(1, 1, 1, 0.25f);
+				GUI.color = showFlickeringRec? Color.white : WHITE_0_25;
 				GUI.DrawTexture(new Rect(recX, recY, recWidth, recHeight), texRec, ScaleMode.ScaleToFit);
 			}
 
 		}
 
+		{ // info and comment text
+			float infoWidth = screenWidth;
+			float infoHeight = unit*3;
+			float infoX = 0;
+			float infoY = padding;
+			Rect infoRect = new Rect (infoX, infoY, infoWidth, infoHeight);
+			infoStyle.fontSize = (int)(unit * 2);
+			infoStyle.padding.top = (int)infoHeight/16;
+			GUI.color = new Color(1, 1, 1, infoAlpha);
+			GUI.Label (infoRect, displayingInfo, infoStyle);
+
+			if (commentAlpha >= 0) {
+				float commentWidth = screenWidth;
+				float commentHeight = unit*3;
+				float commentX = 0;
+				float commentY = infoY + infoHeight + gap;
+				Rect commentRect = new Rect (commentX, commentY, commentWidth, commentHeight);
+				commentStyle.fontSize = (int)(unit * 2);
+				commentStyle.padding.top = (int)commentHeight/16;
+				GUI.color = new Color(1, 1, 1, commentAlpha);
+				GUI.Label (commentRect, displayingComment, commentStyle);
+			}
+		}
+
+		{ // help icon
+			float helpIconWidth = unit*13;
+			float helpIconHeight = unit*8;
+			float helpIconX = screenWidth-helpIconWidth-gap/4;
+			float helpIconY = screenHeight-helpIconHeight-gap/4;
+			GUI.color = new Color(1, 1, 1, (1-vignetteAlpha)*0.5f);
+			GUI.DrawTexture(new Rect(helpIconX, helpIconY, helpIconWidth, helpIconHeight), texHelpIcon, ScaleMode.ScaleToFit);
+		}
 
 		if (helpAlpha > 0) {
 			float helpWidth = screenWidth;
@@ -256,16 +352,17 @@ public class GameController : MonoBehaviour {
 		if (showDebugUI) {
 			GUI.color = Color.white;
 			if (GUI.Button (new Rect(0, 10, 200, 30), "print pose")) {
-				Debug.Log (shelf.CurrentPoser().GetCurrentPose());
+				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose());
 			} else if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
-				OnGestureSwipe(toLeft:true);
+				OnGestureSwipe(GestureDetector.Direction.ToLeft);
 			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
-				OnGestureSwipe(toLeft:false);
+				OnGestureSwipe(GestureDetector.Direction.ToRight);
 			}
 		}
 	}
 
 	void DrawProgressBar(Vector2 screenSize, float unit, float baseAlpha, float progress) {
+		baseAlpha = Mathf.Clamp01 (baseAlpha);
 		GUI.color = new Color(1, 1, 1, baseAlpha*0.5f);
 		{
 			float barBackgroundWidth = unit*90;
@@ -292,6 +389,11 @@ public class GameController : MonoBehaviour {
 
 		if (helpAlpha > 0) {
 			helpAlpha += helpAlphaDec;
+		}
+
+		infoAlpha = INFO_ALPHA + (infoAlpha-INFO_ALPHA)*0.95f;
+		if (displayingComment.Equals(string.Empty) == false) {
+			commentAlpha = COMMENT_ALPHA + (commentAlpha-COMMENT_ALPHA)*0.97f;
 		}
 	}
 
@@ -346,6 +448,10 @@ public class GameController : MonoBehaviour {
 				Highlightable button = target.GetComponentInChildren<Highlightable>();
 				button.Highlighted = Highlightable.HighlightDegree.Half;
 			}
+
+			if (currentShelf.CurrentPreset().Type == Preset.PresetType.NewPresetPlaceHolder) {
+				audio.PlayOneShot(audioHover);
+			}
 			
 			break;
 			
@@ -358,6 +464,10 @@ public class GameController : MonoBehaviour {
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
 
 				pickedAnyPart = true;
+
+				if (currentShelf.CurrentPreset().Type == Preset.PresetType.NewPresetPlaceHolder) {
+					audio.PlayOneShot(audioPickPart);
+				}
 
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
 				Highlightable highlightable = target.GetComponentInChildren<Highlightable>();
@@ -378,6 +488,8 @@ public class GameController : MonoBehaviour {
 
 				}
 
+				audio.PlayOneShot(audioPickButton);
+
 			}
 
 			break;
@@ -390,44 +502,50 @@ public class GameController : MonoBehaviour {
 	#region gesture
 
 	bool ignoreGesture = false;
-	const float ignoreGestureTimeSpan = 0.5625f;
+	const float ignoreGestureTimeSpan = Shelf.FLIP_DURATION + 0.015625f;
 
-	public void OnGestureSwipe(bool toLeft) {
+	public void OnGestureSwipe(GestureDetector.Direction direction, float speedMultiplier = 1) {
 		if(ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
+			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
-			shelf.CurrentPoser().StopMotion();
-			isPlaying = false;
-			playBeginTime = 0;
+			if (direction == GestureDetector.Direction.ToLeft ||
+			    direction == GestureDetector.Direction.ToRight) {
 
-			bool flipped = shelf.Flip(toLeft);
-			StartCoroutine(ResetIgnoreGestureFlag());
+				bool toLeft = (direction == GestureDetector.Direction.ToLeft);
+				bool flipped = currentShelf.Flip(toLeft, speedMultiplier);
+				if (flipped) {
+					UpdateTitleAuthorAndEditButton ();
 
-			Preset preset = shelf.CurrentPreset();
-			StartCoroutine(FadeTitleAuthor(preset.Title, preset.Author));
+					float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
+					LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION / speedMultiplier)
+						.setEase(LeanTweenType.easeInOutSine)
+						.setOnComplete(() => {
+							Vector3 backToOrigin = new Vector3(0, ground.localPosition.y, ground.localPosition.z);
+							ground.localPosition = backToOrigin;
+						});
 
-			if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
-				editButton.enabled = true;
+					audio.PlayOneShot(toLeft ? audioFlipLeft : audioFlipRight);
+				}
+			} else if (direction == GestureDetector.Direction.Pull ||
+			           direction == GestureDetector.Direction.Push) {
 
-			} else {
-				editButton.enabled = false;
-				
-			}
+				if((currentShelf == sampleShelf && direction == GestureDetector.Direction.Push) ||
+				   (currentShelf == userShelf && direction == GestureDetector.Direction.Pull)) {
+					return;
+				}
 
-			if (flipped) {
-				float groundShift = toLeft? -GROUND_SHIFT : GROUND_SHIFT;
-				LeanTween.moveLocalX(ground.gameObject, groundShift, Shelf.FLIP_DURATION)
-					.setEase(LeanTweenType.easeInOutSine)
-					.setOnComplete(() => {
-						Vector3 backToOrigin = new Vector3(0, ground.localPosition.y, ground.localPosition.z);
-						ground.localPosition = backToOrigin;
-					});
+				if (currentShelf.CurrentPreset().Type == Preset.PresetType.Animated) {
+					currentShelf.CurrentPoser().StopMotion();
+				}
+
+				SwapShelf();
 			}
 		}
 	}
 
-	IEnumerator ResetIgnoreGestureFlag() {
-		yield return new WaitForSeconds(ignoreGestureTimeSpan);
+	IEnumerator ResetIgnoreGestureFlag(float speedMultiplier = 1) {
+		yield return new WaitForSeconds(ignoreGestureTimeSpan / speedMultiplier);
 		ignoreGesture = false;
 		yield break;
 	}
@@ -437,6 +555,13 @@ public class GameController : MonoBehaviour {
 		if(helpAlpha < 1) {
 			helpAlpha += helpAlphaInc;
 		}
+	}
+
+	public void OnGestureScroll(float strength) {
+		bool toLeft = (strength < 0);
+		GestureDetector.Direction direction = toLeft ? GestureDetector.Direction.ToLeft : GestureDetector.Direction.ToRight;
+		float scrollSpeedMultiplier = (Mathf.Abs (strength)*7) + 1;
+		OnGestureSwipe (direction, scrollSpeedMultiplier);
 	}
 
 	#endregion
@@ -449,7 +574,7 @@ public class GameController : MonoBehaviour {
 		titleStyle.normal.background = null;
 		authorStyle.normal.background = null;
 
-		int frames = 10;
+		const int frames = 13;
 		Color titleTextColor = titleStyle.normal.textColor;
 		Color authorTextColor = authorStyle.normal.textColor;
 
@@ -457,7 +582,7 @@ public class GameController : MonoBehaviour {
 			float alpha = (frames-i)/(float)frames;
 			titleStyle.normal.textColor = new Color(titleTextColor.r, titleTextColor.g, titleTextColor.b, alpha);
 			authorStyle.normal.textColor = new Color(authorTextColor.r, authorTextColor.g, authorTextColor.b, alpha);
-			yield return new WaitForSeconds(1f/60);
+			yield return null;
 		}
 
 		displayingTitle = title;
@@ -467,7 +592,7 @@ public class GameController : MonoBehaviour {
 			float alpha = i/(float)frames;
 			titleStyle.normal.textColor = new Color(titleTextColor.r, titleTextColor.g, titleTextColor.b, alpha);
 			authorStyle.normal.textColor = new Color(authorTextColor.r, authorTextColor.g, authorTextColor.b, alpha);
-			yield return new WaitForSeconds(1f/60);
+			yield return null;
 		}
 
 		yield break;
@@ -513,6 +638,51 @@ public class GameController : MonoBehaviour {
 	#endregion
 
 
+	#region Info and Comment TextField
+
+	void UpdateInfoText(string text) {
+		displayingInfo = text;
+		infoAlpha = 1;
+	}
+
+	void EnqueueCommentText(string text) {
+		displayingCommentQueue.Enqueue (text);
+	}
+
+	void ClearCommentTextQueueAndImmediatelyUpdate(string text) {
+		displayingCommentQueue.Clear ();
+		EnqueueCommentText(text);
+		commentDisplayFrames = COMMENT_DISPLAY_FRAMES;
+	}
+
+	IEnumerator CheckAndDequeueCommentText() {
+		while(true) {
+			if (displayingCommentQueue.Count > 0) {
+				displayingComment = displayingCommentQueue.Dequeue();
+				commentAlpha = 1;
+				commentDisplayFrames = 0;
+				while(commentDisplayFrames < COMMENT_DISPLAY_FRAMES) {
+					commentDisplayFrames += 1;
+					yield return null;
+				}
+
+			} else {
+				if (displayingComment.Equals(string.Empty) == false) {
+					for(int i = 0; i < 60; i++) {
+						commentAlpha -= 0.03125f;
+						yield return null;
+					}
+					displayingComment = string.Empty;
+				}
+				yield return null;
+
+			}
+		}
+	}
+
+	#endregion
+
+
 	#region EditButton
 
 	IEnumerator OnEditButtonPicked() {
@@ -523,13 +693,16 @@ public class GameController : MonoBehaviour {
 
 		state = State.Edit;
 
+		UpdateInfoText (INFO_TEXT_NEW_RECORDING);
+		EnqueueCommentText (COMMENT_TEXT_ENCOURAGE_PICK_A_PART);
+
 		editButton.SwellAndDisable ();
 		cancelEditingButton.enabled = true;
 
 		StartCoroutine (FadeInVignette ());
 		yield return new WaitForSeconds (0.5f);
 
-		Poser poser = shelf.CurrentPoser();		
+		Poser poser = currentShelf.CurrentPoser();		
 		poser.EditEnabled = true;
 		poser.Highlighted = Highlightable.HighlightDegree.Full;
 
@@ -565,10 +738,12 @@ public class GameController : MonoBehaviour {
 		yield return StartCoroutine (FadeOutVignette ());
 		state = State.Show;
 
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
 		poser.ApplyPose (Pose.DefaultPose (), 1);
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
+
+		UpdateGalleryInfoAndComment (skipComment:true);
 	}
 
 	#endregion
@@ -582,13 +757,16 @@ public class GameController : MonoBehaviour {
 			yield break;
 		}
 
+		UpdateInfoText (INFO_TEXT_RECORDING_DONE);
+		EnqueueCommentText (COMMENT_TEXT_RECORDING_DONE_BY_BUTTON);
+
 		isRecording = false;
 
 		saveEditingButton.SwellAndDisable ();
 		cancelEditingButton.enabled = false;
 		doneEditingButton.enabled = true;
 		
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
 
@@ -621,7 +799,7 @@ public class GameController : MonoBehaviour {
 
 		doneEditingButton.SwellAndDisable ();
 
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
 		poser.EditEnabled = true;
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 		poser.EditEnabled = false;
@@ -630,9 +808,15 @@ public class GameController : MonoBehaviour {
 		records = null;
 		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
 
-		shelf.InsertPresetBeforeLast (preset);
+		currentShelf.InsertPresetBeforeLast (preset);
 
 		BeginPlayCenterSlotIfAnimated ();
+
+		UpdateGalleryInfoAndComment (skipComment:true);
+
+		StartCoroutine (SavePresetAsFile (preset, currentShelf.Count-1));
+
+		audio.PlayOneShot(audioSaveSuccess);
 	}
 
 	#endregion
@@ -661,7 +845,9 @@ public class GameController : MonoBehaviour {
 		records = new List<Pose> (recordCount);
 		isRecording = true;
 		recordBeginTime = Time.time;
-		Poser poser = shelf.CurrentPoser ();
+		Poser poser = currentShelf.CurrentPoser ();
+
+		UpdateInfoText (INFO_TEXT_NOW_RECORDING);
 
 		for (int i = 0; i < recordCount; i++) {
 			if (isRecording == false || records == null) {
@@ -678,6 +864,68 @@ public class GameController : MonoBehaviour {
 		poser.DisconnectFromRigidbody ();
 		poser.Highlighted = Highlightable.HighlightDegree.Pale;
 		poser.EditEnabled = false;
+
+		UpdateInfoText (INFO_TEXT_RECORDING_DONE);
+		EnqueueCommentText (COMMENT_TEXT_RECORDING_DONE_BY_TIMER);
+	}
+
+	#endregion
+
+
+	#region Swap Shelf
+
+	void SwapShelf() {
+
+		bool toUserShelf = (currentShelf == sampleShelf) ? true : false;
+		float destZ = (toUserShelf) ? 17 : 0;
+		currentShelf = (toUserShelf) ? userShelf : sampleShelf;
+		LeanTween.moveLocalZ (container.gameObject, destZ, Shelf.FLIP_DURATION).setEase(LeanTweenType.easeInOutExpo);
+
+		UpdateTitleAuthorAndEditButton ();
+		BeginPlayCenterSlotIfAnimated ();
+		UpdateGalleryInfoAndComment ();
+
+		audio.PlayOneShot(audioSwapGallery);
+	}
+
+	void UpdateGalleryInfoAndComment(bool skipComment = false) {
+		bool isSampleShelf = (currentShelf == sampleShelf) ? true : false;
+		UpdateInfoText (isSampleShelf ? INFO_TEXT_SAMPLE_GALLERY : INFO_TEXT_USER_GALLERY);
+		if (skipComment) {
+			return;
+		}
+		ClearCommentTextQueueAndImmediatelyUpdate (isSampleShelf ? COMMENT_TEXT_SAMPLE_GALLERY : COMMENT_TEXT_USER_GALLERY);
+	}
+
+	#endregion
+
+
+	void UpdateTitleAuthorAndEditButton ()
+	{
+		isPlaying = false;
+		playBeginTime = 0;
+		Preset preset = currentShelf.CurrentPreset ();
+		StartCoroutine (FadeTitleAuthor (preset.Title, preset.Author));
+
+		if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
+			displayingIndex = "";
+			editButton.enabled = true;
+		}
+		else {
+			displayingIndex = (currentShelf.Index + 1).ToString () + " / " + currentShelf.Count.ToString ();
+			editButton.enabled = false;
+		}
+	}
+
+
+	#region Save as file
+
+	IEnumerator SavePresetAsFile (Preset preset, int index) {
+		try {
+			preset.Serialize ().SaveToFile (string.Format (SAVE_FILE_NAME_FORMAT, index));
+		} catch {
+		}
+		yield break;
 	}
 
 	#endregion

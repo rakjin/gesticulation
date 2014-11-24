@@ -7,6 +7,38 @@ public class Shelf : MonoBehaviour {
 	public delegate void TweenComplete();
 	public event TweenComplete OnFlipComplete;
 
+
+	public static PresetDataSource SamplePresets() {
+		PresetDataSource presets = new PresetDataSource ();
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseFashionKing(), "패숀왕", "쥬원"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseSillyWalker(), "A Silly Walker", "Paul"));
+		return presets;
+	}
+
+	public static PresetDataSource UserPresets() {
+		PresetDataSource presets = new PresetDataSource ();
+
+		int i = 0;
+		bool success = true;
+		while(success) {
+			try {
+				JSONClass json = (JSONClass)JSONClass.LoadFromFile (string.Format (GameController.SAVE_FILE_NAME_FORMAT, i));
+				Preset preset = Preset.Deserialize (json);
+				presets.Push (preset);
+			} catch {
+				success = false;
+			} finally {
+				i++;
+			}
+		}
+
+		presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
+		return presets;
+	}
+
+
 	public const float FLIP_DURATION = 0.5f;
 
 	public Transform puppetPrefab;
@@ -25,8 +57,9 @@ public class Shelf : MonoBehaviour {
 	}
 
 	private List<Poser> slots = new List<Poser>();
-	private PresetDataSource presets = new PresetDataSource();
+	private PresetDataSource presets;
 	private int index = 0;
+	public int Index { get { return index; } }
 
 	// Use this for initialization
 	void Awake () {
@@ -37,10 +70,13 @@ public class Shelf : MonoBehaviour {
 			Debug.LogError("puppetPrefab required");
 
 		} else {
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
-			presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseFashionKing(), "패션왕", "주원"));
-			presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
+
+			if (gameObject.name.StartsWith("Sample")) {
+				presets = SamplePresets();
+			} else {
+				presets = UserPresets ();
+			}
+
 			FillSlots ();
 		}
 	
@@ -70,15 +106,7 @@ public class Shelf : MonoBehaviour {
 
 	}
 
-	public bool FlipLeft() {
-		return Flip (toLeft:true);
-	}
-	
-	public bool FlipRight() {
-		return Flip (toLeft:false);
-	}
-
-	public bool Flip(bool toLeft = true) {
+	public bool Flip(bool toLeft = true, float speedMultiplier = 1) {
 
 		int desiredIndex = (toLeft? index+1 : index-1);
 		if (0 > desiredIndex || desiredIndex >= presets.Count) {
@@ -88,7 +116,8 @@ public class Shelf : MonoBehaviour {
 		Poser currentPoser = CurrentPoser ();
 		Preset currentPreset = CurrentPreset ();
 		if (currentPreset.Pose != null) {
-			currentPoser.ApplyPose (currentPreset.Pose, 0.25f);
+			currentPoser.StopMotion();
+			currentPoser.ApplyPose (currentPreset.Pose, 0.25f / speedMultiplier);
 		}
 
 		index = desiredIndex;
@@ -108,7 +137,7 @@ public class Shelf : MonoBehaviour {
 		for (int i = tweenSlotBeginIndex; i <= tweenSlotEndIndex; i++) {
 			int newIndex = i + (toLeft? -1 : +1);
 			Vector3 newPosition = GetSlotPosition(newIndex);
-			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, FLIP_DURATION).setEase(LeanTweenType.easeInOutCubic);
+			LTDescr tween = LeanTween.moveLocal(slots[i].gameObject, newPosition, FLIP_DURATION / speedMultiplier).setEase(LeanTweenType.easeInOutCubic);
 			if (i == CenterSlot) {
 				tween.setOnComplete(OnCenterSlotFlipComplete);
 			}
@@ -147,6 +176,26 @@ public class Shelf : MonoBehaviour {
 
 	void OnCenterSlotFlipComplete() {
 		OnFlipComplete ();
+	}
+
+	public int Count {
+		get {
+			if (presets == null) {
+				return 0;
+			}
+
+			int count = presets.Count;
+
+			if (count == 0) {
+				return 0;
+			}
+
+			if (presets.Get (count-1).Type == Preset.PresetType.NewPresetPlaceHolder) {
+				return count-1;
+			}
+
+			return count;
+		}
 	}
 
 
