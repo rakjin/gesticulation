@@ -457,7 +457,9 @@ public class GameController : MonoBehaviour {
 
 				pickedAnyPart = true;
 
-				audio.PlayOneShot(audioPickPart);
+				if (currentShelf.CurrentPreset().Type == Preset.PresetType.NewPresetPlaceHolder) {
+					audio.PlayOneShot(audioPickPart);
+				}
 
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
 				Highlightable highlightable = target.GetComponentInChildren<Highlightable>();
