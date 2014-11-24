@@ -54,13 +54,13 @@ public class GameController : MonoBehaviour {
 	string displayingIndex = "";
 	bool needsSetFocusToTitleTextField = true;
 	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
-	const string AUTHOR_PLACEHOLDER = "이름을 입력해주세요. (ENTER)";
+	const string AUTHOR_PLACEHOLDER = "참여자의 이름을 입력해주세요. (ENTER)";
 
 	string displayingInfo = "";
 	const float INFO_ALPHA = 0.3f;
 	float infoAlpha = INFO_ALPHA;
 	const string INFO_TEXT_SAMPLE_GALLERY = "샘플 갤러리";
-	const string INFO_TEXT_USER_GALLERY = "관람객 참여 갤러리";
+	const string INFO_TEXT_USER_GALLERY = "참여 갤러리";
 	const string INFO_TEXT_NEW_RECORDING = "새 작품 녹화";
 	const string INFO_TEXT_NOW_RECORDING = "녹화중...";
 	const string INFO_TEXT_RECORDING_DONE = "녹화 완료";
@@ -71,8 +71,8 @@ public class GameController : MonoBehaviour {
 	float commentAlpha = COMMENT_ALPHA;
 	const int COMMENT_DISPLAY_FRAMES = 5 * 60;
 	int commentDisplayFrames = 0;
-	const string COMMENT_TEXT_SAMPLE_GALLERY = "미리 만들어둔 샘플 작품들입니다.";
-	const string COMMENT_TEXT_USER_GALLERY = "여러분이 직접 만든 작품들입니다. 오른쪽 끝의 인형으로 이동해서 참여해보세요.";
+	const string COMMENT_TEXT_SAMPLE_GALLERY = "미리 만들어둔 샘플 모델입니다.";
+	const string COMMENT_TEXT_USER_GALLERY = "여러분이 직접 만든 모델입니다. 오른쪽 끝으로 이동해서 참여해보세요.";
 	const string COMMENT_TEXT_ENCOURAGE_PICK_A_PART = "목각인형을 붙잡아 자세를 바꿔보세요. 그 과정이 녹화됩니다.";
 	const string COMMENT_TEXT_RECORDING_DONE_BY_TIMER = "세션이 끝났습니다. 저장하시겠습니까?";
 	const string COMMENT_TEXT_RECORDING_DONE_BY_BUTTON = "작품 제목을 입력해주세요.";
