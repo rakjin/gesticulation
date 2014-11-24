@@ -350,13 +350,17 @@ public class GameController : MonoBehaviour {
 
 
 		if (showDebugUI) {
+			float w = 50;
+			float h = 20;
 			GUI.color = Color.white;
-			if (GUI.Button (new Rect(0, 10, 200, 30), "print pose")) {
-				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose());
-			} else if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
-				OnGestureSwipe(GestureDetector.Direction.ToLeft);
-			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
+			if (GUI.Button (new Rect(w, 0, w, h), "PULL")) {
+				OnGestureSwipe(GestureDetector.Direction.Pull);
+			} else if (GUI.Button (new Rect(0, h, w, h), "<<")) {
 				OnGestureSwipe(GestureDetector.Direction.ToRight);
+			} else if (GUI.Button (new Rect(w, h, w, h), "PUSH")) {
+				OnGestureSwipe(GestureDetector.Direction.Push);
+			} else if (GUI.Button (new Rect(w*2, h, w, h), ">>")) {
+				OnGestureSwipe(GestureDetector.Direction.ToLeft);
 			}
 		}
 	}
