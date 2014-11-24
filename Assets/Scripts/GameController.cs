@@ -215,6 +215,13 @@ public class GameController : MonoBehaviour {
 
 
 		if (state == State.Show || state == State.TypeTextInfo) {
+			float indexWidth = unit*10;
+			float indexHeight = unit*4;
+			float indexX = padding;
+			float indexY = screenHeight - indexHeight - unit/4;
+			Rect indexRect = new Rect(indexX, indexY, indexWidth, indexHeight);
+			indexStyle.fontSize = (int)(unit*2);
+
 			float authorWidth = unit*80;
 			float authorHeight = unit*4;
 			float authorX = padding;
@@ -236,6 +243,8 @@ public class GameController : MonoBehaviour {
 				GUI.Label (titleRect, displayingTitle, titleStyle);
 				GUI.color = WHITE_0_5;
 				GUI.Label (authorRect, displayingAuthor, authorStyle);
+				GUI.color = WHITE_0_25;
+				GUI.Label (indexRect, "3 / 5", indexStyle);
 
 				if (currentShelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
 					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(currentShelf.CurrentPreset().Motion.Count*recordInterval/PLAYBACK_SPEED) );
