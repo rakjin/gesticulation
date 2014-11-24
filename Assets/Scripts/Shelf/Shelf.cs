@@ -7,6 +7,22 @@ public class Shelf : MonoBehaviour {
 	public delegate void TweenComplete();
 	public event TweenComplete OnFlipComplete;
 
+
+	public static PresetDataSource SamplePresets() {
+		PresetDataSource presets = new PresetDataSource ();
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseFashionKing(), "패숀왕", "쥬원"));
+		return presets;
+	}
+
+	public static PresetDataSource UserPresets() {
+		PresetDataSource presets = new PresetDataSource ();
+		presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
+		return presets;
+	}
+
+
 	public const float FLIP_DURATION = 0.5f;
 
 	public Transform puppetPrefab;
@@ -25,7 +41,7 @@ public class Shelf : MonoBehaviour {
 	}
 
 	private List<Poser> slots = new List<Poser>();
-	private PresetDataSource presets = new PresetDataSource();
+	private PresetDataSource presets;
 	private int index = 0;
 
 	// Use this for initialization
@@ -37,10 +53,13 @@ public class Shelf : MonoBehaviour {
 			Debug.LogError("puppetPrefab required");
 
 		} else {
-			presets.Push (new Preset(Preset.PresetType.Animated, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
-			presets.Push (new Preset(Preset.PresetType.Animated, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
-			presets.Push (new Preset(Preset.PresetType.Animated, Pose.PresetPoseFashionKing(), "패션왕", "주원"));
-			presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
+
+			if (gameObject.name.StartsWith("Sample")) {
+				presets = SamplePresets();
+			} else {
+				presets = UserPresets ();
+			}
+
 			FillSlots ();
 		}
 	
