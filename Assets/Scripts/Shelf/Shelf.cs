@@ -13,6 +13,7 @@ public class Shelf : MonoBehaviour {
 		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
 		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
 		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseFashionKing(), "패숀왕", "쥬원"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseSillyWalker(), "The Ministry of Silly Walks", "Paul"));
 		return presets;
 	}
 
