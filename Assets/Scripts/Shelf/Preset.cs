@@ -24,8 +24,9 @@ public class Preset {
 	public string Title { get; private set; }
 	public string Author { get; private set; }
 	public PresetType Type { get; private set; }
+	public int FileIndex { get; private set; }
 
-	public Preset(List<Pose> motion, string title = "", string author = "") {
+	public Preset(List<Pose> motion, string title = "", string author = "", int fileIndex = -1) {
 		Type = PresetType.Animated;
 		if (motion != null && motion.Count == 1) {
 			Type = PresetType.Static;
@@ -33,9 +34,10 @@ public class Preset {
 		Motion = motion;
 		Title = title;
 		Author = author;
+		FileIndex = fileIndex;
 	}
 	
-	public Preset(PresetType type = PresetType.Empty, Pose pose = null, string title = "", string author = "") {
+	public Preset(PresetType type = PresetType.Empty, Pose pose = null, string title = "", string author = "", int fileIndex = -1) {
 		Type = type;
 		if (pose != null) {
 			Motion = new List<Pose>();
@@ -43,6 +45,7 @@ public class Preset {
 		}
 		Title = title;
 		Author = author;
+		FileIndex = fileIndex;
 	}
 
 
@@ -62,7 +65,7 @@ public class Preset {
 		return json;
 	}
 
-	public static Preset Deserialize(JSONClass json) {
+	public static Preset Deserialize(JSONClass json, int fileIndex = -1) {
 		JSONArray jsonMotion = json ["motion"].AsArray;
 		List<Pose> motion = new List<Pose> ();
 		foreach(JSONClass jsonPose in jsonMotion.Childs) {
@@ -73,7 +76,7 @@ public class Preset {
 		string title = json ["title"].Value;
 		string author = json ["author"].Value;
 
-		Preset preset = new Preset (motion, title, author);
+		Preset preset = new Preset (motion, title, author, fileIndex);
 		return preset;
 	}
 
