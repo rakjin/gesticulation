@@ -28,6 +28,30 @@ public class Poser : MonoBehaviour {
 
 	private bool isPlayingAnimation = false;
 
+
+	private LTDescr descrRootPosition;
+	private LTDescr descrRootRotation;
+
+	private LTDescr descrChest;
+	private LTDescr descrNeck;
+	private LTDescr descrHead;
+
+	private LTDescr descrThighL;
+	private LTDescr descrThighR;
+	private LTDescr descrShinL;
+	private LTDescr descrShinR;
+	private LTDescr descrFootL;
+	private LTDescr descrFootR;
+
+	private LTDescr descrShoulderL;
+	private LTDescr descrShoulderR;
+	private LTDescr descrUpperArmL;
+	private LTDescr descrUpperArmR;
+	private LTDescr descrForearmL;
+	private LTDescr descrForearmR;
+	private LTDescr descrHandL;
+	private LTDescr descrHandR;
+
 	// Use this for initialization
 	void Awake () {
 		ReadParts ();
@@ -116,27 +140,27 @@ public class Poser : MonoBehaviour {
 
 	public void ApplyPose(Pose pose, float duration) {
 
-		LeanTween.moveLocal (Root.transform.gameObject, pose.RootPosition, duration);
-		LeanTween.rotateLocal (Root.transform.gameObject, pose.RootRotation.eulerAngles, duration);
+		descrRootPosition = LeanTween.moveLocal (Root.transform.gameObject, pose.RootPosition, duration);
+		descrRootRotation = LeanTween.rotateLocal (Root.transform.gameObject, pose.RootRotation.eulerAngles, duration);
 
-		LeanTween.rotateLocal(Chest.transform.gameObject, pose.Chest.eulerAngles, duration);
-		LeanTween.rotateLocal(Head.transform.gameObject, pose.Head.eulerAngles, duration);
+		descrChest = LeanTween.rotateLocal(Chest.transform.gameObject, pose.Chest.eulerAngles, duration);
+		descrHead = LeanTween.rotateLocal(Head.transform.gameObject, pose.Head.eulerAngles, duration);
 
-		LeanTween.rotateLocal(ThighL.transform.gameObject, pose.ThighL.eulerAngles, duration);
-		LeanTween.rotateLocal(ThighR.transform.gameObject, pose.ThighR.eulerAngles, duration);
-		LeanTween.rotateLocal(ShinL.transform.gameObject, pose.ShinL.eulerAngles, duration);
-		LeanTween.rotateLocal(ShinR.transform.gameObject, pose.ShinR.eulerAngles, duration);
-		LeanTween.rotateLocal(FootL.transform.gameObject, pose.FootL.eulerAngles, duration);
-		LeanTween.rotateLocal(FootR.transform.gameObject, pose.FootR.eulerAngles, duration);
+		descrThighL = LeanTween.rotateLocal(ThighL.transform.gameObject, pose.ThighL.eulerAngles, duration);
+		descrThighR = LeanTween.rotateLocal(ThighR.transform.gameObject, pose.ThighR.eulerAngles, duration);
+		descrShinL = LeanTween.rotateLocal(ShinL.transform.gameObject, pose.ShinL.eulerAngles, duration);
+		descrShinR = LeanTween.rotateLocal(ShinR.transform.gameObject, pose.ShinR.eulerAngles, duration);
+		descrFootL = LeanTween.rotateLocal(FootL.transform.gameObject, pose.FootL.eulerAngles, duration);
+		descrFootR = LeanTween.rotateLocal(FootR.transform.gameObject, pose.FootR.eulerAngles, duration);
 
-		LeanTween.rotateLocal(ShoulderL.transform.gameObject, pose.ShoulderL.eulerAngles, duration);
-		LeanTween.rotateLocal(ShoulderR.transform.gameObject, pose.ShoulderR.eulerAngles, duration);
-		LeanTween.rotateLocal(UpperArmL.transform.gameObject, pose.UpperArmL.eulerAngles, duration);
-		LeanTween.rotateLocal(UpperArmR.transform.gameObject, pose.UpperArmR.eulerAngles, duration);
-		LeanTween.rotateLocal(ForearmL.transform.gameObject, pose.ForearmL.eulerAngles, duration);
-		LeanTween.rotateLocal(ForearmR.transform.gameObject, pose.ForearmR.eulerAngles, duration);
-		LeanTween.rotateLocal(HandL.transform.gameObject, pose.HandL.eulerAngles, duration);
-		LeanTween.rotateLocal(HandR.transform.gameObject, pose.HandR.eulerAngles, duration);
+		descrShoulderL = LeanTween.rotateLocal(ShoulderL.transform.gameObject, pose.ShoulderL.eulerAngles, duration);
+		descrShoulderR = LeanTween.rotateLocal(ShoulderR.transform.gameObject, pose.ShoulderR.eulerAngles, duration);
+		descrUpperArmL = LeanTween.rotateLocal(UpperArmL.transform.gameObject, pose.UpperArmL.eulerAngles, duration);
+		descrUpperArmR = LeanTween.rotateLocal(UpperArmR.transform.gameObject, pose.UpperArmR.eulerAngles, duration);
+		descrForearmL = LeanTween.rotateLocal(ForearmL.transform.gameObject, pose.ForearmL.eulerAngles, duration);
+		descrForearmR = LeanTween.rotateLocal(ForearmR.transform.gameObject, pose.ForearmR.eulerAngles, duration);
+		descrHandL = LeanTween.rotateLocal(HandL.transform.gameObject, pose.HandL.eulerAngles, duration);
+		descrHandR = LeanTween.rotateLocal(HandR.transform.gameObject, pose.HandR.eulerAngles, duration);
 	}
 
 	public Part.HighlightDegree Highlighted {
@@ -288,6 +312,101 @@ public class Poser : MonoBehaviour {
 
 	public void StopMotion() {
 		isPlayingAnimation = false;
+
+		if (descrRootPosition != null) {
+			descrRootPosition.cancel();
+			descrRootPosition = null;
+		}
+		
+		if (descrRootRotation != null) {
+			descrRootRotation.cancel();
+			descrRootRotation = null;
+		}
+		
+		if (descrChest != null) {
+			descrChest.cancel();
+			descrChest = null;
+		}
+		
+		if (descrNeck != null) {
+			descrNeck.cancel();
+			descrNeck = null;
+		}
+		
+		if (descrHead != null) {
+			descrHead.cancel();
+			descrHead = null;
+		}
+		
+		if (descrThighL != null) {
+			descrThighL.cancel();
+			descrThighL = null;
+		}
+		
+		if (descrThighR != null) {
+			descrThighR.cancel();
+			descrThighR = null;
+		}
+		
+		if (descrShinL != null) {
+			descrShinL.cancel();
+			descrShinL = null;
+		}
+		
+		if (descrShinR != null) {
+			descrShinR.cancel();
+			descrShinR = null;
+		}
+		
+		if (descrFootL != null) {
+			descrFootL.cancel();
+			descrFootL = null;
+		}
+		
+		if (descrFootR != null) {
+			descrFootR.cancel();
+			descrFootR = null;
+		}
+		
+		if (descrShoulderL != null) {
+			descrShoulderL.cancel();
+			descrShoulderL = null;
+		}
+		
+		if (descrShoulderR != null) {
+			descrShoulderR.cancel();
+			descrShoulderR = null;
+		}
+		
+		if (descrUpperArmL != null) {
+			descrUpperArmL.cancel();
+			descrUpperArmL = null;
+		}
+		
+		if (descrUpperArmR != null) {
+			descrUpperArmR.cancel();
+			descrUpperArmR = null;
+		}
+		
+		if (descrForearmL != null) {
+			descrForearmL.cancel();
+			descrForearmL = null;
+		}
+		
+		if (descrForearmR != null) {
+			descrForearmR.cancel();
+			descrForearmR = null;
+		}
+		
+		if (descrHandL != null) {
+			descrHandL.cancel();
+			descrHandL = null;
+		}
+		
+		if (descrHandR != null) {
+			descrHandR.cancel();
+			descrHandR = null;
+		}
 	}
 
 }
