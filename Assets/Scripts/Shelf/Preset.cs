@@ -27,6 +27,9 @@ public class Preset {
 
 	public Preset(List<Pose> motion, string title = "", string author = "") {
 		Type = PresetType.Animated;
+		if (motion != null && motion.Count == 1) {
+			Type = PresetType.Static;
+		}
 		Motion = motion;
 		Title = title;
 		Author = author;
