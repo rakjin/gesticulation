@@ -440,6 +440,10 @@ public class GameController : MonoBehaviour {
 				Highlightable button = target.GetComponentInChildren<Highlightable>();
 				button.Highlighted = Highlightable.HighlightDegree.Half;
 			}
+
+			if (currentShelf.CurrentPreset().Type == Preset.PresetType.NewPresetPlaceHolder) {
+				audio.PlayOneShot(audioHover);
+			}
 			
 			break;
 			
@@ -452,6 +456,8 @@ public class GameController : MonoBehaviour {
 				part.ConnectToRigidbody(picker.MiddlePointContainer.rigidbody, Vector3.zero);
 
 				pickedAnyPart = true;
+
+				audio.PlayOneShot(audioPickPart);
 
 			} else if (target && target.tag.Equals(TAG_BUTTON)) {
 				Highlightable highlightable = target.GetComponentInChildren<Highlightable>();
@@ -471,6 +477,8 @@ public class GameController : MonoBehaviour {
 					OnDoneButtonPicked();
 
 				}
+
+				audio.PlayOneShot(audioPickButton);
 
 			}
 
