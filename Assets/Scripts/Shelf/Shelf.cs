@@ -24,7 +24,6 @@ public class Shelf : MonoBehaviour {
 		bool success = true;
 		while(success) {
 			try {
-				Debug.Log ("Trying Read " + i.ToString());
 				JSONClass json = (JSONClass)JSONClass.LoadFromFile (string.Format (GameController.SAVE_FILE_NAME_FORMAT, i));
 				Preset preset = Preset.Deserialize (json);
 				presets.Push (preset);

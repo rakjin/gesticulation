@@ -502,6 +502,10 @@ public class GameController : MonoBehaviour {
 					return;
 				}
 
+				if (currentShelf.CurrentPreset().Type == Preset.PresetType.Animated) {
+					currentShelf.CurrentPoser().StopMotion();
+				}
+
 				SwapShelf();
 			}
 		}
