@@ -23,6 +23,14 @@ public class PresetDataSource {
 		return presets[index];
 	}
 
+	public void SetAt(Preset preset, int index) {
+		presets [index] = preset;
+	}
+
+	public void RemoveAt(int index) {
+		presets.RemoveAt (index);
+	}
+
 	public int Count {
 		get {
 			return presets.Count;
