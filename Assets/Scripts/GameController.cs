@@ -94,8 +94,8 @@ public class GameController : MonoBehaviour {
 
 	bool showDebugUI = false;
 
-	const float recordDuration = 17;
-	const float recordFPS = 2;
+	const float recordDuration = 90;
+	const float recordFPS = 4;
 	const float recordInterval = 1f / recordFPS;
 	const int recordCount = (int) (recordDuration * recordFPS);
 	List<Pose> records;
