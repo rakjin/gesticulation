@@ -364,6 +364,7 @@ public class GameController : MonoBehaviour {
 				OnGestureSwipe(GestureDetector.Direction.ToLeft);
 			} else if (GUI.Button (new Rect(0, h*3, w, h), "GET")) {
 				debugPoseJSON = currentShelf.CurrentPreset().Serialize().ToString();
+				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose().ToString());
 			} else if (GUI.Button (new Rect(w, h*3, w, h), "SET")) {
 				try {
 					Preset preset = Preset.Deserialize((SimpleJSON.JSONClass)SimpleJSON.JSON.Parse(debugPoseJSON));
