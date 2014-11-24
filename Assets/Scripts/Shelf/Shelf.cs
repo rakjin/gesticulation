@@ -164,7 +164,21 @@ public class Shelf : MonoBehaviour {
 
 	public int Count {
 		get {
-			return presets.Count;
+			if (presets == null) {
+				return 0;
+			}
+
+			int count = presets.Count;
+
+			if (count == 0) {
+				return 0;
+			}
+
+			if (presets.Get (count-1).Type == Preset.PresetType.NewPresetPlaceHolder) {
+				return count-1;
+			}
+
+			return count;
 		}
 	}
 

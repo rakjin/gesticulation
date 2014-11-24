@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance { get; private set; }
 
-	const string SAVE_FILE_NAME_FORMAT = "gest_data/user_{0}.pose";
+	public const string SAVE_FILE_NAME_FORMAT = "gest_data/user_{0}.pose";
 
 	const string TAG_PART = "Part";
 	const string TAG_BUTTON = "Button3D";
@@ -777,7 +777,7 @@ public class GameController : MonoBehaviour {
 
 		UpdateGalleryInfoAndComment (skipComment:true);
 
-		StartCoroutine (SavePresetAsFile (preset, currentShelf.Count));
+		StartCoroutine (SavePresetAsFile (preset, currentShelf.Count-1));
 	}
 
 	#endregion
