@@ -783,6 +783,13 @@ MonoBehaviour:
   texRec: {fileID: 2800000, guid: fb95cd81048deb44da87ed52b520722d, type: 3}
   texHelp: {fileID: 2800000, guid: 6b4ae07a15981b44595344d0c3aee702, type: 3}
   texHelpIcon: {fileID: 2800000, guid: f06574f37d3cbff40a03410aa3dbf574, type: 3}
+  audioHover: {fileID: 8300000, guid: 1211fa2e832c13c48a541e1ed2edd254, type: 3}
+  audioFlipLeft: {fileID: 8300000, guid: 777c80dc5edd7af4f873293b7169eb07, type: 3}
+  audioFlipRight: {fileID: 8300000, guid: 0fb2636baba3fb14f9774be5348a2efb, type: 3}
+  audioSwapGallery: {fileID: 8300000, guid: abf5f9a91d610fb48880df7ca21fd076, type: 3}
+  audioPickPart: {fileID: 8300000, guid: 9eba8669cad25934795fc83540500861, type: 3}
+  audioPickButton: {fileID: 8300000, guid: 072dabe52fb2cb24b82cb6ac5553ecf6, type: 3}
+  audioSaveSuccess: {fileID: 8300000, guid: 15fe8a139d680054ebea91d30195b18b, type: 3}
 --- !u!114 &1247361068
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -115,6 +115,19 @@ public class GameController : MonoBehaviour {
 	float helpAlpha = 0;
 
 
+	#region audio clips
+
+	public AudioClip audioHover;
+	public AudioClip audioFlipLeft;
+	public AudioClip audioFlipRight;
+	public AudioClip audioSwapGallery;
+	public AudioClip audioPickPart;
+	public AudioClip audioPickButton;
+	public AudioClip audioSaveSuccess;
+
+	#endregion
+
+
 	// Use this for initialization
 	IEnumerator Start () {
 		Instance = this;
