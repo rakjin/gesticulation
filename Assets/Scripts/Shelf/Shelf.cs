@@ -77,7 +77,8 @@ public class Shelf : MonoBehaviour {
 				presets = UserPresets ();
 			}
 
-			FillSlots ();
+			CreateSlots ();
+			ApplyPresetsToSlots ();
 		}
 	
 	}
@@ -89,21 +90,21 @@ public class Shelf : MonoBehaviour {
 	}
 
 
-	void FillSlots() {
-
+	void CreateSlots() {
 		for (int i = 0; i < SlotsNum; i++) {
-
 			Transform puppet = (Transform)Instantiate(puppetPrefab, GetSlotPosition(i), Quaternion.identity);
 			Poser poser = puppet.gameObject.GetComponent<Poser>();
 			slots.Add (poser);
-
-			int indexRelativeToDataSource = i - (SlotsNum/2);
-			Preset preset = presets.Get (indexRelativeToDataSource);
-
-			poser.ApplyPreset(preset);
-
 		}
+	}
 
+	void ApplyPresetsToSlots() {
+		for (int i = 0; i < SlotsNum; i++) {
+			Poser poser = slots[i];
+			int indexRelativeToDataSource = i - (SlotsNum/2) + index;
+			Preset preset = presets.Get (indexRelativeToDataSource);
+			poser.ApplyPreset(preset);
+		}
 	}
 
 	public bool Flip(bool toLeft = true, float speedMultiplier = 1) {
@@ -161,6 +162,16 @@ public class Shelf : MonoBehaviour {
 
 	public Preset CurrentPreset() {
 		return presets.Get(index);
+	}
+
+	public void SetCurrentPreset(Preset preset) {
+		presets.SetAt (preset, index);
+		ApplyPresetsToSlots ();
+	}
+
+	public void RemoveCurrentPreset() {
+		presets.RemoveAt (index);
+		ApplyPresetsToSlots ();
 	}
 
 	public Poser CurrentPoser() {
