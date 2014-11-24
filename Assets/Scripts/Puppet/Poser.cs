@@ -265,6 +265,7 @@ public class Poser : MonoBehaviour {
 		}
 	}
 
+	const float intervalCorrection = 0.001953125f;
 	public IEnumerator BeginMotion(List<Pose> motion, float interval, bool isForward = true) {
 
 		int from = isForward? 0 : motion.Count-1;
@@ -278,8 +279,8 @@ public class Poser : MonoBehaviour {
 				yield break;
 			}
 			Pose pose = motion[i];
-			ApplyPose (pose, interval);
-			yield return new WaitForSeconds(interval + 0.00048828125f);
+			ApplyPose (pose, interval - intervalCorrection);
+			yield return new WaitForSeconds(interval - intervalCorrection);
 		}
 
 		isPlayingAnimation = false;
