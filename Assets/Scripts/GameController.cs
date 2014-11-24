@@ -552,7 +552,7 @@ public class GameController : MonoBehaviour {
 	public void OnGestureScroll(float strength) {
 		bool toLeft = (strength < 0);
 		GestureDetector.Direction direction = toLeft ? GestureDetector.Direction.ToLeft : GestureDetector.Direction.ToRight;
-		float scrollSpeedMultiplier = (Mathf.Abs (strength)*4) + 1;
+		float scrollSpeedMultiplier = (Mathf.Abs (strength)*7) + 1;
 		OnGestureSwipe (direction, scrollSpeedMultiplier);
 	}
 
