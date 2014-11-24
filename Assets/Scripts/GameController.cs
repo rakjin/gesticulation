@@ -514,6 +514,8 @@ public class GameController : MonoBehaviour {
 							Vector3 backToOrigin = new Vector3(0, ground.localPosition.y, ground.localPosition.z);
 							ground.localPosition = backToOrigin;
 						});
+
+					audio.PlayOneShot(toLeft ? audioFlipLeft : audioFlipRight);
 				}
 			} else if (direction == GestureDetector.Direction.Pull ||
 			           direction == GestureDetector.Direction.Push) {
@@ -870,6 +872,8 @@ public class GameController : MonoBehaviour {
 		UpdateTitleAuthorAndEditButton ();
 		BeginPlayCenterSlotIfAnimated ();
 		UpdateGalleryInfoAndComment ();
+
+		audio.PlayOneShot(audioSwapGallery);
 	}
 
 	void UpdateGalleryInfoAndComment(bool skipComment = false) {
