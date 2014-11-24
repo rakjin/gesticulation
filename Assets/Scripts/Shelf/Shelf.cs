@@ -19,6 +19,22 @@ public class Shelf : MonoBehaviour {
 
 	public static PresetDataSource UserPresets() {
 		PresetDataSource presets = new PresetDataSource ();
+
+		int i = 0;
+		bool success = true;
+		while(success) {
+			try {
+				Debug.Log ("Trying Read " + i.ToString());
+				JSONClass json = (JSONClass)JSONClass.LoadFromFile (string.Format (GameController.SAVE_FILE_NAME_FORMAT, i));
+				Preset preset = Preset.Deserialize (json);
+				presets.Push (preset);
+			} catch {
+				success = false;
+			} finally {
+				i++;
+			}
+		}
+
 		presets.Push (new Preset(Preset.PresetType.NewPresetPlaceHolder));
 		return presets;
 	}
