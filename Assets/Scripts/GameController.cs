@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour {
 
 	string displayingTitle = "";
 	string displayingAuthor = "";
+	string displayingIndex = "";
 	bool needsSetFocusToTitleTextField = true;
 	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
 	const string AUTHOR_PLACEHOLDER = "이름을 입력해주세요. (ENTER)";
@@ -145,10 +146,6 @@ public class GameController : MonoBehaviour {
 		texEmpty.filterMode = FilterMode.Point;
 		texEmpty.SetPixel (0, 0, Color.white);
 
-		Preset preset = currentShelf.CurrentPreset();
-		displayingTitle = preset.Title;
-		displayingAuthor = preset.Author;
-
 		Setup3DGUI ();
 
 		yield return new WaitForSeconds (0.00001f);
@@ -162,6 +159,7 @@ public class GameController : MonoBehaviour {
 		StartCoroutine (CheckAndDequeueCommentText ());
 
 		UpdateGalleryInfoAndComment ();
+		UpdateTitleAuthorAndEditButton ();
 	}
 
 	void OnShelfFlipComplete () {
@@ -244,7 +242,7 @@ public class GameController : MonoBehaviour {
 				GUI.color = WHITE_0_5;
 				GUI.Label (authorRect, displayingAuthor, authorStyle);
 				GUI.color = WHITE_0_25;
-				GUI.Label (indexRect, "3 / 5", indexStyle);
+				GUI.Label (indexRect, displayingIndex, indexStyle);
 
 				if (currentShelf.CurrentPreset ().Type == Preset.PresetType.Animated && isPlaying) {
 					float progress = Mathf.Clamp01( (Time.time - playBeginTime)/(currentShelf.CurrentPreset().Motion.Count*recordInterval/PLAYBACK_SPEED) );
@@ -908,10 +906,13 @@ public class GameController : MonoBehaviour {
 		playBeginTime = 0;
 		Preset preset = currentShelf.CurrentPreset ();
 		StartCoroutine (FadeTitleAuthor (preset.Title, preset.Author));
+
 		if (preset.Type == Preset.PresetType.NewPresetPlaceHolder) {
+			displayingIndex = "";
 			editButton.enabled = true;
 		}
 		else {
+			displayingIndex = (currentShelf.Index + 1).ToString () + " / " + currentShelf.Count.ToString ();
 			editButton.enabled = false;
 		}
 	}

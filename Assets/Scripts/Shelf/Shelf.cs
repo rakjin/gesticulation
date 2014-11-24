@@ -59,6 +59,7 @@ public class Shelf : MonoBehaviour {
 	private List<Poser> slots = new List<Poser>();
 	private PresetDataSource presets;
 	private int index = 0;
+	public int Index { get { return index; } }
 
 	// Use this for initialization
 	void Awake () {
