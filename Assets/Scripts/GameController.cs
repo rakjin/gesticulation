@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour {
 	public GUIStyle commentStyle;
 	public GUIStyle titleStyle;
 	public GUIStyle authorStyle;
+	public GUIStyle indexStyle;
 	public Texture2D texSplash;
 	public Texture2D texTextFieldBorder;
 	float splashAlpha = 1;
