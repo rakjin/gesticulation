@@ -11,7 +11,8 @@ public class Shelf : MonoBehaviour {
 	public static PresetDataSource SamplePresets() {
 		PresetDataSource presets = new PresetDataSource ();
 		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseThinker(), "생각하는 사람", "로뎅"));
-		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL - 좌절금지", "한송이"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseHeart(), "♡", "-/////-"));
+		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseOTL(), "OTL", "한송이"));
 		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseFashionKing(), "패숀왕", "쥬원"));
 		presets.Push (new Preset(Preset.PresetType.Static, Pose.PresetPoseSillyWalker(), "A Silly Walker", "Paul"));
 		return presets;
