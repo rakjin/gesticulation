@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour {
 
 	public static GameController Instance { get; private set; }
 
+	const string SAVE_FILE_NAME_FORMAT = "gest_data/user_{0}.pose";
+
 	const string TAG_PART = "Part";
 	const string TAG_BUTTON = "Button3D";
 
@@ -774,6 +776,8 @@ public class GameController : MonoBehaviour {
 		BeginPlayCenterSlotIfAnimated ();
 
 		UpdateGalleryInfoAndComment (skipComment:true);
+
+		StartCoroutine (SavePresetAsFile (preset, currentShelf.Count));
 	}
 
 	#endregion
@@ -868,5 +872,18 @@ public class GameController : MonoBehaviour {
 			editButton.enabled = false;
 		}
 	}
+
+
+	#region Save as file
+
+	IEnumerator SavePresetAsFile (Preset preset, int index) {
+		try {
+			preset.Serialize ().SaveToFile (string.Format (SAVE_FILE_NAME_FORMAT, index));
+		} catch {
+		}
+		yield break;
+	}
+
+	#endregion
 
 }

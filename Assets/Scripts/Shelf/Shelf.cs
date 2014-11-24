@@ -162,6 +162,12 @@ public class Shelf : MonoBehaviour {
 		OnFlipComplete ();
 	}
 
+	public int Count {
+		get {
+			return presets.Count;
+		}
+	}
+
 
 	#region JSON
 	
