@@ -805,6 +805,8 @@ public class GameController : MonoBehaviour {
 		UpdateGalleryInfoAndComment (skipComment:true);
 
 		StartCoroutine (SavePresetAsFile (preset, currentShelf.Count-1));
+
+		audio.PlayOneShot(audioSaveSuccess);
 	}
 
 	#endregion
