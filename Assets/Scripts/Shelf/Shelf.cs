@@ -165,6 +165,21 @@ public class Shelf : MonoBehaviour {
 		return presets.Get(index);
 	}
 
+	public Preset LastPreset() {
+		int count = presets.Count;
+		if (count == 0) {
+			return null;
+		}
+		Preset last = presets.Get (count - 1);
+		if (last.Type == Preset.PresetType.NewPresetPlaceHolder) {
+			if (count == 1) {
+				return null;
+			}
+			return presets.Get (count - 2);
+		}
+		return last;
+	}
+
 	public void SetCurrentPreset(Preset preset) {
 		presets.SetAt (preset, index);
 		ApplyPresetsToSlots ();
