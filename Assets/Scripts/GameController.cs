@@ -339,10 +339,11 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (showHelpIcon) { // help icon
-			float helpIconWidth = unit*13;
-			float helpIconHeight = unit*8;
-			float helpIconX = screenWidth-helpIconWidth-gap/4;
-			float helpIconY = screenHeight-helpIconHeight-gap/4;
+			const float mul = 1.7f;
+			float helpIconWidth = unit*13 * mul;
+			float helpIconHeight = unit*8 * mul;
+			float helpIconX = screenWidth-helpIconWidth-gap*2.8f;
+			float helpIconY = screenHeight-helpIconHeight-gap*2.6f;
 			GUI.color = new Color(1, 1, 1, (1-vignetteAlpha)*0.5f);
 			GUI.DrawTexture(new Rect(helpIconX, helpIconY, helpIconWidth, helpIconHeight), texHelpIcon, ScaleMode.ScaleToFit);
 		}
@@ -409,7 +410,7 @@ public class GameController : MonoBehaviour {
 		baseAlpha = Mathf.Clamp01 (baseAlpha);
 		GUI.color = new Color(1, 1, 1, baseAlpha*0.5f);
 		{
-			float barBackgroundWidth = unit*90;
+			float barBackgroundWidth = unit*70;
 			float barBackgroundHeight = unit*3;
 			float barBackgroundX = (screenSize.x-barBackgroundWidth)/2;
 			float barBackgroundY = screenSize.y - barBackgroundHeight - unit*1.5f;
