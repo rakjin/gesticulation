@@ -18,18 +18,20 @@ public class Shelf : MonoBehaviour {
 		return presets;
 	}
 
+	const int RETRY_COUNT = 30; // allow sparse file index up to this
 	public static PresetDataSource UserPresets() {
 		PresetDataSource presets = new PresetDataSource ();
 
 		int i = 0;
-		bool success = true;
-		while(success) {
+		int retryCount = RETRY_COUNT;
+		while(retryCount > 0) {
 			try {
 				JSONClass json = (JSONClass)JSONClass.LoadFromFile (string.Format (GameController.SAVE_FILE_NAME_FORMAT, i));
-				Preset preset = Preset.Deserialize (json);
+				Preset preset = Preset.Deserialize (json, i);
 				presets.Push (preset);
+				retryCount = RETRY_COUNT;
 			} catch {
-				success = false;
+				retryCount--;
 			} finally {
 				i++;
 			}
