@@ -837,15 +837,14 @@ public class GameController : MonoBehaviour {
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 		poser.EditEnabled = false;
 		
-		List<Pose> motion = records;
-		records = null;
-		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
-
 		Preset lastPreset = currentShelf.LastPreset ();
 		int fileIndexToSave = 0;
 		if (lastPreset != null) {
 			fileIndexToSave = lastPreset.FileIndex+1;
 		}
+		List<Pose> motion = records;
+		records = null;
+		Preset preset = new Preset (motion, displayingTitle, displayingAuthor, fileIndexToSave);
 		currentShelf.InsertPresetBeforeLast (preset);
 
 		BeginPlayCenterSlotIfAnimated ();
