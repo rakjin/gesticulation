@@ -120,6 +120,9 @@ public class GameController : MonoBehaviour {
 
 	string debugPoseJSON = "";
 
+	float lastUserActionTime = 0;
+	const float AUTO_PLAY_INTERVAL = 3;
+
 	#region audio clips
 
 	public AudioClip audioHover;
@@ -163,6 +166,8 @@ public class GameController : MonoBehaviour {
 
 		UpdateGalleryInfoAndComment ();
 		UpdateTitleAuthorAndEditButton ();
+
+		lastUserActionTime = Time.time;
 	}
 
 	void OnShelfFlipComplete () {
@@ -436,6 +441,11 @@ public class GameController : MonoBehaviour {
 		if (displayingComment.Equals(string.Empty) == false) {
 			commentAlpha = COMMENT_ALPHA + (commentAlpha-COMMENT_ALPHA)*0.97f;
 		}
+
+		if (Time.time - lastUserActionTime > AUTO_PLAY_INTERVAL) {
+			lastUserActionTime = Time.time;
+			Debug.Log ("auto");
+		}
 	}
 
 
@@ -535,6 +545,8 @@ public class GameController : MonoBehaviour {
 
 			break;
 		}
+
+		lastUserActionTime = Time.time;
 	}
 
 	#endregion
@@ -546,6 +558,7 @@ public class GameController : MonoBehaviour {
 	const float ignoreGestureTimeSpan = Shelf.FLIP_DURATION + 0.015625f;
 
 	public void OnGestureSwipe(GestureDetector.Direction direction, float speedMultiplier = 1) {
+		lastUserActionTime = Time.time;
 		if (ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
 			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
