@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 using Leap;
 
@@ -54,13 +55,13 @@ public class GameController : MonoBehaviour {
 	string displayingIndex = "";
 	bool needsSetFocusToTitleTextField = true;
 	const string TITLE_PLACEHOLDER = "키보드로 제목을 입력해주세요.";
-	const string AUTHOR_PLACEHOLDER = "이름을 입력해주세요. (ENTER)";
+	const string AUTHOR_PLACEHOLDER = "참여자의 이름을 입력해주세요. (ENTER)";
 
 	string displayingInfo = "";
 	const float INFO_ALPHA = 0.3f;
 	float infoAlpha = INFO_ALPHA;
 	const string INFO_TEXT_SAMPLE_GALLERY = "샘플 갤러리";
-	const string INFO_TEXT_USER_GALLERY = "관람객 참여 갤러리";
+	const string INFO_TEXT_USER_GALLERY = "참여 갤러리";
 	const string INFO_TEXT_NEW_RECORDING = "새 작품 녹화";
 	const string INFO_TEXT_NOW_RECORDING = "녹화중...";
 	const string INFO_TEXT_RECORDING_DONE = "녹화 완료";
@@ -71,8 +72,8 @@ public class GameController : MonoBehaviour {
 	float commentAlpha = COMMENT_ALPHA;
 	const int COMMENT_DISPLAY_FRAMES = 5 * 60;
 	int commentDisplayFrames = 0;
-	const string COMMENT_TEXT_SAMPLE_GALLERY = "미리 만들어둔 샘플 작품들입니다.";
-	const string COMMENT_TEXT_USER_GALLERY = "여러분이 직접 만든 작품들입니다. 오른쪽 끝의 인형으로 이동해서 참여해보세요.";
+	const string COMMENT_TEXT_SAMPLE_GALLERY = "미리 만들어둔 샘플 모델입니다.";
+	const string COMMENT_TEXT_USER_GALLERY = "여러분이 직접 만든 모델입니다. 오른쪽 끝으로 이동해서 참여해보세요.";
 	const string COMMENT_TEXT_ENCOURAGE_PICK_A_PART = "목각인형을 붙잡아 자세를 바꿔보세요. 그 과정이 녹화됩니다.";
 	const string COMMENT_TEXT_RECORDING_DONE_BY_TIMER = "세션이 끝났습니다. 저장하시겠습니까?";
 	const string COMMENT_TEXT_RECORDING_DONE_BY_BUTTON = "작품 제목을 입력해주세요.";
@@ -94,6 +95,7 @@ public class GameController : MonoBehaviour {
 	readonly Vector3 doneEditingButtonEnablePosition = new Vector3 (2f, 1.7f, -1);
 	readonly Vector3 doneEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
 
+	bool showHelpIcon = true;
 	bool showDebugUI = false;
 
 	const float recordDuration = 90;
@@ -116,6 +118,7 @@ public class GameController : MonoBehaviour {
 	const float helpAlphaDec = helpAlphaInc / -2;
 	float helpAlpha = 0;
 
+	string debugPoseJSON = "";
 
 	#region audio clips
 
@@ -330,7 +333,7 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-		{ // help icon
+		if (showHelpIcon) { // help icon
 			float helpIconWidth = unit*13;
 			float helpIconHeight = unit*8;
 			float helpIconX = screenWidth-helpIconWidth-gap/4;
@@ -350,14 +353,50 @@ public class GameController : MonoBehaviour {
 
 
 		if (showDebugUI) {
+			float w = 50;
+			float h = 20;
 			GUI.color = Color.white;
-			if (GUI.Button (new Rect(0, 10, 200, 30), "print pose")) {
-				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose());
-			} else if (GUI.Button (new Rect(210, 10, 50, 30), "<<")) {
-				OnGestureSwipe(GestureDetector.Direction.ToLeft);
-			} else if (GUI.Button (new Rect(260, 10, 50, 30), ">>")) {
+			if (GUI.Button (new Rect(w, 0, w, h), "PULL")) {
+				OnGestureSwipe(GestureDetector.Direction.Pull);
+			} else if (GUI.Button (new Rect(0, h, w, h), "<<")) {
 				OnGestureSwipe(GestureDetector.Direction.ToRight);
+			} else if (GUI.Button (new Rect(w, h, w, h), "PUSH")) {
+				OnGestureSwipe(GestureDetector.Direction.Push);
+			} else if (GUI.Button (new Rect(w*2, h, w, h), ">>")) {
+				OnGestureSwipe(GestureDetector.Direction.ToLeft);
+			} else if (GUI.RepeatButton(new Rect(0, h*2, w, h), "<<<")) {
+				OnGestureScroll(+1);
+			} else if (GUI.RepeatButton(new Rect(w*2, h*2, w, h), ">>>")) {
+				OnGestureScroll(-1);
+			} else if (GUI.Button (new Rect(0, h*3, w, h), "GET")) {
+				debugPoseJSON = currentShelf.CurrentPreset().Serialize().ToString();
+				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose().ToString());
+			} else if (GUI.Button (new Rect(w, h*3, w, h), "SET")) {
+				try {
+					Preset currentPreset = currentShelf.CurrentPreset();
+					int fileIndex = currentPreset.FileIndex;
+					Preset newPreset = Preset.Deserialize((SimpleJSON.JSONClass)SimpleJSON.JSON.Parse(debugPoseJSON), fileIndex);
+					currentShelf.SetCurrentPreset(newPreset);
+					if (fileIndex > -1) {
+						StartCoroutine(SavePresetAsFile(newPreset, fileIndex));
+					}
+				} catch {
+					Debug.Log ("exception");
+				}
+			} else if (GUI.Button (new Rect(w*2, h*3, w, h), "DEL")) {
+				Preset preset = currentShelf.CurrentPreset();
+				int fileIndex = preset.FileIndex;
+				if (preset.Type != Preset.PresetType.NewPresetPlaceHolder) {
+					currentShelf.RemoveCurrentPreset();
+					if (fileIndex > -1) {
+						try {
+							File.Delete (string.Format(SAVE_FILE_NAME_FORMAT, fileIndex));
+						} catch {
+						}
+					}
+				}
 			}
+			debugPoseJSON = GUI.TextArea (new Rect(0, h*4, w*3, h*5), debugPoseJSON);
 		}
 	}
 
@@ -381,8 +420,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetKeyUp (KeyCode.BackQuote)) {
+		if (Input.GetKeyUp (KeyCode.F6)) {
 			showDebugUI = !showDebugUI;
+		} else if (Input.GetKeyUp (KeyCode.F5)) {
+			showHelpIcon = !showHelpIcon;
 		} else if (Input.GetKey (KeyCode.F1)) {
 			OnGestureHelp();
 		}
@@ -505,7 +546,7 @@ public class GameController : MonoBehaviour {
 	const float ignoreGestureTimeSpan = Shelf.FLIP_DURATION + 0.015625f;
 
 	public void OnGestureSwipe(GestureDetector.Direction direction, float speedMultiplier = 1) {
-		if(ignoreGesture == false && state == State.Show) {
+		if (ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
 			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
@@ -804,17 +845,21 @@ public class GameController : MonoBehaviour {
 		poser.Highlighted = Highlightable.HighlightDegree.None;
 		poser.EditEnabled = false;
 		
+		Preset lastPreset = currentShelf.LastPreset ();
+		int fileIndexToSave = 0;
+		if (lastPreset != null) {
+			fileIndexToSave = lastPreset.FileIndex+1;
+		}
 		List<Pose> motion = records;
 		records = null;
-		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
-
+		Preset preset = new Preset (motion, displayingTitle, displayingAuthor, fileIndexToSave);
 		currentShelf.InsertPresetBeforeLast (preset);
 
 		BeginPlayCenterSlotIfAnimated ();
 
 		UpdateGalleryInfoAndComment (skipComment:true);
 
-		StartCoroutine (SavePresetAsFile (preset, currentShelf.Count-1));
+		StartCoroutine (SavePresetAsFile (preset, fileIndexToSave));
 
 		audio.PlayOneShot(audioSaveSuccess);
 	}
