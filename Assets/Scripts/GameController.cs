@@ -95,6 +95,7 @@ public class GameController : MonoBehaviour {
 	readonly Vector3 doneEditingButtonEnablePosition = new Vector3 (2f, 1.7f, -1);
 	readonly Vector3 doneEditingButtonEnableScale = new Vector3 (.5f, .5f, .5f);
 
+	bool showHelpIcon = true;
 	bool showDebugUI = false;
 
 	const float recordDuration = 90;
@@ -332,7 +333,7 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-		{ // help icon
+		if (showHelpIcon) { // help icon
 			float helpIconWidth = unit*13;
 			float helpIconHeight = unit*8;
 			float helpIconX = screenWidth-helpIconWidth-gap/4;
@@ -421,6 +422,8 @@ public class GameController : MonoBehaviour {
 	void Update() {
 		if (Input.GetKeyUp (KeyCode.F6)) {
 			showDebugUI = !showDebugUI;
+		} else if (Input.GetKeyUp (KeyCode.F5)) {
+			showHelpIcon = !showHelpIcon;
 		} else if (Input.GetKey (KeyCode.F1)) {
 			OnGestureHelp();
 		}
