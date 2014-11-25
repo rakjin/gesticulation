@@ -121,7 +121,7 @@ public class GameController : MonoBehaviour {
 	string debugPoseJSON = "";
 
 	float lastUserActionTime = 0;
-	const float AUTO_PLAY_INTERVAL = 3;
+	const float AUTO_PLAY_INTERVAL = 60;
 
 	#region audio clips
 
@@ -444,7 +444,20 @@ public class GameController : MonoBehaviour {
 
 		if (Time.time - lastUserActionTime > AUTO_PLAY_INTERVAL) {
 			lastUserActionTime = Time.time;
-			Debug.Log ("auto");
+			DoSomething();
+		}
+	}
+
+	void DoSomething() {
+		int random = Random.Range (1, 11);
+		if (1 <= random && random <= 4) {
+			OnGestureSwipe(GestureDetector.Direction.ToLeft);
+		} else if (5 <= random && random <= 7) {
+			OnGestureSwipe(GestureDetector.Direction.ToRight);
+		} else if (8 <= random && random <= 9) {
+			OnGestureSwipe(GestureDetector.Direction.Pull);
+		} else {
+			OnGestureSwipe(GestureDetector.Direction.Push);
 		}
 	}
 
