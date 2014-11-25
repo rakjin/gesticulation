@@ -372,8 +372,13 @@ public class GameController : MonoBehaviour {
 				Debug.Log (currentShelf.CurrentPoser().GetCurrentPose().ToString());
 			} else if (GUI.Button (new Rect(w, h*3, w, h), "SET")) {
 				try {
-					Preset preset = Preset.Deserialize((SimpleJSON.JSONClass)SimpleJSON.JSON.Parse(debugPoseJSON));
-					currentShelf.SetCurrentPreset(preset);
+					Preset currentPreset = currentShelf.CurrentPreset();
+					int fileIndex = currentPreset.FileIndex;
+					Preset newPreset = Preset.Deserialize((SimpleJSON.JSONClass)SimpleJSON.JSON.Parse(debugPoseJSON), fileIndex);
+					currentShelf.SetCurrentPreset(newPreset);
+					if (fileIndex > -1) {
+						StartCoroutine(SavePresetAsFile(newPreset, fileIndex));
+					}
 				} catch {
 					Debug.Log ("exception");
 				}
