@@ -527,7 +527,7 @@ public class GameController : MonoBehaviour {
 	const float ignoreGestureTimeSpan = Shelf.FLIP_DURATION + 0.015625f;
 
 	public void OnGestureSwipe(GestureDetector.Direction direction, float speedMultiplier = 1) {
-		if(ignoreGesture == false && state == State.Show) {
+		if (ignoreGesture == false && state == State.Show) {
 			ignoreGesture = true;
 			StartCoroutine(ResetIgnoreGestureFlag(speedMultiplier));
 
@@ -830,13 +830,18 @@ public class GameController : MonoBehaviour {
 		records = null;
 		Preset preset = new Preset (motion, displayingTitle, displayingAuthor);
 
+		Preset lastPreset = currentShelf.LastPreset ();
+		int fileIndexToSave = 0;
+		if (lastPreset != null) {
+			fileIndexToSave = lastPreset.FileIndex+1;
+		}
 		currentShelf.InsertPresetBeforeLast (preset);
 
 		BeginPlayCenterSlotIfAnimated ();
 
 		UpdateGalleryInfoAndComment (skipComment:true);
 
-		StartCoroutine (SavePresetAsFile (preset, currentShelf.Count-1));
+		StartCoroutine (SavePresetAsFile (preset, fileIndexToSave));
 
 		audio.PlayOneShot(audioSaveSuccess);
 	}
