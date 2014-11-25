@@ -121,7 +121,7 @@ public class Shelf : MonoBehaviour {
 		Preset currentPreset = CurrentPreset ();
 		if (currentPreset.Pose != null) {
 			currentPoser.StopMotion();
-			currentPoser.ApplyPose (currentPreset.Pose, 0.25f / speedMultiplier);
+			currentPoser.ApplyPose (currentPreset.Pose, FLIP_DURATION / speedMultiplier / 2);
 		}
 
 		index = desiredIndex;
