@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 using Leap;
 
@@ -377,7 +378,17 @@ public class GameController : MonoBehaviour {
 					Debug.Log ("exception");
 				}
 			} else if (GUI.Button (new Rect(w*2, h*3, w, h), "DEL")) {
-				currentShelf.RemoveCurrentPreset();
+				Preset preset = currentShelf.CurrentPreset();
+				int fileIndex = preset.FileIndex;
+				if (preset.Type != Preset.PresetType.NewPresetPlaceHolder) {
+					currentShelf.RemoveCurrentPreset();
+					if (fileIndex > -1) {
+						try {
+							File.Delete (string.Format(SAVE_FILE_NAME_FORMAT, fileIndex));
+						} catch {
+						}
+					}
+				}
 			}
 			debugPoseJSON = GUI.TextArea (new Rect(0, h*4, w*3, h*5), debugPoseJSON);
 		}
